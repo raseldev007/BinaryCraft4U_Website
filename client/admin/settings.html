@@ -4,82 +4,137 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Settings — Admin Panel Binary Craft</title>
+    <title>Platform Configuration — Admin Panel Binary Craft</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     <link rel="stylesheet" href="../css/global.css" />
     <style>
-        body {
-            background: var(--bg-primary);
+        :root {
+            --admin-sidebar: 280px;
         }
 
-        .admin-layout { display: block;
-            display: grid;
-            grid-template-columns: 260px 1fr;
+        body {
+            background: var(--bg-primary);
+            font-family: var(--font-primary);
+            color: var(--text-primary);
+        }
+
+        .admin-layout {
+            display: flex;
             min-height: 100vh;
         }
 
+        /* Sidebar Glassmorphism */
         .admin-sidebar {
-            background: var(--bg-secondary);
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border-right: 1px solid var(--border);
             position: fixed;
             top: 0;
             left: 0;
             bottom: 0;
-            width: 260px;
-            
+            width: var(--admin-sidebar);
+            display: flex;
             flex-direction: column;
             z-index: 100;
+            transition: var(--transition);
         }
 
         .sidebar-header {
-            padding: 24px 20px;
+            padding: 32px 24px;
             border-bottom: 1px solid var(--border);
         }
 
         .sidebar-logo {
-            
+            display: flex;
             align-items: center;
             gap: 12px;
             text-decoration: none;
         }
 
         .sidebar-logo-icon {
-            width: 40px;
-            height: 40px;
+            width: 42px;
+            height: 42px;
             background: var(--grad-primary);
-            border-radius: 10px;
-            
+            border-radius: 12px;
+            display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 18px;
+            font-size: 20px;
             font-weight: 900;
             color: #fff;
+            box-shadow: var(--shadow-glow);
+        }
+
+        .sidebar-logo-name {
+            font-family: var(--font-heading);
+            font-weight: 800;
+            font-size: 18px;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
         }
 
         .admin-badge {
-            background: var(--accent);
+            background: var(--grad-primary);
             color: #fff;
-            font-size: 10px;
-            font-weight: 700;
+            font-size: 9px;
+            font-weight: 800;
             padding: 2px 8px;
-            border-radius: 4px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-top: 2px;
+            display: inline-block;
         }
 
         .sidebar-nav {
             flex: 1;
-            padding: 16px 12px;
+            padding: 24px 16px;
+            overflow-y: auto;
         }
 
+        .sidebar-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            border-radius: var(--radius-md);
+            font-size: 14px;
+            font-weight: 500;
+            transition: var(--transition-fast);
+            margin-bottom: 4px;
+        }
+
+        .sidebar-link:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--primary);
+        }
+
+        /* Main Content wrapper */
         .admin-main {
-            margin-left: 260px;
-            padding: 32px;
+            flex: 1;
+            margin-left: var(--admin-sidebar);
+            padding: 40px;
+            max-width: 1200px;
+        }
+
+        .page-header {
+            margin-bottom: 40px;
+        }
+
+        .page-header h1 {
+            font-family: var(--font-heading);
+            font-size: 32px;
+            font-weight: 800;
+            letter-spacing: -0.02em;
         }
 
         .settings-grid {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 24px;
-            max-width: 800px;
+            gap: 32px;
         }
 
         .settings-card {
@@ -87,69 +142,185 @@
             border: 1px solid var(--border);
             border-radius: var(--radius-lg);
             padding: 32px;
+            backdrop-filter: blur(10px);
+            box-shadow: var(--shadow-sm);
         }
 
-        .settings-card h3 {
+        .settings-card h2 {
+            font-family: var(--font-heading);
+            font-size: 20px;
+            font-weight: 800;
+            margin-bottom: 24px;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .settings-card h2 i {
+            color: var(--primary);
             font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 20px;
-            padding-bottom: 16px;
-            border-bottom: 1px solid var(--border);
         }
 
         .form-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 16px;
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .form-input {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 12px 16px;
+            color: var(--text-primary);
+            font-family: var(--font-primary);
+            transition: var(--transition-fast);
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: rgba(255, 255, 255, 0.06);
+            box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.1);
+        }
+
+        .form-input:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .settings-footer {
+            margin-top: 32px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        @media (max-width: 900px) {
+            .admin-sidebar {
+                transform: translateX(-100%);
+            }
+
+            .admin-main {
+                margin-left: 0;
+                padding: 24px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 
 <body>
     <div class="admin-layout">
+        <!-- Sidebar -->
         <aside class="admin-sidebar">
-            <div class="sidebar-header"><a href="index.html" class="sidebar-logo"><img src="../images/logo.png" alt="Binary Craft Logo" style="height: 36px; margin-right: 12px;" /><div><div style="font-weight:800;font-size:15px;color:var(--text-white)">Binary Craft</div><span class="admin-badge">ADMIN</span></div></a></div>
+            <div class="sidebar-header">
+                <a href="../index.html" class="sidebar-logo">
+                    <div class="sidebar-logo-icon">BC</div>
+                    <div>
+                        <div class="sidebar-logo-name">Binary Craft</div>
+                        <span class="admin-badge">Admin Control</span>
+                    </div>
+                </a>
+            </div>
             <nav class="sidebar-nav">
-                <!-- Dashboard links omitted for brevity in settings -->
-                <a href="index.html" class="sidebar-link"><i class="fas fa-arrow-left"></i> Back to Dashboard</a>
+                <a href="index.html" class="sidebar-link"><i class="fas fa-arrow-left"></i> Return to Command Center</a>
             </nav>
         </aside>
 
         <main class="admin-main">
-            <div style="margin-bottom:28px">
-                <h1>⚙️ Platform Settings</h1>
-                <p style="color:var(--text-muted);font-size:14px">Manage global platform configurations</p>
+            <div class="page-header">
+                <h1>Platform Configuration</h1>
+                <p style="color:var(--text-muted);font-size:14px">Manage global system parameters and integration
+                    protocols</p>
             </div>
 
             <div class="settings-grid">
+                <!-- Org Info -->
                 <div class="settings-card">
-                    <h3>Store Information</h3>
+                    <h2><i class="fas fa-building"></i> Entity Identification</h2>
                     <div class="form-row">
-                        <div class="form-group"><label class="form-label">Store Name</label><input type="text"
-                                class="form-input" value="Binary Craft" /></div>
-                        <div class="form-group"><label class="form-label">Contact Email</label><input type="email"
-                                class="form-input" value="support@binarycraft4u.com" /></div>
+                        <div class="form-group">
+                            <label class="form-label">Platform Designation</label>
+                            <input type="text" class="form-input" value="Binary Craft" id="site-name" />
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Primary Uplink (Email)</label>
+                            <input type="email" class="form-input" value="raseloffcial89@gmail.com" id="site-email" />
+                        </div>
                     </div>
-                    <div class="form-group"><label class="form-label">Support Phone</label><input type="text"
-                            class="form-input" value="+1 (555) 123-4567" /></div>
-                    <button class="btn btn-primary" onclick="showToast('Settings saved','success')">Save
-                        Changes</button>
+                    <div class="form-group">
+                        <label class="form-label">Support Frequency (Phone)</label>
+                        <input type="text" class="form-input" value="01569150874" id="site-phone" />
+                    </div>
+                    <div class="settings-footer">
+                        <button class="btn btn-primary" onclick="saveSettings()">Apply Modifications</button>
+                    </div>
                 </div>
 
+                <!-- Integrations -->
                 <div class="settings-card">
-                    <h3>Payment Integrations <span class="badge badge-warning">Coming Soon</span></h3>
-                    <div class="form-group"><label class="form-label">Stripe Public Key</label><input type="text"
-                            class="form-input" placeholder="pk_test_..." disabled /></div>
-                    <div class="form-group"><label class="form-label">Stripe Secret Key</label><input type="text"
-                            class="form-input" placeholder="sk_test_..." disabled /></div>
+                    <h2><i class="fas fa-plug"></i> Secure Integrations</h2>
+                    <div
+                        style="background:rgba(255,171,0,0.1); border:1px solid rgba(255,171,0,0.2); padding:16px; border-radius:12px; margin-bottom:24px; display:flex; gap:16px; align-items:center">
+                        <i class="fas fa-exclamation-triangle" style="color:#ffab00; font-size:24px"></i>
+                        <div>
+                            <div style="font-weight:700; color:#ffab00">Pending Protocol</div>
+                            <div style="font-size:13px; color:rgba(255,171,0,0.8)">Stripe payment infrastructure is
+                                currently offline for this sector.</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Stripe Public Vector</label>
+                        <input type="text" class="form-input" placeholder="pk_test_************************" disabled />
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Stripe Private Vector</label>
+                        <input type="text" class="form-input" placeholder="sk_test_************************" disabled />
+                    </div>
                 </div>
             </div>
         </main>
     </div>
+
     <script src="../js/auth.js"></script>
     <script>
         if (!Auth.isLoggedIn() || !Auth.isAdmin()) window.location.href = '../login.html';
-        function showToast(msg, type = 'success') { alert(msg); }
+
+        function saveSettings() {
+            const btn = event.target;
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Committing...';
+
+            setTimeout(() => {
+                alert('System parameters updated successfully.');
+                btn.disabled = false;
+                btn.textContent = 'Apply Modifications';
+            }, 1000);
+        }
     </script>
 </body>
 

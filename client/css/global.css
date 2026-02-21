@@ -260,6 +260,42 @@ section {
     }
 }
 
+@keyframes shimmer {
+    0% {
+        background-position: -1000px 0;
+    }
+
+    100% {
+        background-position: 1000px 0;
+    }
+}
+
+.skeleton {
+    background: linear-gradient(90deg, var(--bg-secondary) 25%, var(--border) 50%, var(--bg-secondary) 75%);
+    background-size: 1000px 100%;
+    animation: shimmer 2s infinite linear;
+    border-radius: var(--radius-sm);
+}
+
+.skeleton-text {
+    height: 12px;
+    margin-bottom: 8px;
+    width: 100%;
+}
+
+.skeleton-title {
+    height: 24px;
+    margin-bottom: 12px;
+    width: 60%;
+}
+
+.skeleton-card {
+    min-height: 120px;
+    border: 1px solid var(--border);
+    background: var(--bg-card);
+    padding: 24px;
+}
+
 @keyframes float {
 
     0%,

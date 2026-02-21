@@ -8,143 +8,180 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     <link rel="stylesheet" href="../css/global.css" />
     <style>
-        body {
-            background: var(--bg-primary);
+        :root {
+            --admin-sidebar: 280px;
         }
 
-        .admin-layout { display: block;
-            
+        body {
+            background: var(--bg-primary);
+            font-family: var(--font-primary);
+            color: var(--text-primary);
+        }
+
+        .admin-layout {
+            display: flex;
             min-height: 100vh;
         }
 
+        /* Sidebar Glassmorphism */
         .admin-sidebar {
-            background: var(--bg-secondary);
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border-right: 1px solid var(--border);
             position: fixed;
             top: 0;
             left: 0;
             bottom: 0;
-            width: 260px;
-            
+            width: var(--admin-sidebar);
+            display: flex;
             flex-direction: column;
             z-index: 100;
-            overflow-y: auto;
+            transition: var(--transition);
         }
 
         .sidebar-header {
-            padding: 24px 20px;
+            padding: 32px 24px;
             border-bottom: 1px solid var(--border);
         }
 
         .sidebar-logo {
-            
+            display: flex;
             align-items: center;
             gap: 12px;
             text-decoration: none;
         }
 
         .sidebar-logo-icon {
-            width: 40px;
-            height: 40px;
+            width: 42px;
+            height: 42px;
             background: var(--grad-primary);
-            border-radius: 10px;
-            
+            border-radius: 12px;
+            display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 18px;
+            font-size: 20px;
             font-weight: 900;
             color: #fff;
+            box-shadow: var(--shadow-glow);
+        }
+
+        .sidebar-logo-name {
+            font-family: var(--font-heading);
+            font-weight: 800;
+            font-size: 18px;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
         }
 
         .admin-badge {
-            background: var(--accent);
+            background: var(--grad-primary);
             color: #fff;
-            font-size: 10px;
-            font-weight: 700;
+            font-size: 9px;
+            font-weight: 800;
             padding: 2px 8px;
-            border-radius: 4px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-top: 2px;
+            display: inline-block;
         }
 
         .sidebar-nav {
             flex: 1;
-            padding: 16px 12px;
+            padding: 24px 16px;
+            overflow-y: auto;
         }
 
         .sidebar-section {
-            font-size: 10px;
+            font-size: 11px;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 0.1em;
+            letter-spacing: 0.12em;
             color: var(--text-muted);
-            padding: 8px 10px;
-            margin-top: 8px;
+            padding: 12px 14px 8px;
         }
 
         .sidebar-link {
-            
+            display: flex;
             align-items: center;
             gap: 12px;
-            padding: 11px 14px;
+            padding: 12px 16px;
             color: var(--text-secondary);
             text-decoration: none;
-            border-radius: var(--radius-sm);
+            border-radius: var(--radius-md);
             font-size: 14px;
             font-weight: 500;
             transition: var(--transition-fast);
-            margin-bottom: 2px;
+            margin-bottom: 4px;
+        }
+
+        .sidebar-link i {
+            width: 20px;
+            font-size: 16px;
+            text-align: center;
+            transition: var(--transition-fast);
         }
 
         .sidebar-link:hover,
         .sidebar-link.active {
-            background: var(--primary-glow);
+            background: rgba(255, 255, 255, 0.05);
             color: var(--primary);
         }
 
-        .sidebar-link i {
-            width: 18px;
-            text-align: center;
+        .sidebar-link.active i {
+            color: var(--primary);
+            filter: drop-shadow(0 0 5px var(--primary));
         }
 
         .sidebar-footer {
-            padding: 16px;
+            padding: 24px;
             border-top: 1px solid var(--border);
         }
 
+        /* Main Content wrapper */
         .admin-main {
-            margin-left: 260px;
-            padding: 32px;
+            flex: 1;
+            margin-left: var(--admin-sidebar);
+            padding: 40px;
+            max-width: 1400px;
         }
 
         .page-header {
-            
+            display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 28px;
+            margin-bottom: 40px;
         }
 
         .page-header h1 {
-            font-size: 26px;
+            font-family: var(--font-heading);
+            font-size: 32px;
             font-weight: 800;
+            letter-spacing: -0.02em;
         }
 
+        /* Controls Bar */
         .filters-bar {
-            
-            gap: 12px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 20px 24px;
+            display: flex;
             align-items: center;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
+            gap: 16px;
+            margin-bottom: 32px;
+            backdrop-filter: blur(10px);
         }
 
+        /* Table Design */
         .table-card {
             background: var(--bg-card);
             border: 1px solid var(--border);
             border-radius: var(--radius-lg);
             overflow: hidden;
-        
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            background: var(--bg-card);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            box-shadow: var(--shadow-sm);
+            backdrop-filter: blur(10px);
         }
 
         table {
@@ -152,54 +189,115 @@
             border-collapse: collapse;
         }
 
-        th,
-        td {
-            padding: 12px 20px;
-            text-align: left;
-            font-size: 14px;
-        }
-
         th {
-            background: var(--bg-secondary);
-            color: var(--text-muted);
+            background: rgba(255, 255, 255, 0.02);
+            padding: 18px 24px;
+            text-align: left;
             font-size: 11px;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 0.06em;
-        }
-
-        tbody tr:hover td {
-            background: var(--bg-card-hover);
+            letter-spacing: 0.1em;
+            color: var(--text-muted);
         }
 
         td {
+            padding: 16px 24px;
             border-top: 1px solid var(--border);
+            font-size: 14px;
             color: var(--text-secondary);
+            vertical-align: middle;
+        }
+
+        tr:hover td {
+            background: rgba(255, 255, 255, 0.01);
+        }
+
+        .order-id {
+            font-family: var(--font-heading);
+            font-weight: 700;
+            color: var(--primary);
+            background: rgba(0, 212, 255, 0.1);
+            padding: 4px 8px;
+            border-radius: 6px;
+        }
+
+        /* Status Badges */
+        .badge {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .badge-pending {
+            background: rgba(245, 158, 11, 0.1);
+            color: #F59E0B;
+            border: 1px solid rgba(245, 158, 11, 0.2);
+        }
+
+        .badge-processing {
+            background: rgba(59, 130, 246, 0.1);
+            color: #3B82F6;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+        }
+
+        .badge-completed {
+            background: rgba(16, 185, 129, 0.1);
+            color: #10B981;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        .badge-cancelled {
+            background: rgba(239, 68, 68, 0.1);
+            color: #EF4444;
+            border: 1px solid rgba(239, 68, 68, 0.2);
+        }
+
+        .badge-paid {
+            background: rgba(16, 185, 129, 0.1);
+            color: #10B981;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        .badge-unpaid {
+            background: rgba(245, 158, 11, 0.1);
+            color: #F59E0B;
+            border: 1px solid rgba(245, 158, 11, 0.2);
         }
 
         select.status-select {
-            padding: 6px 10px;
-            background: var(--bg-secondary);
+            padding: 8px 12px;
+            background: rgba(255, 255, 255, 0.05);
             border: 1px solid var(--border);
-            border-radius: 6px;
+            border-radius: var(--radius-md);
             color: var(--text-primary);
             font-size: 13px;
+            font-weight: 600;
             cursor: pointer;
             outline: none;
+            transition: var(--transition-fast);
         }
 
         select.status-select:focus {
             border-color: var(--primary);
+            background: rgba(255, 255, 255, 0.1);
         }
 
-        @media(max-width:900px) {
+        @media (max-width: 900px) {
             .admin-sidebar {
                 transform: translateX(-100%);
             }
 
             .admin-main {
                 margin-left: 0;
-                padding: 20px;
+                padding: 24px;
+            }
+
+            .filters-bar {
+                flex-direction: column;
+                align-items: stretch;
             }
         }
     </style>
@@ -207,63 +305,106 @@
 
 <body>
     <div class="admin-layout">
-        <aside class="admin-sidebar">
-            <div class="sidebar-header"><a href="index.html" class="sidebar-logo"><img src="../images/logo.png" alt="Binary Craft Logo" style="height: 36px; margin-right: 12px;" /><div><div style="font-weight:800;font-size:15px;color:var(--text-white)">Binary Craft</div><span class="admin-badge">ADMIN</span></div></a></div>
+        <!-- Sidebar -->
+        <aside class="admin-sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="sidebar-logo">
+                    <div class="sidebar-logo-icon">BC</div>
+                    <div>
+                        <div class="sidebar-logo-name">Binary Craft</div>
+                        <span class="admin-badge">Admin Control</span>
+                    </div>
+                </a>
+            </div>
             <nav class="sidebar-nav">
-                <div class="sidebar-section">Dashboard</div>
+                <div class="sidebar-section">Main</div>
                 <a href="index.html" class="sidebar-link"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+
                 <div class="sidebar-section">Management</div>
-                <a href="users.html" class="sidebar-link"><i class="fas fa-users"></i> Users</a>
-                <a href="orders.html" class="sidebar-link active"><i class="fas fa-shopping-bag"></i> Orders</a>
-                <a href="products.html" class="sidebar-link"><i class="fas fa-box"></i> Products</a>
+                <a href="users.html" class="sidebar-link"><i class="fas fa-users"></i> User Base</a>
+                <a href="orders.html" class="sidebar-link active"><i class="fas fa-shopping-bag"></i> Order Flow</a>
+                <a href="products.html" class="sidebar-link"><i class="fas fa-box"></i> Inventory</a>
                 <a href="services.html" class="sidebar-link"><i class="fas fa-cogs"></i> Services</a>
                 <a href="messages.html" class="sidebar-link"><i class="fas fa-envelope"></i> Messages</a>
-                <div class="sidebar-section">Website</div>
-                <a href="../index.html" class="sidebar-link"><i class="fas fa-globe"></i> View Website</a>
+
+                <div class="sidebar-section">System</div>
+                <a href="settings.html" class="sidebar-link"><i class="fas fa-sliders-h"></i> Settings</a>
+                <a href="../index.html" class="sidebar-link"><i class="fas fa-external-link-alt"></i> Public Site</a>
             </nav>
-            <div class="sidebar-footer"><button class="btn btn-danger btn-sm" style="width:100%;justify-content:center"
-                    onclick="Auth.logout()"><i class="fas fa-sign-out-alt"></i> Logout</button></div>
+            <div class="sidebar-footer">
+                <button class="btn btn-danger btn-sm" style="width:100%;justify-content:center" onclick="Auth.logout()">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
         </aside>
 
         <main class="admin-main">
             <div class="page-header">
                 <div>
-                    <h1><i class="fas fa-box"></i> Orders Management</h1>
-                    <p style="color:var(--text-muted);font-size:14px">Track and update all customer orders</p>
+                    <h1>Order Intelligence</h1>
+                    <p style="color:var(--text-muted);font-size:14px">Monitor and manage global service transactions</p>
                 </div>
-                <button class="btn btn-outline btn-sm" onclick="loadOrders()"><i class="fas fa-sync"></i>
-                    Refresh</button>
+                <button class="btn btn-primary btn-sm" onclick="loadOrders()">
+                    <i class="fas fa-sync"></i> Refresh Flow
+                </button>
             </div>
+
             <div class="filters-bar">
-                <select class="form-input" style="width:180px" id="status-filter" onchange="loadOrders()">
-                    <option value="">All Orders</option>
-                    <option value="pending">Pending</option>
-                    <option value="processing">Processing</option>
-                    <option value="completed">Completed</option>
-                    <option value="cancelled">Cancelled</option>
+                <select class="form-input" style="width:200px" id="status-filter" onchange="loadOrders()">
+                    <option value="">Filter: All Orders</option>
+                    <option value="pending">Filter: Pending</option>
+                    <option value="processing">Filter: Processing</option>
+                    <option value="completed">Filter: Completed</option>
+                    <option value="cancelled">Filter: Cancelled</option>
                 </select>
+                <div id="orders-count"
+                    style="font-size:13px; font-weight: 600; color:var(--primary); margin-left: auto;">Syncing...</div>
             </div>
-            <div id="orders-count" style="font-size:13px;color:var(--text-muted);margin-bottom:12px"></div>
+
             <div class="table-card">
                 <table>
                     <thead>
                         <tr>
-                            <th>Order ID</th>
+                            <th>ID</th>
                             <th>Customer</th>
-                            <th>Items</th>
-                            <th>Total</th>
+                            <th>Cargo</th>
+                            <th>Valuation</th>
                             <th>Status</th>
                             <th>Payment</th>
-                            <th>Date</th>
-                            <th>Update</th>
+                            <th>Timestamp</th>
+                            <th>Operation</th>
                         </tr>
                     </thead>
                     <tbody id="orders-tbody">
+                        ${Array(10).fill(0).map(() => `
                         <tr>
-                            <td colspan="8" style="text-align:center;padding:40px;color:var(--text-muted)">
-                                <div class="spinner"></div>
+                            <td>
+                                <div class="skeleton" style="height:24px; width:80px; border-radius:6px"></div>
+                            </td>
+                            <td>
+                                <div class="skeleton" style="height:16px; width:120px; margin-bottom:4px"></div>
+                                <div class="skeleton" style="height:12px; width:140px"></div>
+                            </td>
+                            <td>
+                                <div class="skeleton" style="height:14px; width:50px"></div>
+                            </td>
+                            <td>
+                                <div class="skeleton" style="height:16px; width:70px"></div>
+                            </td>
+                            <td>
+                                <div class="skeleton" style="height:20px; width:80px; border-radius:20px"></div>
+                            </td>
+                            <td>
+                                <div class="skeleton" style="height:20px; width:80px; border-radius:20px"></div>
+                            </td>
+                            <td>
+                                <div class="skeleton" style="height:14px; width:100px"></div>
+                            </td>
+                            <td>
+                                <div class="skeleton" style="height:32px; width:100px; border-radius:8px"></div>
                             </td>
                         </tr>
+                        `).join('')}
                     </tbody>
                 </table>
             </div>
@@ -278,41 +419,49 @@
         async function loadOrders() {
             const status = document.getElementById('status-filter').value;
             const tbody = document.getElementById('orders-tbody');
-            tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;padding:32px"><div class="spinner"></div></td></tr>';
+            tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;padding:100px"><div class="spinner"></div></td></tr>';
             try {
                 const data = await API('/admin/orders' + (status ? `?status=${status}` : ''));
                 const orders = data.orders || [];
-                document.getElementById('orders-count').textContent = `${data.total || orders.length} orders`;
-                if (orders.length === 0) { tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;padding:40px;color:var(--text-muted)">No orders found</td></tr>'; return; }
+                document.getElementById('orders-count').textContent = `${data.total || orders.length} TRANSACTIONS`;
+
+                if (orders.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;padding:100px;color:var(--text-muted)">Order stream empty. No active transponders found.</td></tr>';
+                    return;
+                }
+
                 tbody.innerHTML = orders.map(o => `
-          <tr>
-            <td style="color:var(--primary);font-weight:600">#${o._id.slice(-8).toUpperCase()}</td>
-            <td>${o.user?.name || 'Unknown'}<br><span style="font-size:11px;color:var(--text-muted)">${o.user?.email || ''}</span></td>
-            <td>${o.items.length} item${o.items.length !== 1 ? 's' : ''}</td>
-            <td style="font-weight:700;color:var(--primary)">$${o.totalAmount.toFixed(2)}</td>
-            <td><span class="badge badge-${o.status === 'completed' ? 'success' : o.status === 'cancelled' ? 'danger' : o.status === 'processing' ? 'primary' : 'warning'}">${o.status}</span></td>
-            <td><span class="badge badge-${o.paymentStatus === 'paid' ? 'success' : 'warning'}">${o.paymentStatus}</span></td>
-            <td>${new Date(o.createdAt).toLocaleDateString()}</td>
-            <td>
-              <select class="status-select" onchange="updateStatus('${o._id}', this.value)">
-                <option value="pending" ${o.status === 'pending' ? 'selected' : ''}>Pending</option>
-                <option value="processing" ${o.status === 'processing' ? 'selected' : ''}>Processing</option>
-                <option value="completed" ${o.status === 'completed' ? 'selected' : ''}>Completed</option>
-                <option value="cancelled" ${o.status === 'cancelled' ? 'selected' : ''}>Cancelled</option>
-              </select>
-            </td>
-          </tr>
-        `).join('');
+                    <tr>
+                        <td><span class="order-id">#${o._id.slice(-8).toUpperCase()}</span></td>
+                        <td>
+                            <div style="font-weight:600; color:var(--text-primary)">${o.user?.name || 'Guest User'}</div>
+                            <div style="font-size:11px; color:var(--text-muted)">${o.user?.email || 'N/A'}</div>
+                        </td>
+                        <td><div style="font-size:13px">${o.items.length} ${o.items.length === 1 ? 'Unit' : 'Units'}</div></td>
+                        <td><div style="font-weight:800; color:var(--text-primary)">$${o.totalAmount.toFixed(2)}</div></td>
+                        <td><span class="badge badge-${o.status}">${o.status}</span></td>
+                        <td><span class="badge badge-${o.paymentStatus === 'paid' ? 'paid' : 'unpaid'}">${o.paymentStatus}</span></td>
+                        <td><div style="font-size:13px; color:var(--text-muted)">${new Date(o.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</div></td>
+                        <td>
+                            <select class="status-select" onchange="updateStatus('${o._id}', this.value)">
+                                <option value="pending" ${o.status === 'pending' ? 'selected' : ''}>Pending</option>
+                                <option value="processing" ${o.status === 'processing' ? 'selected' : ''}>Processing</option>
+                                <option value="completed" ${o.status === 'completed' ? 'selected' : ''}>Completed</option>
+                                <option value="cancelled" ${o.status === 'cancelled' ? 'selected' : ''}>Cancelled</option>
+                            </select>
+                        </td>
+                    </tr>
+                `).join('');
             } catch (e) {
-                tbody.innerHTML = `<tr><td colspan="8" style="text-align:center;padding:40px;color:var(--danger)">${e.message}</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="8" style="text-align:center;padding:100px;color:var(--danger)">Protocol Error: ${e.message}</td></tr>`;
             }
         }
 
         async function updateStatus(id, status) {
             try {
                 await API(`/orders/${id}/status`, 'PUT', { status });
-                showToast('Order status updated to: ' + status, 'success');
-            } catch (e) { showToast(e.message, 'error'); }
+                loadOrders();
+            } catch (e) { alert(e.message); }
         }
 
         loadOrders();

@@ -8,124 +8,162 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     <link rel="stylesheet" href="../css/global.css" />
     <style>
-        body {
-            background: var(--bg-primary);
+        :root {
+            --admin-sidebar: 280px;
         }
 
-        .admin-layout { display: block;
-            
+        body {
+            background: var(--bg-primary);
+            font-family: var(--font-primary);
+            color: var(--text-primary);
+        }
+
+        .admin-layout {
+            display: flex;
             min-height: 100vh;
         }
 
+        /* Sidebar Glassmorphism */
         .admin-sidebar {
-            background: var(--bg-secondary);
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border-right: 1px solid var(--border);
             position: fixed;
             top: 0;
             left: 0;
             bottom: 0;
-            width: 260px;
-            
+            width: var(--admin-sidebar);
+            display: flex;
             flex-direction: column;
             z-index: 100;
+            transition: var(--transition);
         }
 
         .sidebar-header {
-            padding: 24px 20px;
+            padding: 32px 24px;
             border-bottom: 1px solid var(--border);
         }
 
         .sidebar-logo {
-            
+            display: flex;
             align-items: center;
             gap: 12px;
             text-decoration: none;
         }
 
         .sidebar-logo-icon {
-            width: 40px;
-            height: 40px;
+            width: 42px;
+            height: 42px;
             background: var(--grad-primary);
-            border-radius: 10px;
-            
+            border-radius: 12px;
+            display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 18px;
+            font-size: 20px;
             font-weight: 900;
             color: #fff;
+            box-shadow: var(--shadow-glow);
+        }
+
+        .sidebar-logo-name {
+            font-family: var(--font-heading);
+            font-weight: 800;
+            font-size: 18px;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
         }
 
         .admin-badge {
-            background: var(--accent);
+            background: var(--grad-primary);
             color: #fff;
-            font-size: 10px;
-            font-weight: 700;
+            font-size: 9px;
+            font-weight: 800;
             padding: 2px 8px;
-            border-radius: 4px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-top: 2px;
+            display: inline-block;
         }
 
         .sidebar-nav {
             flex: 1;
-            padding: 16px 12px;
+            padding: 24px 16px;
+            overflow-y: auto;
         }
 
         .sidebar-section {
-            font-size: 10px;
+            font-size: 11px;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 0.1em;
+            letter-spacing: 0.12em;
             color: var(--text-muted);
-            padding: 8px 10px;
-            margin-top: 8px;
+            padding: 12px 14px 8px;
         }
 
         .sidebar-link {
-            
+            display: flex;
             align-items: center;
             gap: 12px;
-            padding: 11px 14px;
+            padding: 12px 16px;
             color: var(--text-secondary);
             text-decoration: none;
-            border-radius: var(--radius-sm);
+            border-radius: var(--radius-md);
             font-size: 14px;
             font-weight: 500;
             transition: var(--transition-fast);
-            margin-bottom: 2px;
+            margin-bottom: 4px;
+        }
+
+        .sidebar-link i {
+            width: 20px;
+            font-size: 16px;
+            text-align: center;
+            transition: var(--transition-fast);
         }
 
         .sidebar-link:hover,
         .sidebar-link.active {
-            background: var(--primary-glow);
+            background: rgba(255, 255, 255, 0.05);
             color: var(--primary);
         }
 
-        .sidebar-link i {
-            width: 18px;
-            text-align: center;
+        .sidebar-link.active i {
+            color: var(--primary);
+            filter: drop-shadow(0 0 5px var(--primary));
         }
 
+        /* Main Content wrapper */
         .admin-main {
-            margin-left: 260px;
-            padding: 32px;
+            flex: 1;
+            margin-left: var(--admin-sidebar);
+            padding: 40px;
+            max-width: 1400px;
         }
 
         .page-header {
-            
+            display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 28px;
+            margin-bottom: 40px;
         }
 
         .page-header h1 {
-            font-size: 26px;
+            font-family: var(--font-heading);
+            font-size: 32px;
             font-weight: 800;
+            letter-spacing: -0.02em;
         }
 
+        /* Table Design */
         .table-card {
             background: var(--bg-card);
             border: 1px solid var(--border);
             border-radius: var(--radius-lg);
             overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            backdrop-filter: blur(10px);
         }
 
         table {
@@ -133,29 +171,40 @@
             border-collapse: collapse;
         }
 
-        th,
-        td {
-            padding: 12px 20px;
-            text-align: left;
-            font-size: 14px;
-        }
-
         th {
-            background: var(--bg-secondary);
-            color: var(--text-muted);
+            background: rgba(255, 255, 255, 0.04);
+            padding: 18px 24px;
+            text-align: left;
             font-size: 11px;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 0.06em;
-        }
-
-        tbody tr:hover td {
-            background: var(--bg-card-hover);
+            letter-spacing: 0.1em;
+            color: var(--text-muted);
         }
 
         td {
+            padding: 18px 24px;
             border-top: 1px solid var(--border);
+            font-size: 14px;
             color: var(--text-secondary);
+            vertical-align: middle;
+        }
+
+        tr:hover td {
+            background: rgba(255, 255, 255, 0.01);
+        }
+
+        .srv-icon-box {
+            width: 48px;
+            height: 48px;
+            background: rgba(0, 212, 255, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            color: var(--primary);
+            border: 1px solid rgba(0, 212, 255, 0.2);
         }
 
         /* Modal Styles */
@@ -165,12 +214,13 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(4px);
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(15px);
             display: none;
             align-items: center;
             justify-content: center;
             z-index: 1000;
+            padding: 20px;
         }
 
         .modal {
@@ -178,221 +228,371 @@
             border: 1px solid var(--border);
             border-radius: var(--radius-lg);
             width: 100%;
-            max-width: 600px;
+            max-width: 650px;
             max-height: 90vh;
             overflow-y: auto;
-            padding: 32px;
+            padding: 40px;
+            position: relative;
+            box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
         }
 
         .modal-header {
-            
+            display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 24px;
+            margin-bottom: 32px;
         }
 
         .modal-header h2 {
-            font-size: 20px;
-            font-weight: 700;
+            font-family: var(--font-heading);
+            font-size: 24px;
+            font-weight: 800;
         }
 
         .close-btn {
-            background: none;
-            border: none;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
             color: var(--text-muted);
-            font-size: 24px;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             cursor: pointer;
+            transition: var(--transition-fast);
         }
 
         .close-btn:hover {
-            color: var(--danger);
+            background: var(--danger);
+            color: #fff;
+            border-color: var(--danger);
         }
 
         .form-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 16px;
+            gap: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .form-input {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 12px 16px;
+            color: var(--text-primary);
+            font-family: var(--font-primary);
+            transition: var(--transition-fast);
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: rgba(255, 255, 255, 0.06);
+            box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.1);
+        }
+
+        @media (max-width: 900px) {
+            .admin-sidebar {
+                transform: translateX(-100%);
+            }
+
+            .admin-main {
+                margin-left: 0;
+                padding: 24px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 
 <body>
     <div class="admin-layout">
-        <aside class="admin-sidebar">
-            <div class="sidebar-header"><a href="index.html" class="sidebar-logo"><img src="../images/logo.png" alt="Binary Craft Logo" style="height: 36px; margin-right: 12px;" /><div><div style="font-weight:800;font-size:15px;color:var(--text-white)">Binary Craft</div><span class="admin-badge">ADMIN</span></div></a></div>
+        <!-- Sidebar -->
+        <aside class="admin-sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="sidebar-logo">
+                    <div class="sidebar-logo-icon">BC</div>
+                    <div>
+                        <div class="sidebar-logo-name">Binary Craft</div>
+                        <span class="admin-badge">Admin Control</span>
+                    </div>
+                </a>
+            </div>
             <nav class="sidebar-nav">
-                <div class="sidebar-section">Dashboard</div>
+                <div class="sidebar-section">Main</div>
                 <a href="index.html" class="sidebar-link"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+
                 <div class="sidebar-section">Management</div>
-                <a href="users.html" class="sidebar-link"><i class="fas fa-users"></i> Users</a>
-                <a href="orders.html" class="sidebar-link"><i class="fas fa-shopping-bag"></i> Orders</a>
-                <a href="products.html" class="sidebar-link"><i class="fas fa-box"></i> Products</a>
+                <a href="users.html" class="sidebar-link"><i class="fas fa-users"></i> User Base</a>
+                <a href="orders.html" class="sidebar-link"><i class="fas fa-shopping-bag"></i> Order Flow</a>
+                <a href="products.html" class="sidebar-link"><i class="fas fa-box"></i> Inventory</a>
                 <a href="services.html" class="sidebar-link active"><i class="fas fa-cogs"></i> Services</a>
                 <a href="messages.html" class="sidebar-link"><i class="fas fa-envelope"></i> Messages</a>
-                <div class="sidebar-section">Website</div>
-                <a href="../index.html" class="sidebar-link"><i class="fas fa-globe"></i> View Website</a>
+
+                <div class="sidebar-section">System</div>
+                <a href="settings.html" class="sidebar-link"><i class="fas fa-sliders-h"></i> Settings</a>
+                <a href="../index.html" class="sidebar-link"><i class="fas fa-external-link-alt"></i> Public Site</a>
             </nav>
         </aside>
 
         <main class="admin-main">
             <div class="page-header">
                 <div>
-                    <h1>🛠️ Manage Services</h1>
-                    <p style="color:var(--text-muted);font-size:14px">Create, update, and delete IT services</p>
+                    <h1>Service Architecture</h1>
+                    <p style="color:var(--text-muted);font-size:14px">Configure and optimize your professional IT
+                        service portfolio</p>
                 </div>
-                <button class="btn btn-primary" onclick="openModal()"><i class="fas fa-plus"></i> Add Service</button>
+                <button class="btn btn-primary" onclick="openModal()">
+                    <i class="fas fa-plus"></i> Deploy New Service
+                </button>
             </div>
 
             <div class="table-card">
                 <table>
                     <thead>
                         <tr>
-                            <th>Service Name</th>
+                            <th>Service Configuration</th>
                             <th>Category</th>
-                            <th>Starting Price</th>
-                            <th>Delivery Time</th>
-                            <th>Actions</th>
+                            <th>Entry Point (Price)</th>
+                            <th>SLA (Delivery)</th>
+                            <th>Control Matrix</th>
                         </tr>
                     </thead>
-                    <tbody id="services-tbody">
-                        <tr>
-                            <td colspan="5" style="text-align:center;padding:40px">
-                                <div class="spinner"></div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </main>
-    </div>
+                    <!-- Add/Edit Modal -->
+                    <div class="modal-overlay" id="service-modal">
+                        <div class="modal">
+                            <div class="modal-header">
+                                <h2 id="modal-title">Configure Service Architecture</h2>
+                                <button class="close-btn" onclick="closeModal()"><i class="fas fa-times"></i></button>
+                            </div>
+                            <form id="service-form">
+                                <input type="hidden" id="srv-id" />
 
-    <!-- Add/Edit Modal -->
-    <div class="modal-overlay" id="service-modal">
-        <div class="modal">
-            <div class="modal-header">
-                <h2 id="modal-title">Add New Service</h2>
-                <button class="close-btn" onclick="closeModal()">&times;</button>
-            </div>
-            <form id="service-form">
-                <input type="hidden" id="srv-id" />
-                <div class="form-group"><label class="form-label">Service Title</label><input type="text"
-                        class="form-input" id="srv-title" required /></div>
-                <div class="form-group"><label class="form-label">Description</label><textarea class="form-input"
-                        id="srv-desc" rows="3" required></textarea></div>
-                <div class="form-row">
-                    <div class="form-group"><label class="form-label">Starting Price ($)</label><input type="number"
-                            class="form-input" id="srv-price" required /></div>
-                    <div class="form-group"><label class="form-label">Category</label>
-                        <select class="form-input" id="srv-cat" required>
-                            <option value="web">Web Development</option>
-                            <option value="mobile">Mobile Apps</option>
-                            <option value="cloud">Cloud & Hosting</option>
-                            <option value="security">Cybersecurity</option>
-                            <option value="ai">AI & ML</option>
-                            <option value="consult">Consultancy</option>
-                        </select>
+                                <div class="form-group">
+                                    <label class="form-label">Service Designation (Title)</label>
+                                    <input type="text" class="form-input" id="srv-title"
+                                        placeholder="e.g. Enterprise Cloud Integration" required />
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">Operational Brief (Description)</label>
+                                    <textarea class="form-input" id="srv-desc" rows="3"
+                                        placeholder="Define the service scope and technical utility..."
+                                        required></textarea>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label class="form-label">Base Valuation ($)</label>
+                                        <input type="number" step="0.01" class="form-input" id="srv-price"
+                                            placeholder="99.99" required />
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">System Class (Category)</label>
+                                        <select class="form-input" id="srv-cat" required>
+                                            <option value="web">Web Architecture</option>
+                                            <option value="mobile">Mobile Synthesis</option>
+                                            <option value="cloud">Cloud Ecosystems</option>
+                                            <option value="security">Cyber Defense</option>
+                                            <option value="ai">Neural Logic (AI/ML)</option>
+                                            <option value="consult">Tech Advisory</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label class="form-label">Visual Matrix (Font Awesome)</label>
+                                        <input type="text" class="form-input fas" id="srv-icon"
+                                            placeholder="fas fa-server" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">SLA (Est. Delivery)</label>
+                                        <input type="text" class="form-input" id="srv-delivery"
+                                            placeholder="e.g. 5-7 Business Days" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">Functional Modules (Comma separated)</label>
+                                    <input type="text" class="form-input" id="srv-features"
+                                        placeholder="Advanced SEO, API Integration, 24/7 Monitoring..." />
+                                </div>
+
+                                <div style="display:flex; justify-content:flex-end; gap:16px; margin-top:32px">
+                                    <button type="button" class="btn btn-outline" onclick="closeModal()">Abort
+                                        Config</button>
+                                    <button type="submit" class="btn btn-primary" id="save-btn">Commit to
+                                        Database</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group"><label class="form-label">Icon / Emoji</label><input type="text"
-                            class="form-input" id="srv-icon" placeholder="&#xf0ac;" class="form-input fas" /></div>
-                    <div class="form-group"><label class="form-label">Est. Delivery Time</label><input type="text"
-                            class="form-input" id="srv-delivery" placeholder="e.g. 7-14 days" /></div>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Features (comma separated)</label>
-                    <input type="text" class="form-input" id="srv-features"
-                        placeholder="SEO Optimized, Responsive Design, 3 Revisions..." />
-                </div>
-                <div style="display:flex;justify-content:flex-end;gap:12px;margin-top:24px">
-                    <button type="button" class="btn btn-outline" onclick="closeModal()">Cancel</button>
-                    <button type="submit" class="btn btn-primary" id="save-btn">Save Service</button>
-                </div>
-            </form>
-        </div>
-    </div>
 
-    <script src="../js/api.js?v=2"></script>
-    <script src="../js/auth.js"></script>
-    <script>
-        if (!Auth.isLoggedIn() || !Auth.isAdmin()) window.location.href = '../login.html';
+                    <script src="../js/api.js?v=2"></script>
+                    <script src="../js/auth.js"></script>
+                    <script>
+                        if (!Auth.isLoggedIn() || !Auth.isAdmin()) window.location.href = '../login.html';
 
-        let services = [];
+                        let services = [];
 
-        async function loadServices() {
-            try {
-                const data = await API('/services');
-                services = data.services || [];
-                const tbody = document.getElementById('services-tbody');
-                if (services.length === 0) { tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;padding:40px;color:var(--text-muted)">No services found</td></tr>'; return; }
-                tbody.innerHTML = services.map(s => `
-          <tr>
-            <td><div style="display:flex;align-items:center;gap:12px"><div style="font-size:24px">${s.icon || '<i class="fas fa-globe"></i>'}</div><div><div style="font-weight:700;color:var(--text-primary)">${s.title}</div></div></div></td>
-            <td><span class="badge badge-primary">${s.category}</span></td>
-            <td><span style="font-weight:700">$${s.price}</span></td>
-            <td><span style="color:var(--text-muted)">${s.delivery || 'N/A'}</span></td>
-            <td>
-              <div style="display:flex;gap:8px">
-                <button class="btn btn-outline btn-sm" onclick='editService(${JSON.stringify(s).replace(/'/g, "&apos;")})'><i class="fas fa-edit"></i></button>
-                <button class="btn btn-danger btn-sm" onclick="deleteService('${s._id}', '${s.title}')"><i class="fas fa-trash"></i></button>
-              </div>
-            </td>
-          </tr>
-        `).join('');
-            } catch (e) { document.getElementById('services-tbody').innerHTML = `<tr><td colspan="5" style="text-align:center;padding:40px;color:var(--danger)">Error loading services</td></tr>`; }
-        }
+                        async function loadServices() {
+                            const tbody = document.getElementById('services-tbody');
+                            tbody.innerHTML = `
+                                    ${Array(8).fill(0).map(() => `
+                                        <tr>
+                                            <td>
+                                                <div style="display:flex; align-items:center; gap:16px">
+                                                    <div class="skeleton" style="width:48px; height:48px; border-radius:12px"></div>
+                                                    <div>
+                                                        <div class="skeleton" style="height:16px; width:160px; margin-bottom:4px"></div>
+                                                        <div class="skeleton" style="height:10px; width:90px"></div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td><div class="skeleton" style="height:20px; width:90px; border-radius:20px"></div></td>
+                                            <td><div class="skeleton" style="height:16px; width:70px"></div></td>
+                                            <td><div class="skeleton" style="height:14px; width:120px"></div></td>
+                                            <td>
+                                                <div style="display:flex; gap:12px">
+                                                    <div class="skeleton" style="width:32px; height:32px; border-radius:6px"></div>
+                                                    <div class="skeleton" style="width:32px; height:32px; border-radius:6px"></div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    `).join('')}
+                                `;
+                            try {
+                                const data = await API('/services');
+                                services = data.services || [];
 
-        function openModal() { document.getElementById('service-form').reset(); document.getElementById('srv-id').value = ''; document.getElementById('modal-title').textContent = 'Add New Service'; document.getElementById('service-modal').style.display = 'flex'; }
-        function closeModal() { document.getElementById('service-modal').style.display = 'none'; }
+                                if (services.length === 0) {
+                                    tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;padding:100px;color:var(--text-muted)">Service layer inactive. No deployments found.</td></tr>';
+                                    return;
+                                }
 
-        function editService(s) {
-            document.getElementById('modal-title').textContent = 'Edit Service';
-            document.getElementById('srv-id').value = s._id;
-            document.getElementById('srv-title').value = s.title;
-            document.getElementById('srv-desc').value = s.description;
-            document.getElementById('srv-price').value = s.price;
-            document.getElementById('srv-cat').value = s.category;
-            document.getElementById('srv-icon').value = s.icon || '';
-            document.getElementById('srv-delivery').value = s.delivery || '';
-            document.getElementById('srv-features').value = (s.features && Array.isArray(s.features)) ? s.features.join(', ') : '';
-            document.getElementById('service-modal').style.display = 'flex';
-        }
+                                tbody.innerHTML = services.map(s => `
+                    <tr>
+                        <td>
+                            <div style="display:flex; align-items:center; gap:16px">
+                                <div class="srv-icon-box">
+                                    <i class="${s.icon || 'fas fa-cogs'}"></i>
+                                </div>
+                                <div>
+                                    <div style="font-weight:700; color:var(--text-primary); font-size:15px">${s.title}</div>
+                                    <div style="font-size:11px; color:var(--text-muted)">SID: ${s._id.slice(-8).toUpperCase()}</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td><span class="badge" style="background:rgba(0,212,255,0.05); color:var(--primary)">${s.category.toUpperCase()}</span></td>
+                        <td><span style="font-weight:800; color:var(--text-primary); font-family:var(--font-heading)">$${s.price.toFixed(2)}</span></td>
+                        <td><div style="font-size:13px; font-weight:500; color:var(--text-secondary)"><i class="far fa-clock" style="margin-right:6px; opacity:0.5"></i> ${s.delivery || 'N/A'}</div></td>
+                        <td>
+                            <div style="display:flex; gap:12px">
+                                <button class="btn btn-outline btn-sm" onclick='editService(${JSON.stringify(s).replace(/'/g, "&apos;")})' title="Reconfigure Service">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="btn btn-danger btn-sm" onclick="deleteService('${s._id}', '${s.title}')" title="Decommission Service">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                `).join('');
+                            } catch (e) {
+                                tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;padding:100px;color:var(--danger)">Protocol Error: ${e.message}</td></tr>`;
+                            }
+                        }
 
-        document.getElementById('service-form').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const id = document.getElementById('srv-id').value;
-            const featuresRaw = document.getElementById('srv-features').value;
-            const features = featuresRaw ? featuresRaw.split(',').map(f => f.trim()) : [];
+                        function openModal() {
+                            document.getElementById('service-form').reset();
+                            document.getElementById('srv-id').value = '';
+                            document.getElementById('modal-title').textContent = 'Configure Service Architecture';
+                            document.getElementById('service-modal').style.display = 'flex';
+                        }
 
-            const payload = {
-                title: document.getElementById('srv-title').value,
-                description: document.getElementById('srv-desc').value,
-                price: document.getElementById('srv-price').value,
-                category: document.getElementById('srv-cat').value,
-                icon: document.getElementById('srv-icon').value,
-                delivery: document.getElementById('srv-delivery').value,
-                features: features
-            };
-            document.getElementById('save-btn').disabled = true;
-            try {
-                if (id) await API(`/services/${id}`, 'PUT', payload);
-                else await API('/services', 'POST', payload);
-                showToast(`Service ${id ? 'updated' : 'created'} successfully!`, 'success');
-                closeModal(); loadServices();
-            } catch (err) { showToast(err.message, 'error'); }
-            document.getElementById('save-btn').disabled = false;
-        });
+                        function closeModal() {
+                            document.getElementById('service-modal').style.display = 'none';
+                        }
 
-        async function deleteService(id, name) {
-            if (!confirm(`Delete service "${name}"?`)) return;
-            try {
-                await API(`/services/${id}`, 'DELETE');
-                showToast('Service deleted', 'info'); loadServices();
-            } catch (err) { showToast(err.message, 'error'); }
-        }
+                        function editService(s) {
+                            document.getElementById('modal-title').textContent = 'Reconfigure Service Matrix';
+                            document.getElementById('srv-id').value = s._id;
+                            document.getElementById('srv-title').value = s.title;
+                            document.getElementById('srv-desc').value = s.description;
+                            document.getElementById('srv-price').value = s.price;
+                            document.getElementById('srv-cat').value = s.category;
+                            document.getElementById('srv-icon').value = s.icon || '';
+                            document.getElementById('srv-delivery').value = s.delivery || '';
+                            document.getElementById('srv-features').value = (s.features && Array.isArray(s.features)) ? s.features.join(', ') : '';
+                            document.getElementById('service-modal').style.display = 'flex';
+                        }
 
-        loadServices();
-    </script>
+                        document.getElementById('service-form').addEventListener('submit', async (e) => {
+                            e.preventDefault();
+                            const id = document.getElementById('srv-id').value;
+                            const featuresRaw = document.getElementById('srv-features').value;
+                            const features = featuresRaw ? featuresRaw.split(',').map(f => f.trim()) : [];
+
+                            const payload = {
+                                title: document.getElementById('srv-title').value,
+                                description: document.getElementById('srv-desc').value,
+                                price: parseFloat(document.getElementById('srv-price').value),
+                                category: document.getElementById('srv-cat').value,
+                                icon: document.getElementById('srv-icon').value,
+                                delivery: document.getElementById('srv-delivery').value,
+                                features: features
+                            };
+
+                            const saveBtn = document.getElementById('save-btn');
+                            saveBtn.disabled = true;
+                            saveBtn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Committing...';
+
+                            try {
+                                if (id) await API(`/services/${id}`, 'PUT', payload);
+                                else await API('/services', 'POST', payload);
+
+                                showToast(`Service architecture ${id ? 'reconfigured' : 'deployed'} successfully.`, 'success');
+                                closeModal();
+                                loadServices();
+                            } catch (err) {
+                                showToast(err.message, 'error');
+                            } finally {
+                                saveBtn.disabled = false;
+                                saveBtn.textContent = 'Commit to Database';
+                            }
+                        });
+
+                        async function deleteService(id, name) {
+                            if (!confirm(`Are you sure you want to decommission service "${name}"? All related data will be purged.`)) return;
+                            try {
+                                await API(`/services/${id}`, 'DELETE');
+                                showToast('Service decommissioned successfully.', 'info');
+                                loadServices();
+                            } catch (err) {
+                                showToast(err.message, 'error');
+                            }
+                        }
+
+                        loadServices();
+                    </script>
 </body>
 
 </html>

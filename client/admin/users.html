@@ -8,149 +8,200 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     <link rel="stylesheet" href="../css/global.css" />
     <style>
-        body {
-            background: var(--bg-primary);
+        :root {
+            --admin-sidebar: 280px;
         }
 
-        .admin-layout { display: block;
-            
+        body {
+            background: var(--bg-primary);
+            font-family: var(--font-primary);
+            color: var(--text-primary);
+        }
+
+        .admin-layout {
+            display: flex;
             min-height: 100vh;
         }
 
+        /* Sidebar Glassmorphism */
         .admin-sidebar {
-            background: var(--bg-secondary);
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border-right: 1px solid var(--border);
             position: fixed;
             top: 0;
             left: 0;
             bottom: 0;
-            width: 260px;
-            
+            width: var(--admin-sidebar);
+            display: flex;
             flex-direction: column;
             z-index: 100;
-            overflow-y: auto;
+            transition: var(--transition);
         }
 
         .sidebar-header {
-            padding: 24px 20px;
+            padding: 32px 24px;
             border-bottom: 1px solid var(--border);
         }
 
         .sidebar-logo {
-            
+            display: flex;
             align-items: center;
             gap: 12px;
             text-decoration: none;
         }
 
         .sidebar-logo-icon {
-            width: 40px;
-            height: 40px;
+            width: 42px;
+            height: 42px;
             background: var(--grad-primary);
-            border-radius: 10px;
-            
+            border-radius: 12px;
+            display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 18px;
+            font-size: 20px;
             font-weight: 900;
             color: #fff;
+            box-shadow: var(--shadow-glow);
+        }
+
+        .sidebar-logo-name {
+            font-family: var(--font-heading);
+            font-weight: 800;
+            font-size: 18px;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
         }
 
         .admin-badge {
-            background: var(--accent);
+            background: var(--grad-primary);
             color: #fff;
-            font-size: 10px;
-            font-weight: 700;
+            font-size: 9px;
+            font-weight: 800;
             padding: 2px 8px;
-            border-radius: 4px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-top: 2px;
+            display: inline-block;
         }
 
         .sidebar-nav {
             flex: 1;
-            padding: 16px 12px;
+            padding: 24px 16px;
+            overflow-y: auto;
         }
 
         .sidebar-section {
-            font-size: 10px;
+            font-size: 11px;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 0.1em;
+            letter-spacing: 0.12em;
             color: var(--text-muted);
-            padding: 8px 10px;
-            margin-top: 8px;
+            padding: 12px 14px 8px;
         }
 
         .sidebar-link {
-            
+            display: flex;
             align-items: center;
             gap: 12px;
-            padding: 11px 14px;
+            padding: 12px 16px;
             color: var(--text-secondary);
             text-decoration: none;
-            border-radius: var(--radius-sm);
+            border-radius: var(--radius-md);
             font-size: 14px;
             font-weight: 500;
             transition: var(--transition-fast);
-            margin-bottom: 2px;
+            margin-bottom: 4px;
+        }
+
+        .sidebar-link i {
+            width: 20px;
+            font-size: 16px;
+            text-align: center;
+            transition: var(--transition-fast);
         }
 
         .sidebar-link:hover,
         .sidebar-link.active {
-            background: var(--primary-glow);
+            background: rgba(255, 255, 255, 0.05);
             color: var(--primary);
         }
 
-        .sidebar-link i {
-            width: 18px;
-            text-align: center;
+        .sidebar-link.active i {
+            color: var(--primary);
+            filter: drop-shadow(0 0 5px var(--primary));
         }
 
         .sidebar-footer {
-            padding: 16px;
+            padding: 24px;
             border-top: 1px solid var(--border);
         }
 
+        /* Main Content wrapper */
         .admin-main {
-            margin-left: 260px;
-            padding: 32px;
+            flex: 1;
+            margin-left: var(--admin-sidebar);
+            padding: 40px;
+            max-width: 1400px;
         }
 
         .page-header {
-            
+            display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 28px;
-            flex-wrap: wrap;
-            gap: 16px;
+            margin-bottom: 40px;
         }
 
         .page-header h1 {
-            font-size: 26px;
+            font-family: var(--font-heading);
+            font-size: 32px;
             font-weight: 800;
+            letter-spacing: -0.02em;
         }
 
+        /* Controls Bar */
         .filters-bar {
-            
-            gap: 12px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 20px 24px;
+            display: flex;
             align-items: center;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
+            gap: 16px;
+            margin-bottom: 32px;
+            backdrop-filter: blur(10px);
         }
 
-        .filters-bar input {
-            max-width: 280px;
+        .search-input-wrapper {
+            position: relative;
+            flex: 1;
+            max-width: 400px;
         }
 
+        .search-input-wrapper i {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+        }
+
+        .search-input-wrapper .form-input {
+            padding-left: 44px;
+            background: rgba(255, 255, 255, 0.03);
+            border-color: var(--border);
+        }
+
+        /* Table Design */
         .table-card {
             background: var(--bg-card);
             border: 1px solid var(--border);
             border-radius: var(--radius-lg);
             overflow: hidden;
-        
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            background: var(--bg-card);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            box-shadow: var(--shadow-sm);
+            backdrop-filter: blur(10px);
         }
 
         table {
@@ -158,63 +209,104 @@
             border-collapse: collapse;
         }
 
-        th,
-        td {
-            padding: 12px 20px;
-            text-align: left;
-            font-size: 14px;
-        }
-
         th {
-            background: var(--bg-secondary);
-            color: var(--text-muted);
+            background: rgba(255, 255, 255, 0.02);
+            padding: 18px 24px;
+            text-align: left;
             font-size: 11px;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 0.06em;
-        }
-
-        tbody tr:hover td {
-            background: var(--bg-card-hover);
+            letter-spacing: 0.1em;
+            color: var(--text-muted);
         }
 
         td {
+            padding: 16px 24px;
             border-top: 1px solid var(--border);
-            color: var(--text-secondary);
-        }
-
-        .action-btns {
-            
-            gap: 6px;
-        }
-
-        .user-avatar-sm {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            background: var(--grad-primary);
-            
-            align-items: center;
-            justify-content: center;
             font-size: 14px;
-            font-weight: 700;
-            color: #000;
+            color: var(--text-secondary);
+            vertical-align: middle;
         }
 
-        .user-cell {
-            
+        tr:hover td {
+            background: rgba(255, 255, 255, 0.01);
+        }
+
+        .user-info {
+            display: flex;
             align-items: center;
             gap: 12px;
         }
 
-        @media(max-width:900px) {
+        .user-avatar-circle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--grad-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            color: #fff;
+            font-size: 16px;
+            box-shadow: 0 4px 10px rgba(0, 212, 255, 0.2);
+        }
+
+        .user-name {
+            font-weight: 700;
+            color: var(--text-primary);
+            font-size: 15px;
+        }
+
+        .user-email {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        /* Status Badges */
+        .badge {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .badge-success {
+            background: rgba(16, 185, 129, 0.1);
+            color: #10B981;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        .badge-danger {
+            background: rgba(239, 68, 68, 0.1);
+            color: #EF4444;
+            border: 1px solid rgba(239, 68, 68, 0.2);
+        }
+
+        .action-btns {
+            display: flex;
+            gap: 8px;
+        }
+
+        @media (max-width: 900px) {
             .admin-sidebar {
                 transform: translateX(-100%);
             }
 
             .admin-main {
                 margin-left: 0;
-                padding: 20px;
+                padding: 24px;
+            }
+
+            .filters-bar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .search-input-wrapper {
+                max-width: none;
             }
         }
     </style>
@@ -222,61 +314,109 @@
 
 <body>
     <div class="admin-layout">
-        <aside class="admin-sidebar">
-            <div class="sidebar-header"><a href="index.html" class="sidebar-logo"><img src="../images/logo.png" alt="Binary Craft Logo" style="height: 36px; margin-right: 12px;" /><div><div style="font-weight:800;font-size:15px;color:var(--text-white)">Binary Craft</div><span class="admin-badge">ADMIN</span></div></a></div>
+        <!-- Sidebar -->
+        <aside class="admin-sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="sidebar-logo">
+                    <div class="sidebar-logo-icon">BC</div>
+                    <div>
+                        <div class="sidebar-logo-name">Binary Craft</div>
+                        <span class="admin-badge">Admin Control</span>
+                    </div>
+                </a>
+            </div>
             <nav class="sidebar-nav">
-                <div class="sidebar-section">Dashboard</div>
+                <div class="sidebar-section">Main</div>
                 <a href="index.html" class="sidebar-link"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+
                 <div class="sidebar-section">Management</div>
-                <a href="users.html" class="sidebar-link active"><i class="fas fa-users"></i> Users</a>
-                <a href="orders.html" class="sidebar-link"><i class="fas fa-shopping-bag"></i> Orders</a>
-                <a href="products.html" class="sidebar-link"><i class="fas fa-box"></i> Products</a>
+                <a href="users.html" class="sidebar-link active"><i class="fas fa-users"></i> User Base</a>
+                <a href="orders.html" class="sidebar-link"><i class="fas fa-shopping-bag"></i> Order Flow</a>
+                <a href="products.html" class="sidebar-link"><i class="fas fa-box"></i> Inventory</a>
                 <a href="services.html" class="sidebar-link"><i class="fas fa-cogs"></i> Services</a>
                 <a href="messages.html" class="sidebar-link"><i class="fas fa-envelope"></i> Messages</a>
-                <div class="sidebar-section">Website</div>
-                <a href="../index.html" class="sidebar-link"><i class="fas fa-globe"></i> View Website</a>
+
+                <div class="sidebar-section">System</div>
+                <a href="settings.html" class="sidebar-link"><i class="fas fa-sliders-h"></i> Settings</a>
+                <a href="../index.html" class="sidebar-link"><i class="fas fa-external-link-alt"></i> Public Site</a>
             </nav>
-            <div class="sidebar-footer"><button class="btn btn-danger btn-sm" style="width:100%;justify-content:center"
-                    onclick="Auth.logout()"><i class="fas fa-sign-out-alt"></i> Logout</button></div>
+            <div class="sidebar-footer">
+                <button class="btn btn-danger btn-sm" style="width:100%;justify-content:center" onclick="Auth.logout()">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
         </aside>
 
         <main class="admin-main">
             <div class="page-header">
                 <div>
-                    <h1>👥 User Management</h1>
-                    <p style="color:var(--text-muted);font-size:14px">View, block, and manage all registered users</p>
+                    <h1>User Intelligence</h1>
+                    <p style="color:var(--text-muted);font-size:14px">Manage and monitor your global community</p>
                 </div>
+                <button class="btn btn-primary btn-sm" onclick="loadUsers()">
+                    <i class="fas fa-sync"></i> Refresh Data
+                </button>
             </div>
+
             <div class="filters-bar">
-                <input type="text" class="form-input" id="search-users" placeholder="🔍 Search by name or email..."
-                    oninput="searchUsers(this.value)" />
-                <select class="form-input" style="width:160px" id="filter-status" onchange="filterUsers()">
-                    <option value="">All Users</option>
-                    <option value="active">Active</option>
-                    <option value="blocked">Blocked</option>
+                <div class="search-input-wrapper">
+                    <i class="fas fa-search"></i>
+                    <input type="text" class="form-input" id="search-users" placeholder="Search by name or email..."
+                        oninput="searchUsers(this.value)" />
+                </div>
+                <select class="form-input" style="width:180px" id="filter-status" onchange="filterUsers()">
+                    <option value="">Status: All</option>
+                    <option value="active">Status: Active</option>
+                    <option value="blocked">Status: Blocked</option>
                 </select>
-                <button class="btn btn-outline btn-sm" onclick="loadUsers()"><i class="fas fa-sync"></i>
-                    Refresh</button>
+                <div id="users-count"
+                    style="font-size:13px; font-weight: 600; color:var(--primary); margin-left: auto;">Syncing...</div>
             </div>
-            <div id="users-count" style="font-size:13px;color:var(--text-muted);margin-bottom:12px"></div>
+
             <div class="table-card">
                 <table>
                     <thead>
                         <tr>
-                            <th>User</th>
-                            <th>Email</th>
-                            <th>Phone</th>
+                            <th>Member</th>
+                            <th>Identity</th>
+                            <th>Contact</th>
                             <th>Status</th>
-                            <th>Joined</th>
-                            <th>Actions</th>
+                            <th>Joined On</th>
+                            <th style="text-align:right">Actions</th>
                         </tr>
                     </thead>
                     <tbody id="users-tbody">
+                        ${Array(10).fill(0).map(() => `
                         <tr>
-                            <td colspan="6" style="text-align:center;padding:40px;color:var(--text-muted)">
-                                <div class="spinner"></div>
+                            <td>
+                                <div class="user-info">
+                                    <div class="skeleton" style="width:40px; height:40px; border-radius:50%"></div>
+                                    <div>
+                                        <div class="skeleton" style="height:16px; width:120px; margin-bottom:4px"></div>
+                                        <div class="skeleton" style="height:10px; width:60px"></div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="skeleton" style="height:14px; width:160px"></div>
+                            </td>
+                            <td>
+                                <div class="skeleton" style="height:14px; width:100px"></div>
+                            </td>
+                            <td>
+                                <div class="skeleton" style="height:20px; width:70px; border-radius:20px"></div>
+                            </td>
+                            <td>
+                                <div class="skeleton" style="height:14px; width:90px"></div>
+                            </td>
+                            <td>
+                                <div class="action-btns" style="justify-content: flex-end;">
+                                    <div class="skeleton" style="width:32px; height:32px; border-radius:6px"></div>
+                                    <div class="skeleton" style="width:32px; height:32px; border-radius:6px"></div>
+                                </div>
                             </td>
                         </tr>
+                        `).join('')}
                     </tbody>
                 </table>
             </div>
@@ -293,51 +433,62 @@
             try {
                 const data = await API('/admin/users?limit=100');
                 allUsers = data.users || [];
-                document.getElementById('users-count').textContent = `${allUsers.length} users registered`;
+                document.getElementById('users-count').textContent = `${allUsers.length} MEMBERS DETECTED`;
                 renderUsers(allUsers);
             } catch (e) {
-                document.getElementById('users-tbody').innerHTML = `<tr><td colspan="6" style="text-align:center;padding:40px;color:var(--danger)">${e.message}</td></tr>`;
+                document.getElementById('users-tbody').innerHTML = `<tr><td colspan="6" style="text-align:center;padding:100px;color:var(--danger)">Protocol Error: ${e.message}</td></tr>`;
             }
         }
 
         function renderUsers(users) {
             const tbody = document.getElementById('users-tbody');
-            if (users.length === 0) { tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:40px;color:var(--text-muted)">No users found</td></tr>'; return; }
+            if (users.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:100px;color:var(--text-muted)">Nexus empty. No user signatures found.</td></tr>';
+                return;
+            }
             tbody.innerHTML = users.map(u => `
-        <tr>
-          <td><div class="user-cell"><div class="user-avatar-sm">${u.name.charAt(0).toUpperCase()}</div><span style="font-weight:600;color:var(--text-primary)">${u.name}</span></div></td>
-          <td>${u.email}</td>
-          <td>${u.phone || '-'}</td>
-          <td><span class="badge badge-${u.isBlocked ? 'danger' : 'success'}">${u.isBlocked ? 'Blocked' : 'Active'}</span></td>
-          <td>${new Date(u.createdAt).toLocaleDateString()}</td>
-          <td><div class="action-btns">
-            <button class="btn btn-sm ${u.isBlocked ? 'btn-success' : 'btn-danger'}" onclick="toggleBlock('${u._id}','${u.name}',${u.isBlocked})">
-              <i class="fas fa-${u.isBlocked ? 'unlock' : 'ban'}"></i> ${u.isBlocked ? 'Unblock' : 'Block'}
-            </button>
-            <button class="btn btn-danger btn-sm" onclick="deleteUser('${u._id}','${u.name}')">
-              <i class="fas fa-trash"></i>
-            </button>
-          </div></td>
-        </tr>
-      `).join('');
+                <tr>
+                    <td>
+                        <div class="user-info">
+                            <div class="user-avatar-circle">${u.name.charAt(0).toUpperCase()}</div>
+                            <div>
+                                <div class="user-name">${u.name}</div>
+                                <div style="font-size:11px; font-weight:700; color:var(--primary)">${u.role.toUpperCase()}</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td><div class="user-email">${u.email}</div></td>
+                    <td><div style="font-size:13px">${u.phone || '–'}</div></td>
+                    <td><span class="badge badge-${u.isBlocked ? 'danger' : 'success'}">${u.isBlocked ? 'Blocked' : 'Verified'}</span></td>
+                    <td><div style="font-size:13px; color:var(--text-muted)">${new Date(u.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</div></td>
+                    <td>
+                        <div class="action-btns" style="justify-content: flex-end;">
+                            <button class="btn btn-sm ${u.isBlocked ? 'btn-success' : 'btn-outline'}" onclick="toggleBlock('${u._id}','${u.name}',${u.isBlocked})" title="${u.isBlocked ? 'Unblock' : 'Block'} User">
+                                <i class="fas fa-${u.isBlocked ? 'unlock' : 'ban'}"></i>
+                            </button>
+                            <button class="btn btn-danger btn-sm" onclick="deleteUser('${u._id}','${u.name}')" title="Delete User">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
         }
 
         async function toggleBlock(id, name, isBlocked) {
-            if (!confirm(`${isBlocked ? 'Unblock' : 'Block'} user "${name}"?`)) return;
+            if (!confirm(`Are you sure you want to ${isBlocked ? 'Unblock' : 'Block'} ${name}?`)) return;
             try {
                 await API(`/admin/users/${id}/toggle-block`, 'PUT');
-                showToast(`User ${isBlocked ? 'unblocked' : 'blocked'} successfully`, 'success');
                 loadUsers();
-            } catch (e) { showToast(e.message, 'error'); }
+            } catch (e) { alert(e.message); }
         }
 
         async function deleteUser(id, name) {
-            if (!confirm(`Delete user "${name}"? This cannot be undone.`)) return;
+            if (!confirm(`CAUTION: Permanently delete ${name}? This action is irreversible.`)) return;
             try {
                 await API(`/admin/users/${id}`, 'DELETE');
-                showToast('User deleted', 'info');
                 loadUsers();
-            } catch (e) { showToast(e.message, 'error'); }
+            } catch (e) { alert(e.message); }
         }
 
         function searchUsers(q) {
