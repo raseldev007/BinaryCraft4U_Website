@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button";
 import { Mail, Lock, Eye, EyeOff, LogIn, ShieldCheck, CheckCircle2, ArrowRight } from "lucide-react";
 import { useToast } from "@/components/ui/Toast";
+import { useGoogleLogin } from "@react-oauth/google";
 
 export default function LoginPage() {
     const [email, setEmail] = useState("");
@@ -19,79 +20,81 @@ export default function LoginPage() {
     const [isSuccess, setIsSuccess] = useState(false);
     const { login, isAuthenticated } = useAuth();
     const router = useRouter();
-    const { info, success } = useToast();
+    const { success, error: toastError } = useToast();
 
-    // Check caps lock
     const [capsLock, setCapsLock] = useState(false);
     useEffect(() => {
-        const handleKeyDown = (e: KeyboardEvent) => {
-            setCapsLock(e.getModifierState("CapsLock"));
-        };
+        const handleKeyDown = (e: KeyboardEvent) => setCapsLock(e.getModifierState("CapsLock"));
         window.addEventListener("keydown", handleKeyDown);
         return () => window.removeEventListener("keydown", handleKeyDown);
     }, []);
 
     useEffect(() => {
-        if (isAuthenticated) {
-            router.push("/dashboard");
-        }
+        if (isAuthenticated) router.push("/dashboard");
     }, [isAuthenticated, router]);
 
-    const handleSimulatedSocialAuth = async (provider: string) => {
-        setIsLoading(true);
-        setError("");
-        try {
-            success(`Simulating ${provider} login...`);
+    // Real Google OAuth
+    const googleLogin = useGoogleLogin({
+        flow: "auth-code",
+        onSuccess: async (codeResponse) => {
+            setIsLoading(true);
+            setError("");
+            try {
+                // Exchange code for tokens via Google's token endpoint
+                const tokenRes = await fetch("https://oauth2.googleapis.com/token", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                    body: new URLSearchParams({
+                        code: codeResponse.code,
+                        client_id: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || "",
+                        client_secret: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET || "",
+                        redirect_uri: window.location.origin,
+                        grant_type: "authorization_code",
+                    }),
+                });
+                const tokenData = await tokenRes.json();
+                if (!tokenData.id_token) throw new Error("Failed to get Google token");
 
-            // 1. Check if the user exists
-            const resData = await api("/users/profile").catch(() => null);
-
-            if (!resData || !resData.user) {
-                // If not logged in or profile failed, auto-login with test acc
-                const testEmail = "raseloffcial89@gmail.com";
-                const testPass = "password";
-                const loginRes = await api("/auth/login", "POST", { email: testEmail, password: testPass });
-                login(loginRes.token, loginRes.user);
+                const data = await api("/auth/google", "POST", { credential: tokenData.id_token });
+                setIsSuccess(true);
+                setTimeout(() => {
+                    login(data.token, data.user);
+                    router.push(data.user.role === "admin" ? "/admin" : "/dashboard");
+                }, 800);
+                success("Signed in with Google!");
+            } catch (err: any) {
+                setError(err.message || "Google sign-in failed. Please try again.");
+            } finally {
+                setIsLoading(false);
             }
-            // If the user *is* already logged in, the push to dashboard handles it gracefully.
-
-            router.push('/dashboard');
-            success(`Successfully authenticated with ${provider}`);
-        } catch (err: any) {
-            setError(err.message || `Failed to authenticate with ${provider}`);
-        } finally {
+        },
+        onError: () => {
+            setError("Google sign-in was cancelled or failed.");
             setIsLoading(false);
-        }
+        },
+    });
+
+    const handleGoogleLogin = () => {
+        setError("");
+        setIsLoading(true);
+        googleLogin();
     };
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setError("");
-
-        if (!email || !password) {
-            setError("Please fill in all fields");
-            return;
-        }
-
+        if (!email || !password) { setError("Please fill in all fields"); return; }
         setIsLoading(true);
-
         try {
             const data = await api("/auth/login", "POST", { email, password });
-
             setIsSuccess(true);
             setTimeout(() => {
                 login(data.token, data.user);
-                const searchParams = new URLSearchParams(window.location.search);
-                const redirect = searchParams.get("redirect");
-
-                if (redirect) {
-                    router.push(redirect);
-                } else if (data.user.role === "admin") {
-                    router.push("/admin");
-                } else {
-                    router.push("/dashboard");
-                }
-            }, 800); // Wait for success animation
+                const redirect = new URLSearchParams(window.location.search).get("redirect");
+                if (redirect) router.push(redirect);
+                else if (data.user.role === "admin") router.push("/admin");
+                else router.push("/dashboard");
+            }, 800);
         } catch (err: any) {
             setError(err.message || "Failed to sign in");
             setIsLoading(false);
@@ -114,15 +117,11 @@ export default function LoginPage() {
 
     return (
         <div className="min-h-screen flex flex-col relative bg-bg-primary items-center justify-center p-6 overflow-hidden">
-            {/* Background Effects */}
             <div className="absolute inset-0 bg-noise opacity-[0.03] pointer-events-none mix-blend-overlay z-0" />
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[rgba(59,130,246,0.06)] rounded-full blur-[120px] pointer-events-none z-0 animate-pulse" style={{ animationDuration: '4s' }} />
-
-            {/* Floating particles */}
             <div className="absolute top-[20%] left-[15%] w-2 h-2 rounded-full bg-primary/30 blur-[1px] animate-float opacity-50 z-0" />
             <div className="absolute top-[70%] right-[15%] w-3 h-3 rounded-full bg-accent/30 blur-[2px] animate-float opacity-50 z-0" style={{ animationDelay: '2s' }} />
 
-            {/* Basic Nav to go back */}
             <nav className="absolute top-0 w-full p-6 flex justify-between items-center z-20">
                 <Link href="/" className="flex items-center gap-3 group">
                     <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center font-black text-white text-lg shadow-[0_0_15px_rgba(59,130,246,0.3)] group-hover:scale-110 transition-transform duration-300 relative">
@@ -139,9 +138,7 @@ export default function LoginPage() {
                 <div className="text-center mb-8">
                     <div className="relative inline-block mb-6">
                         <div className="absolute inset-0 bg-primary/40 blur-2xl rounded-full scale-[1.5]" />
-                        <div className="w-14 h-14 relative bg-gradient-to-br from-primary to-accent rounded-2xl flex items-center justify-center font-black text-white text-2xl shadow-inner border border-white/20">
-                            BC
-                        </div>
+                        <div className="w-14 h-14 relative bg-gradient-to-br from-primary to-accent rounded-2xl flex items-center justify-center font-black text-white text-2xl shadow-inner border border-white/20">BC</div>
                     </div>
                     <h2 className="text-3xl font-black tracking-tight mb-2 text-white relative inline-block">
                         Welcome Back
@@ -157,6 +154,28 @@ export default function LoginPage() {
                     </div>
                 )}
 
+                {/* Google Sign In */}
+                <button
+                    type="button"
+                    onClick={handleGoogleLogin}
+                    disabled={isLoading}
+                    className="w-full flex items-center justify-center gap-3 py-3 px-4 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 hover:border-white/20 transition-all duration-200 font-semibold text-white text-sm mb-6 disabled:opacity-50 disabled:cursor-not-allowed group"
+                >
+                    <svg className="w-5 h-5 flex-shrink-0" viewBox="0 0 24 24">
+                        <path fill="#EA4335" d="M5.266 9.765A7.077 7.077 0 0 1 12 4.909c1.69 0 3.218.6 4.418 1.582L19.91 3C17.782 1.145 15.055 0 12 0 7.27 0 3.198 2.698 1.24 6.65l4.026 3.115Z" />
+                        <path fill="#34A853" d="M16.04 18.013c-1.09.703-2.474 1.078-4.04 1.078a7.077 7.077 0 0 1-6.723-4.823l-4.04 3.067A11.965 11.965 0 0 0 12 24c2.933 0 5.735-1.043 7.834-3l-3.793-2.987Z" />
+                        <path fill="#4A90E2" d="M19.834 21c2.195-2.048 3.62-5.096 3.62-9 0-.71-.109-1.473-.272-2.182H12v4.637h6.436c-.317 1.559-1.17 2.766-2.395 3.558L19.834 21Z" />
+                        <path fill="#FBBC05" d="M5.277 14.268A7.12 7.12 0 0 1 4.909 12c0-.782.125-1.533.357-2.235L1.24 6.65A11.934 11.934 0 0 0 0 12c0 1.92.445 3.73 1.237 5.335l4.04-3.067Z" />
+                    </svg>
+                    <span>{isLoading ? "Connecting..." : "Continue with Google"}</span>
+                </button>
+
+                <div className="flex items-center gap-4 mb-6">
+                    <div className="flex-1 h-px bg-gradient-to-r from-transparent to-border"></div>
+                    <span className="text-text-muted text-[11px] uppercase tracking-widest font-black">or sign in with email</span>
+                    <div className="flex-1 h-px bg-gradient-to-l from-transparent to-border"></div>
+                </div>
+
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <Input
                         type="email"
@@ -167,12 +186,9 @@ export default function LoginPage() {
                         required
                         autoComplete="email"
                     />
-
                     <div>
                         <div className="flex justify-end items-center mb-1.5 px-1">
-                            <Link href="/forgot-password" className="text-[13px] text-text-muted hover:text-primary transition-colors font-medium">
-                                Forgot password?
-                            </Link>
+                            <Link href="/forgot-password" className="text-[13px] text-text-muted hover:text-primary transition-colors font-medium">Forgot password?</Link>
                         </div>
                         <div className="relative">
                             <Input
@@ -184,12 +200,7 @@ export default function LoginPage() {
                                 required
                                 autoComplete="current-password"
                             />
-                            <button
-                                type="button"
-                                onClick={() => setShowPassword(!showPassword)}
-                                className="absolute right-4 top-1/2 -translate-y-1/2 text-text-muted hover:text-white transition-colors p-1"
-                                tabIndex={-1}
-                            >
+                            <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-4 top-1/2 -translate-y-1/2 text-text-muted hover:text-white transition-colors p-1" tabIndex={-1}>
                                 {showPassword ? <EyeOff className="w-[18px] h-[18px]" /> : <Eye className="w-[18px] h-[18px]" />}
                             </button>
                         </div>
@@ -200,58 +211,24 @@ export default function LoginPage() {
                         )}
                     </div>
 
-                    <div className="flex items-center gap-2 px-1 pb-1 pt-1">
-                        <input type="checkbox" id="remember" className="w-4 h-4 rounded border-border bg-bg-primary/50 text-primary focus:ring-primary focus:ring-offset-bg-secondary accent-primary cursor-pointer" />
-                        <label htmlFor="remember" className="text-sm text-text-muted cursor-pointer font-medium select-none">Remember for 30 days</label>
-                    </div>
-
-                    <Button
-                        type="submit"
-                        size="lg"
-                        variant="gradient"
-                        className="w-full mt-2 shadow-[0_8px_30px_-4px_rgba(59,130,246,0.3)] hover:shadow-[0_12px_40px_-4px_rgba(59,130,246,0.5)] group relative overflow-hidden"
-                        isLoading={isLoading}
-                    >
-                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:animate-shimmer" />
+                    <Button type="submit" size="lg" variant="gradient" className="w-full mt-2 shadow-[0_8px_30px_-4px_rgba(59,130,246,0.3)] hover:shadow-[0_12px_40px_-4px_rgba(59,130,246,0.5)] group relative overflow-hidden" isLoading={isLoading}>
                         <span className="relative z-10 flex items-center justify-center font-bold text-[15px]">
-                            {isLoading ? "Authenticating..." : (
-                                <>Sign In <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" /></>
-                            )}
+                            {isLoading ? "Authenticating..." : (<>Sign In <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" /></>)}
                         </span>
                     </Button>
                 </form>
 
-                <div className="flex items-center gap-4 my-7">
-                    <div className="flex-1 h-px bg-gradient-to-r from-transparent to-border"></div>
-                    <span className="text-text-muted text-[11px] uppercase tracking-widest font-black">or</span>
-                    <div className="flex-1 h-px bg-gradient-to-l from-transparent to-border"></div>
-                </div>
-
-                <div className="grid grid-cols-2 gap-3">
-                    <Button variant="outline" className="w-full bg-white/5 hover:bg-[#EA4335]/10 hover:text-[#EA4335] border-white/5 hover:border-[#EA4335]/30 transition-all group" onClick={() => handleSimulatedSocialAuth("Google")}>
-                        <i className="fab fa-google mr-2 text-text-muted group-hover:text-[#EA4335] transition-colors"></i>
-                        <span className="text-sm font-semibold">Google</span>
-                    </Button>
-                    <Button variant="outline" className="w-full bg-white/5 hover:bg-[#1877F2]/10 hover:text-[#1877F2] border-white/5 hover:border-[#1877F2]/30 transition-all group" onClick={() => handleSimulatedSocialAuth("Facebook")}>
-                        <i className="fab fa-facebook-f mr-2 text-text-muted group-hover:text-[#1877F2] transition-colors"></i>
-                        <span className="text-sm font-semibold">Facebook</span>
-                    </Button>
-                </div>
-
-                {/* Trust Signals */}
                 <div className="mt-8 pt-6 border-t border-white/5 text-center flex flex-col items-center gap-2">
                     <p className="flex items-center justify-center gap-1.5 text-[12px] font-medium text-text-muted">
                         <ShieldCheck className="w-4 h-4 text-success" />
                         Your data is encrypted and secure
                     </p>
-                    <div className="text-[10px] text-text-muted/50 font-black tracking-widest uppercase mt-0.5">
-                        Trusted by 10,000+ Teams
-                    </div>
                 </div>
             </div>
 
             <p className="text-center text-[15px] font-medium text-text-muted mt-8 mb-4 relative z-10 hidden sm:block">
-                Don't have an account? <Link href="/register" className="text-white relative inline-block group ml-1">
+                Don't have an account?{" "}
+                <Link href="/register" className="text-white relative inline-block group ml-1">
                     Create one free
                     <span className="absolute -bottom-1 left-0 w-0 h-px bg-white group-hover:w-full transition-all duration-300" />
                 </Link>

@@ -5,6 +5,8 @@ import { AuthProvider } from "@/context/AuthContext";
 import { ToastProvider } from "@/components/ui/Toast";
 import { WhatsAppWidget } from "@/components/ui/WhatsAppWidget";
 import { ExitIntentModal } from "@/components/ui/ExitIntentModal";
+import { GoogleOAuthProvider } from "@react-oauth/google";
+
 
 const inter = Inter({
   variable: "--font-inter",
@@ -33,16 +35,19 @@ export default function RootLayout({
         />
       </head>
       <body className={`${inter.variable} antialiased`}>
-        <AuthProvider>
-          <ToastProvider>
-            <div className="bg-noise flex flex-col min-h-screen">
-              {children}
-              <WhatsAppWidget />
-              <ExitIntentModal />
-            </div>
-          </ToastProvider>
-        </AuthProvider>
+        <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || ""}>
+          <AuthProvider>
+            <ToastProvider>
+              <div className="bg-noise flex flex-col min-h-screen">
+                {children}
+                <WhatsAppWidget />
+                <ExitIntentModal />
+              </div>
+            </ToastProvider>
+          </AuthProvider>
+        </GoogleOAuthProvider>
       </body>
     </html>
   );
 }
+
