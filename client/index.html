@@ -4,331 +4,85 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Binary Craft — IT Services & Products | binarycraft4u.com</title>
+    <title>Binary Craft — Digital Products Store</title>
     <meta name="description"
-        content="Binary Craft offers professional web development, software solutions, IT consultancy, and digital products. Empowering your business through technology." />
-    <meta name="keywords" content="IT services, web development, software solutions, IT products, Binary Craft" />
-    <link rel="icon" href="images/favicon.ico" />
+        content="Shop premium IT products, software tools, digital assets, and hosting solutions from Binary Craft." />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     <link rel="stylesheet" href="css/global.css" />
     <link rel="stylesheet" href="css/navbar.css" />
     <link rel="stylesheet" href="css/footer.css" />
     <style>
-        /* ===== HERO ===== */
-        .hero {
-            min-height: 100vh;
-
-            align-items: center;
-            position: relative;
-            overflow: hidden;
-            background: var(--bg-primary);
-            padding-top: 70px;
+        .products-page {
+            padding: 60px 0;
         }
 
-        .hero::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(ellipse 80% 60% at 60% 40%, rgba(0, 212, 255, 0.08) 0%, transparent 60%), radial-gradient(ellipse 50% 50% at 20% 80%, rgba(123, 47, 255, 0.07) 0%, transparent 60%);
-        }
-
-        .hero-grid {
+        .products-layout {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            align-items: center;
-            gap: 60px;
-            position: relative;
+            grid-template-columns: 240px 1fr;
+            gap: 32px;
+            align-items: start;
         }
 
-        .hero-tag {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: var(--primary-glow);
-            border: 1px solid var(--border-glow);
-            color: var(--primary);
-            padding: 8px 18px;
-            border-radius: 20px;
-            font-size: 13px;
-            font-weight: 600;
-            letter-spacing: 0.05em;
-            margin-bottom: 24px;
-        }
-
-        .hero-tag span {
-            width: 8px;
-            height: 8px;
-            background: var(--primary);
-            border-radius: 50%;
-            display: inline-block;
-            animation: pulse 2s infinite;
-        }
-
-        .hero h1 {
-            font-size: clamp(36px, 5.5vw, 64px);
-            font-weight: 900;
-            line-height: 1.1;
-            margin-bottom: 24px;
-            letter-spacing: -0.02em;
-        }
-
-        .hero h1 .gradient {
-            background: var(--grad-primary);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .hero-desc {
-            font-size: 17px;
-            color: var(--text-secondary);
-            line-height: 1.7;
-            margin-bottom: 40px;
-            max-width: 500px;
-        }
-
-        .hero-btns {
-
-            gap: 16px;
-            flex-wrap: wrap;
-            margin-bottom: 48px;
-        }
-
-        .hero-stats {
-
-            gap: 40px;
-        }
-
-        .hero-stat-num {
-            font-size: 28px;
-            font-weight: 800;
-            color: var(--primary);
-            display: block;
-        }
-
-        .hero-stat-label {
-            font-size: 13px;
-            color: var(--text-muted);
-        }
-
-        /* Hero Visual */
-        .hero-visual {
-            position: relative;
-
-            justify-content: center;
-            align-items: center;
-        }
-
-        .hero-card-stack {
-            position: relative;
-            width: 100%;
-            max-width: 420px;
-        }
-
-        .hero-main-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-glow);
-            border-radius: var(--radius-xl);
-            padding: 36px;
-            position: relative;
-            z-index: 2;
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), var(--shadow-glow);
-            animation: float 5s ease-in-out infinite;
-        }
-
-        .hero-main-card::before {
-            content: '';
-            position: absolute;
-            inset: -1px;
-            border-radius: var(--radius-xl);
-            background: var(--grad-primary);
-            z-index: -1;
-            opacity: 0.15;
-        }
-
-        .hero-card-icon {
-            width: 70px;
-            height: 70px;
-            background: var(--grad-primary);
-            border-radius: 18px;
-
-            align-items: center;
-            justify-content: center;
-            font-size: 32px;
-            margin-bottom: 20px;
-            box-shadow: var(--shadow-glow);
-        }
-
-        .hero-card-title {
-            font-size: 22px;
-            font-weight: 700;
-            margin-bottom: 8px;
-        }
-
-        .hero-card-desc {
-            color: var(--text-secondary);
-            font-size: 14px;
-            margin-bottom: 24px;
-            line-height: 1.6;
-        }
-
-        .hero-tech-pills {
-
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-
-        .hero-pill {
-            padding: 6px 12px;
-            background: var(--bg-secondary);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            font-size: 12px;
-            color: var(--text-secondary);
-
-            align-items: center;
-            gap: 6px;
-        }
-
-        .hero-pill .dot {
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background: var(--primary);
-        }
-
-        .hero-float-badge {
-            position: absolute;
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-md);
-            padding: 12px 16px;
-
-            align-items: center;
-            gap: 10px;
-            font-size: 13px;
-            font-weight: 600;
-            z-index: 3;
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            box-shadow: var(--shadow-md);
-        }
-
-        .hero-float-badge.top-right {
-            top: -20px;
-            right: -20px;
-            animation: float 4s ease-in-out 0.5s infinite;
-        }
-
-        .hero-float-badge.bottom-left {
-            bottom: -10px;
-            left: -30px;
-            animation: float 4s ease-in-out 1s infinite;
-        }
-
-        .hero-float-badge i {
-            font-size: 18px;
-            color: var(--primary);
-        }
-
-        /* Particles */
-        .hero-grid-bg {
-            position: absolute;
-            inset: 0;
-            background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px);
-            background-size: 60px 60px;
-            opacity: 0.3;
-            pointer-events: none;
-        }
-
-        /* ===== SERVICES GRID ===== */
-        .services-preview {
-            background: var(--bg-secondary);
-        }
-
-        .service-card {
+        .filter-sidebar {
             background: var(--bg-card);
             border: 1px solid var(--border);
             border-radius: var(--radius-lg);
-            padding: 32px;
-            transition: var(--transition);
-            position: relative;
-            overflow: hidden;
+            padding: 24px;
+            position: sticky;
+            top: 90px;
         }
 
-        .service-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: var(--grad-primary);
-            transform: scaleX(0);
-            transition: var(--transition);
-            transform-origin: left;
-        }
-
-        .service-card:hover {
-            border-color: var(--border-glow);
-            transform: translateY(-6px);
-            box-shadow: var(--shadow-glow);
-        }
-
-        .service-card:hover::before {
-            transform: scaleX(1);
-        }
-
-        .service-icon {
-            width: 60px;
-            height: 60px;
-            border-radius: 16px;
-            background: var(--grad-card);
-            border: 1px solid var(--border);
-
-            align-items: center;
-            justify-content: center;
-            font-size: 26px;
-            margin-bottom: 20px;
-            transition: var(--transition);
-        }
-
-        .service-card:hover .service-icon {
-            background: var(--grad-primary);
-            box-shadow: var(--shadow-glow);
-        }
-
-        .service-name {
-            font-size: 18px;
+        .filter-sidebar h3 {
+            font-size: 16px;
             font-weight: 700;
-            margin-bottom: 10px;
-        }
-
-        .service-desc {
-            color: var(--text-secondary);
-            font-size: 14px;
-            line-height: 1.6;
             margin-bottom: 20px;
         }
 
-        .service-price {
-            font-size: 20px;
-            font-weight: 800;
-            color: var(--primary);
-            margin-bottom: 16px;
-        }
-
-        .service-price span {
-            font-size: 13px;
-            font-weight: 400;
+        .filter-group-title {
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
             color: var(--text-muted);
+            margin-bottom: 12px;
         }
 
-        /* ===== PRODUCT CARDS ===== */
-        .products-preview {
-            background: var(--bg-primary);
+        .filter-group {
+            margin-bottom: 20px;
+        }
+
+        .filter-group label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 7px 0;
+            cursor: pointer;
+            font-size: 14px;
+            color: var(--text-secondary);
+            transition: var(--transition-fast);
+        }
+
+        .filter-group label:hover {
+            color: var(--primary);
+        }
+
+        .filter-group label input {
+            accent-color: var(--primary);
+        }
+
+        .products-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .products-grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
         }
 
         .product-card {
@@ -341,20 +95,18 @@
 
         .product-card:hover {
             border-color: var(--border-glow);
-            transform: translateY(-6px);
+            transform: translateY(-4px);
             box-shadow: var(--shadow-glow);
         }
 
         .product-img {
-            width: 100%;
-            height: 200px;
+            height: 180px;
             background: var(--grad-card);
-
+            display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 48px;
+            font-size: 56px;
             position: relative;
-            overflow: hidden;
         }
 
         .product-img img {
@@ -363,12 +115,24 @@
             object-fit: cover;
         }
 
-        .product-badge-featured {
+        .product-badge-new {
             position: absolute;
-            top: 12px;
-            left: 12px;
-            background: var(--primary);
-            color: #000;
+            top: 10px;
+            right: 10px;
+            background: var(--accent);
+            color: #fff;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .product-badge-sale {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: var(--danger);
+            color: #fff;
             padding: 4px 10px;
             border-radius: 20px;
             font-size: 11px;
@@ -376,33 +140,34 @@
         }
 
         .product-body {
-            padding: 20px;
+            padding: 18px;
         }
 
-        .product-category {
+        .product-cat {
             font-size: 11px;
             text-transform: uppercase;
             letter-spacing: 0.08em;
             color: var(--primary);
-            font-weight: 600;
-            margin-bottom: 8px;
+            font-weight: 700;
+            margin-bottom: 6px;
         }
 
         .product-name {
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 700;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             line-height: 1.3;
         }
 
         .product-desc {
-            color: var(--text-secondary);
             font-size: 13px;
-            margin-bottom: 16px;
+            color: var(--text-secondary);
+            margin-bottom: 14px;
+            line-height: 1.5;
         }
 
         .product-footer {
-
+            display: flex;
             align-items: center;
             justify-content: space-between;
         }
@@ -413,320 +178,37 @@
             color: var(--primary);
         }
 
-        .product-price-original {
-            text-decoration: line-through;
+        .product-old-price {
             font-size: 13px;
             color: var(--text-muted);
-            margin-left: 6px;
+            text-decoration: line-through;
             font-weight: 400;
+            margin-left: 5px;
         }
 
-        .product-actions {
-
-            gap: 8px;
-        }
-
-        /* ===== WHY US ===== */
-        .why-us {
-            background: var(--bg-secondary);
-        }
-
-        .why-card {
-
-            gap: 20px;
-            align-items: flex-start;
-        }
-
-        .why-icon {
-            width: 52px;
-            height: 52px;
-            border-radius: 14px;
-            background: var(--grad-primary);
-
-            align-items: center;
-            justify-content: center;
-            font-size: 22px;
-            flex-shrink: 0;
-            color: #000;
-        }
-
-        .why-title {
-            font-size: 17px;
-            font-weight: 700;
-            margin-bottom: 8px;
-        }
-
-        .why-desc {
-            color: var(--text-secondary);
-            font-size: 14px;
-            line-height: 1.6;
-        }
-
-        /* ===== STATS ===== */
-        .stats-section {
-            background: var(--bg-primary);
-            position: relative;
-        }
-
-        .stats-section::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(ellipse 80% 60% at 50% 50%, rgba(0, 212, 255, 0.05) 0%, transparent 70%);
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 2px;
-            background: var(--border);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-lg);
-            overflow: hidden;
-        }
-
-        .stat-box {
-            background: var(--bg-card);
-            padding: 40px 24px;
-            text-align: center;
-        }
-
-        .stat-number {
-            font-size: clamp(36px, 4vw, 52px);
-            font-weight: 900;
-            background: var(--grad-primary);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            line-height: 1;
-            margin-bottom: 8px;
-        }
-
-        .stat-label {
-            color: var(--text-secondary);
-            font-size: 14px;
-        }
-
-        /* ===== CTA SECTION ===== */
-        .cta-section {
-            background: var(--bg-secondary);
-        }
-
-        .cta-box {
-            background: var(--grad-primary);
-            border-radius: var(--radius-xl);
-            padding: 70px 60px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .cta-box::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(ellipse at 20% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 60%);
-        }
-
-        .cta-box h2 {
-            font-size: clamp(28px, 4vw, 44px);
-            font-weight: 900;
-            color: #fff;
-            margin-bottom: 16px;
-            position: relative;
-        }
-
-        .cta-box p {
-            font-size: 17px;
-            color: rgba(255, 255, 255, 0.85);
-            margin-bottom: 36px;
-            position: relative;
-        }
-
-        .cta-box .btn {
-            background: #fff;
-            color: var(--accent);
-            font-weight: 700;
-            padding: 14px 36px;
-            border: none;
-        }
-
-        .cta-box .btn:hover {
-            background: rgba(255, 255, 255, 0.9);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-        }
-
-        .cta-outline {
-            background: transparent !important;
-            border: 2px solid rgba(255, 255, 255, 0.5) !important;
-            color: #fff !important;
-        }
-
-        .cta-outline:hover {
-            border-color: rgba(255, 255, 255, 0.9) !important;
-            background: rgba(255, 255, 255, 0.1) !important;
-        }
-
-        /* ===== TESTIMONIALS ===== */
-        .testimonials {
-            background: var(--bg-primary);
-        }
-
-        .testimonial-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-lg);
-            padding: 28px;
-            transition: var(--transition);
-        }
-
-        .testimonial-card:hover {
-            border-color: var(--border-glow);
-        }
-
-        .testimonial-stars {
-            color: var(--warning);
-            font-size: 14px;
-            margin-bottom: 14px;
-        }
-
-        .testimonial-text {
-            color: var(--text-secondary);
-            font-size: 14px;
-            line-height: 1.7;
-            margin-bottom: 20px;
-            font-style: italic;
-        }
-
-        .testimonial-author {
-
-            align-items: center;
-            gap: 12px;
-        }
-
-        .testimonial-avatar {
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            background: var(--grad-primary);
-
-            align-items: center;
-            justify-content: center;
-            font-size: 18px;
-            font-weight: 700;
-            color: #000;
-        }
-
-        .testimonial-name {
-            font-weight: 700;
-            font-size: 15px;
-        }
-
-        .testimonial-role {
-            font-size: 12px;
-            color: var(--text-muted);
-        }
-
-        /* ===== BLOG PREVIEW ===== */
-        .blog-preview {
-            background: var(--bg-secondary);
-        }
-
-        .blog-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-lg);
-            overflow: hidden;
-            transition: var(--transition);
-        }
-
-        .blog-card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-glow);
-            border-color: var(--border-glow);
-        }
-
-        .blog-img {
-            height: 180px;
-            background: var(--grad-card);
-
-            align-items: center;
-            justify-content: center;
-            font-size: 40px;
-        }
-
-        .blog-body {
-            padding: 20px;
-        }
-
-        .blog-tag {
-            font-size: 11px;
-            text-transform: uppercase;
-            color: var(--primary);
-            font-weight: 600;
-            letter-spacing: 0.08em;
-            margin-bottom: 8px;
-        }
-
-        .blog-title {
-            font-size: 16px;
-            font-weight: 700;
-            margin-bottom: 10px;
-            line-height: 1.4;
-        }
-
-        .blog-title a {
-            color: var(--text-primary);
-            text-decoration: none;
-            transition: var(--transition-fast);
-        }
-
-        .blog-title a:hover {
-            color: var(--primary);
-        }
-
-        .blog-meta {
-            font-size: 12px;
-            color: var(--text-muted);
-        }
-
-        @media(max-width:900px) {
-            .hero-grid {
+        @media(max-width:1000px) {
+            .products-layout {
                 grid-template-columns: 1fr;
             }
 
-            .hero-visual {
-                display: none;
+            .filter-sidebar {
+                position: static;
             }
 
-            .stats-grid {
+            .products-grid-3 {
                 grid-template-columns: repeat(2, 1fr);
             }
         }
 
         @media(max-width:560px) {
-            .stats-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-
-            .cta-box {
-                padding: 40px 24px;
-            }
-
-            .hero-btns {
-                flex-direction: column;
-            }
-
-            .hero-stats {
-                gap: 20px;
+            .products-grid-3 {
+                grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 
 <body>
-    <!-- NAVBAR -->
     <nav class="navbar" id="navbar">
         <div class="nav-container">
             <a href="index.html" class="nav-logo"><img src="images/logo.png" alt="Binary Craft Logo"
@@ -740,544 +222,158 @@
                 <li><a href="contact.html">Contact</a></li>
             </ul>
             <div class="nav-actions" id="nav-auth">
-                <a href="cart.html" class="cart-btn" title="Cart"><i class="fas fa-shopping-cart"></i></a>
+                <a href="cart.html" class="cart-btn"><i class="fas fa-shopping-cart"></i><span class="cart-badge"
+                        id="cart-badge" style="display:none">0</span></a>
                 <a href="login.html" class="btn btn-outline btn-sm">Login</a>
                 <a href="register.html" class="btn btn-primary btn-sm">Get Started</a>
             </div>
-            <div class="nav-hamburger" id="nav-hamburger">
-                <span></span><span></span><span></span>
-            </div>
+            <div class="nav-hamburger" id="nav-hamburger"><span></span><span></span><span></span></div>
         </div>
     </nav>
 
-    <!-- HERO -->
-    <section class="hero">
-        <div class="hero-grid-bg"></div>
+    <div class="page-hero">
         <div class="container">
-            <div class="hero-grid">
-                <div class="hero-content animate-fadeInUp">
-                    <div class="hero-tag">
-                        <span></span>
-                        <i class="fas fa-bolt" style="color:var(--primary); margin-right: 4px;"></i> Premium IT
-                        Solutions Partner
+            <h1>Digital <span
+                    style="background:var(--grad-primary);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">Products
+                    Store</span></h1>
+            <p>Premium IT tools, software, and digital products for professionals</p>
+            <div class="breadcrumb"><a href="index.html">Home</a><span>/</span><span>Products</span></div>
+        </div>
+    </div>
+
+    <section class="products-page">
+        <div class="container">
+            <div class="products-layout">
+                <aside class="filter-sidebar">
+                    <h3>🔍 Filter</h3>
+                    <div class="filter-group">
+                        <div class="filter-group-title">Category</div>
+                        <label><input type="radio" name="cat" value="" checked onchange="filterProducts(this.value)">
+                            All Products</label>
+                        <label><input type="radio" name="cat" value="template" onchange="filterProducts(this.value)">
+                            Templates</label>
+                        <label><input type="radio" name="cat" value="software" onchange="filterProducts(this.value)">
+                            Software</label>
+                        <label><input type="radio" name="cat" value="security" onchange="filterProducts(this.value)">
+                            Security</label>
+                        <label><input type="radio" name="cat" value="hosting" onchange="filterProducts(this.value)">
+                            Hosting</label>
+                        <label><input type="radio" name="cat" value="design" onchange="filterProducts(this.value)">
+                            Design Assets</label>
+                        <label><input type="radio" name="cat" value="tools" onchange="filterProducts(this.value)"> Dev
+                            Tools</label>
                     </div>
-                    <h1>
-                        Build Your Business<br>
-                        With <span class="gradient"
-                            style="background: var(--grad-primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; animation: gradientShift 5s ease infinite; background-size: 200% 200%;">Binary
-                            Craft</span><br>
-                        Technology
-                    </h1>
-                    <p class="hero-desc">
-                        We deliver cutting-edge web development, AI automation, and scalable cloud solutions to help you
-                        dominate the digital landscape.
-                    </p>
-                    <div class="hero-btns">
-                        <a href="services.html" class="btn btn-primary">Explore Services <i
-                                class="fas fa-arrow-right"></i></a>
-                        <a href="products.html" class="btn btn-outline">View Products</a>
+                    <div class="divider"></div>
+                    <div class="filter-group">
+                        <div class="filter-group-title">Sort By</div>
+                        <select class="form-input" onchange="sortProducts(this.value)">
+                            <option value="newest">Newest First</option>
+                            <option value="price-low">Price: Low to High</option>
+                            <option value="price-high">Price: High to Low</option>
+                            <option value="popular">Most Popular</option>
+                        </select>
                     </div>
-                    <div class="hero-stats">
-                        <div>
-                            <span class="hero-stat-num" data-target="150">0+</span>
-                            <span class="hero-stat-label">Projects Delivered</span>
-                        </div>
-                        <div>
-                            <span class="hero-stat-num" data-target="98">0%</span>
-                            <span class="hero-stat-label">Client Satisfaction</span>
-                        </div>
-                        <div>
-                            <span class="hero-stat-num" data-target="5">0+</span>
-                            <span class="hero-stat-label">Years Experience</span>
-                        </div>
+                    <button class="btn btn-outline btn-sm" style="width:100%;justify-content:center;margin-top:8px"
+                        onclick="clearFilters()">Clear Filters</button>
+                </aside>
+
+                <div>
+                    <div class="products-header">
+                        <div><input type="text" class="form-input" id="search-input" placeholder="🔍 Search products..."
+                                style="width:280px" oninput="searchProducts(this.value)" /></div>
+                        <div id="products-count" style="font-size:14px;color:var(--text-muted)"></div>
                     </div>
-                </div>
-                <div class="hero-visual animate-fadeInUp delay-2">
-                    <div class="hero-card-stack">
-                        <div class="hero-float-badge top-right">
-                            <i class="fas fa-robot"></i> AI Powered
-                        </div>
-                        <div class="hero-main-card">
-                            <div class="hero-card-icon"><i class="fas fa-code" style="color:#fff"></i></div>
-                            <div class="hero-card-title">Full-Stack Development</div>
-                            <div class="hero-card-desc">Professional web & software development using modern
-                                technologies to bring your ideas to life.</div>
-                            <div class="hero-tech-pills">
-                                <div class="hero-pill"><span class="dot"></span>React / Next.js</div>
-                                <div class="hero-pill"><span class="dot"></span>Node.js</div>
-                                <div class="hero-pill"><span class="dot"></span>Cloud / AWS</div>
-                                <div class="hero-pill"><span class="dot"></span>OpenAI API</div>
-                            </div>
-                        </div>
-                        <div class="hero-float-badge bottom-left">
-                            <i class="fas fa-shield-alt"></i> Enterprise Security
-                        </div>
-                    </div>
+                    <div class="products-grid-3" id="products-grid"></div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- FEATURED SERVICES -->
-    <section class="services-preview">
-        <div class="container">
-            <div class="section-header">
-                <div class="section-tag">Our Services</div>
-                <h2 class="section-title">What <span>We Offer</span></h2>
-                <p class="section-subtitle">From idea to deployment — we handle everything your business needs in the
-                    digital world.</p>
-            </div>
-            <div class="grid-3" id="services-grid">
-                <div class="service-card animate-fadeInUp delay-1">
-                    <div class="service-icon"><i class="fas fa-laptop-code" style="color:var(--text-white)"></i></div>
-                    <h3 class="service-name">Web Development</h3>
-                    <p class="service-desc">Custom, responsive websites and web apps built with modern frameworks and
-                        best practices.</p>
-                    <div class="service-price">From $149 <span>/ project</span></div>
-                    <div class="hero-tech-pills" style="margin-top: 16px; margin-bottom: 20px;">
-                        <div class="hero-pill"><span class="dot" style="background:var(--primary)"></span>React</div>
-                        <div class="hero-pill"><span class="dot" style="background:var(--success)"></span>Node.js</div>
-                    </div>
-                    <a href="services.html" class="btn btn-outline btn-sm">Learn More <i
-                            class="fas fa-arrow-right"></i></a>
-                </div>
-                <div class="service-card animate-fadeInUp delay-2">
-                    <div class="service-icon"><i class="fas fa-mobile-alt" style="color:var(--text-white)"></i></div>
-                    <h3 class="service-name">Mobile App Development</h3>
-                    <p class="service-desc">Cross-platform mobile applications with seamless UX for iOS and Android
-                        platforms.</p>
-                    <div class="service-price">From $299 <span>/ project</span></div>
-                    <div class="hero-tech-pills" style="margin-top: 16px; margin-bottom: 20px;">
-                        <div class="hero-pill"><span class="dot" style="background:var(--primary)"></span>React Native
-                        </div>
-                    </div>
-                    <a href="services.html" class="btn btn-outline btn-sm">Learn More <i
-                            class="fas fa-arrow-right"></i></a>
-                </div>
-                <div class="service-card animate-fadeInUp delay-3">
-                    <div class="service-icon"><i class="fas fa-brain" style="color:var(--text-white)"></i></div>
-                    <h3 class="service-name">AI & Cloud Automation</h3>
-                    <p class="service-desc">Reliable cloud hosting, DevOps solutions, and LLM automation for your
-                        infrastructure.</p>
-                    <div class="service-price">From $29 <span>/ month</span></div>
-                    <div class="hero-tech-pills" style="margin-top: 16px; margin-bottom: 20px;">
-                        <div class="hero-pill"><span class="dot" style="background:var(--accent)"></span>AWS</div>
-                        <div class="hero-pill"><span class="dot" style="background:var(--warning)"></span>OpenAI</div>
-                    </div>
-                    <a href="services.html" class="btn btn-outline btn-sm">Learn More <i
-                            class="fas fa-arrow-right"></i></a>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon"><i class="fas fa-robot" style="color:var(--text-white)"></i></div>
-                    <div class="service-name">AI Integration</div>
-                    <div class="service-desc">Integrate cutting-edge AI and machine learning solutions into your
-                        business workflows.</div>
-                    <div class="service-price">From $399 <span>/ project</span></div>
-                    <a href="services.html" class="btn btn-outline btn-sm">Learn More <i
-                            class="fas fa-arrow-right"></i></a>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon"><i class="fas fa-chart-line" style="color:var(--text-white)"></i></div>
-                    <div class="service-name">IT Consultancy</div>
-                    <div class="service-desc">Expert IT consulting to drive your digital transformation strategy and
-                        tech roadmap.</div>
-                    <div class="service-price">From $99 <span>/ hour</span></div>
-                    <a href="services.html" class="btn btn-outline btn-sm">Learn More <i
-                            class="fas fa-arrow-right"></i></a>
-                </div>
-            </div>
-            <div style="text-align:center;margin-top:40px">
-                <a href="services.html" class="btn btn-primary">View All Services <i class="fas fa-arrow-right"></i></a>
-            </div>
-        </div>
-    </section>
-
-    <!-- FEATURED PRODUCTS -->
-    <section class="products-preview">
-        <div class="container">
-            <div class="section-header">
-                <div class="section-tag">Digital Store</div>
-                <h2 class="section-title">Featured <span>Products</span></h2>
-                <p class="section-subtitle">Premium IT tools, software licenses, and digital products to power your
-                    work.</p>
-            </div>
-            <div class="grid-4" id="products-grid">
-                <div class="product-card">
-                    <div class="product-img"><i class="fas fa-box" style="color: var(--primary)"></i>
-                        <span class="product-badge-featured">Featured</span>
-                    </div>
-                    <div class="product-body">
-                        <div class="product-category">Software</div>
-                        <div class="product-name">Pro Website Template Bundle</div>
-                        <div class="product-desc">10 premium HTML templates for business use.</div>
-                        <div class="product-footer">
-                            <div><span class="product-price">$49</span><span class="product-price-original">$99</span>
-                            </div>
-                            <div class="product-actions">
-                                <button class="btn btn-primary btn-sm"
-                                    onclick="addToCart('t1','product','Pro Template Bundle',49,'<i class=\'fas fa-box\'></i>')">
-                                    <i class="fas fa-cart-plus"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="product-card">
-                    <div class="product-img">🛡️</div>
-                    <div class="product-body">
-                        <div class="product-category">Security</div>
-                        <div class="product-name">SSL Certificate (1 Year)</div>
-                        <div class="product-desc">Wildcard SSL certificate for complete domain security.</div>
-                        <div class="product-footer">
-                            <div><span class="product-price">$29</span></div>
-                            <div class="product-actions">
-                                <button class="btn btn-primary btn-sm"
-                                    onclick="addToCart('t2','product','SSL Certificate',29,'🛡️')">
-                                    <i class="fas fa-cart-plus"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="product-card">
-                    <div class="product-img"><i class="fas fa-bolt" style="color: var(--primary)"></i></div>
-                    <div class="product-body">
-                        <div class="product-category">Hosting</div>
-                        <div class="product-name">VPS Hosting Plan</div>
-                        <div class="product-desc">High-performance VPS with NVMe SSD and 99.9% uptime.</div>
-                        <div class="product-footer">
-                            <div><span class="product-price">$19</span><small
-                                    style="color:var(--text-muted)">/mo</small></div>
-                            <div class="product-actions">
-                                <button class="btn btn-primary btn-sm"
-                                    onclick="addToCart('t3','product','VPS Hosting',19,'<i class=\'fas fa-bolt\'></i>')">
-                                    <i class="fas fa-cart-plus"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="product-card">
-                    <div class="product-img">🎨</div>
-                    <div class="product-body">
-                        <div class="product-category">Design</div>
-                        <div class="product-name">UI Kit Pro — 500+ Components</div>
-                        <div class="product-desc">Complete design system with Figma & HTML files.</div>
-                        <div class="product-footer">
-                            <div><span class="product-price">$39</span><span class="product-price-original">$79</span>
-                            </div>
-                            <div class="product-actions">
-                                <button class="btn btn-primary btn-sm"
-                                    onclick="addToCart('t4','product','UI Kit Pro',39,'🎨')">
-                                    <i class="fas fa-cart-plus"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div style="text-align:center;margin-top:40px">
-                <a href="products.html" class="btn btn-outline">View All Products <i class="fas fa-arrow-right"></i></a>
-            </div>
-        </div>
-    </section>
-
-    <!-- STATS -->
-    <section class="stats-section">
-        <div class="container">
-            <div class="stats-grid">
-                <div class="stat-box">
-                    <div class="stat-number" data-count="150">150+</div>
-                    <div class="stat-label">Projects Completed</div>
-                </div>
-                <div class="stat-box">
-                    <div class="stat-number" data-count="120">120+</div>
-                    <div class="stat-label">Happy Clients</div>
-                </div>
-                <div class="stat-box">
-                    <div class="stat-number" data-count="50">50+</div>
-                    <div class="stat-label">Digital Products</div>
-                </div>
-                <div class="stat-box">
-                    <div class="stat-number" data-count="5">5+</div>
-                    <div class="stat-label">Years Experience</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- WHY US -->
-    <section class="why-us">
-        <div class="container">
-            <div class="section-header">
-                <div class="section-tag">Why Binary Craft</div>
-                <h2 class="section-title">Why Choose <span>Us</span></h2>
-                <p class="section-subtitle">We combine expertise with passion to deliver results that truly matter to
-                    your business.</p>
-            </div>
-            <div class="grid-3">
-                <div class="why-card">
-                    <div class="why-icon"><i class="fas fa-bolt"></i></div>
-                    <div>
-                        <div class="why-title">Fast Delivery</div>
-                        <div class="why-desc">We respect your timeline. Projects are delivered on schedule without
-                            compromising on quality.</div>
-                    </div>
-                </div>
-                <div class="why-card">
-                    <div class="why-icon"><i class="fas fa-trophy"></i></div>
-                    <div>
-                        <div class="why-title">Quality Guaranteed</div>
-                        <div class="why-desc">Every project goes through rigorous testing and quality assurance before
-                            handoff.</div>
-                    </div>
-                </div>
-                <div class="why-card">
-                    <div class="why-icon"><i class="fas fa-comments"></i></div>
-                    <div>
-                        <div class="why-title">24/7 Support</div>
-                        <div class="why-desc">Our dedicated support team is available around the clock for any questions
-                            or issues.</div>
-                    </div>
-                </div>
-                <div class="why-card">
-                    <div class="why-icon"><i class="fas fa-lock"></i></div>
-                    <div>
-                        <div class="why-title">Secure & Reliable</div>
-                        <div class="why-desc">Industry-standard security practices ensure your project is safe and data
-                            is protected.</div>
-                    </div>
-                </div>
-                <div class="why-card">
-                    <div class="why-icon"><i class="fas fa-lightbulb"></i></div>
-                    <div>
-                        <div class="why-title">Innovative Solutions</div>
-                        <div class="why-desc">We stay ahead of technology trends to offer you the most modern and
-                            effective solutions.</div>
-                    </div>
-                </div>
-                <div class="why-card">
-                    <div class="why-icon"><i class="fas fa-wallet"></i></div>
-                    <div>
-                        <div class="why-title">Affordable Pricing</div>
-                        <div class="why-desc">Premium quality at competitive rates — perfect for startups and enterprise
-                            clients alike.</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- TESTIMONIALS -->
-    <section class="testimonials">
-        <div class="container">
-            <div class="section-header">
-                <div class="section-tag">Testimonials</div>
-                <h2 class="section-title">What Clients <span>Say</span></h2>
-            </div>
-            <div class="grid-3">
-                <div class="testimonial-card">
-                    <div class="testimonial-stars">★★★★★</div>
-                    <div class="testimonial-text">"Binary Craft built our e-commerce website from scratch. The result
-                        was stunning and we saw a 200% increase in online sales within 3 months."</div>
-                    <div class="testimonial-author">
-                        <div class="testimonial-avatar">R</div>
-                        <div>
-                            <div class="testimonial-name">Rafiq Ahmed</div>
-                            <div class="testimonial-role">CEO, TechMart</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-stars">★★★★★</div>
-                    <div class="testimonial-text">"Professional team, on-time delivery, and outstanding support. Our
-                        mobile app has 10k+ downloads thanks to their excellent work."</div>
-                    <div class="testimonial-author">
-                        <div class="testimonial-avatar">S</div>
-                        <div>
-                            <div class="testimonial-name">Salma Khatun</div>
-                            <div class="testimonial-role">Founder, AppVision</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-stars">★★★★★</div>
-                    <div class="testimonial-text">"IT consultancy from Binary Craft transformed our operations. They
-                        understood our business needs perfectly and delivered beyond expectations."</div>
-                    <div class="testimonial-author">
-                        <div class="testimonial-avatar">K</div>
-                        <div>
-                            <div class="testimonial-name">Kamal Hossain</div>
-                            <div class="testimonial-role">Director, DataFlow BD</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- BLOG PREVIEW -->
-    <section class="blog-preview">
-        <div class="container">
-            <div class="section-header">
-                <div class="section-tag">Tech Blog</div>
-                <h2 class="section-title">Latest <span>Articles</span></h2>
-                <p class="section-subtitle">Stay updated with the latest technology news, tutorials, and IT insights.
-                </p>
-            </div>
-            <div class="grid-3">
-                <div class="blog-card">
-                    <div class="blog-img">📝</div>
-                    <div class="blog-body">
-                        <div class="blog-tag">Web Dev</div>
-                        <div class="blog-title"><a href="blog.html">Top 10 Web Development Trends in 2025</a></div>
-                        <div class="blog-meta">Feb 20, 2026 · 5 min read</div>
-                    </div>
-                </div>
-                <div class="blog-card">
-                    <div class="blog-img">🔐</div>
-                    <div class="blog-body">
-                        <div class="blog-tag">Security</div>
-                        <div class="blog-title"><a href="blog.html">How to Secure Your Web Application</a></div>
-                        <div class="blog-meta">Feb 18, 2026 · 7 min read</div>
-                    </div>
-                </div>
-                <div class="blog-card">
-                    <div class="blog-img"><i class="fas fa-robot" style="color: var(--primary)"></i></div>
-                    <div class="blog-body">
-                        <div class="blog-tag">AI</div>
-                        <div class="blog-title"><a href="blog.html">How AI is Transforming Software Development</a>
-                        </div>
-                        <div class="blog-meta">Feb 15, 2026 · 6 min read</div>
-                    </div>
-                </div>
-            </div>
-            <div style="text-align:center;margin-top:40px">
-                <a href="blog.html" class="btn btn-outline">Read All Articles <i class="fas fa-arrow-right"></i></a>
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA -->
-    <section class="cta-section">
-        <div class="container">
-            <div class="cta-box">
-                <h2>Ready to Build Something Amazing?</h2>
-                <p>Let's work together to create a digital solution that drives your business forward.</p>
-                <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap">
-                    <a href="contact.html" class="btn">Get Free Consultation <i class="fas fa-arrow-right"></i></a>
-                    <a href="services.html" class="btn cta-outline">View Services</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- FOOTER -->
     <footer class="footer">
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-brand">
-                    <a href="index.html" class="nav-logo"><img src="images/logo.png" alt="Binary Craft Logo"
-                            style="height: 40px; margin-right: 12px;" /></a>
-                    <p>Empowering businesses through innovative technology solutions. From web development to IT
-                        consultancy, we are your trusted digital partner.</p>
-                    <div class="social-links">
-                        <a href="https://www.facebook.com/profile.php?id=61555248187121" target="_blank"
-                            class="social-link"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-github"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
-                    </div>
-                </div>
-                <div class="footer-col">
-                    <h4>Services</h4>
-                    <ul>
-                        <li><a href="services.html"><i class="fas fa-chevron-right"></i> Web Development</a></li>
-                        <li><a href="services.html"><i class="fas fa-chevron-right"></i> Mobile Apps</a></li>
-                        <li><a href="services.html"><i class="fas fa-chevron-right"></i> Cloud Hosting</a></li>
-                        <li><a href="services.html"><i class="fas fa-chevron-right"></i> Cybersecurity</a></li>
-                        <li><a href="services.html"><i class="fas fa-chevron-right"></i> IT Consultancy</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <h4>Quick Links</h4>
-                    <ul>
-                        <li><a href="about.html"><i class="fas fa-chevron-right"></i> About Us</a></li>
-                        <li><a href="products.html"><i class="fas fa-chevron-right"></i> Products</a></li>
-                        <li><a href="blog.html"><i class="fas fa-chevron-right"></i> Blog</a></li>
-                        <li><a href="contact.html"><i class="fas fa-chevron-right"></i> Contact</a></li>
-                        <li><a href="login.html"><i class="fas fa-chevron-right"></i> Login / Register</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <h4>Contact Us</h4>
-                    <div class="footer-contact-item"><i class="fas fa-envelope"></i> raseloffcial89@gmail.com</div>
-                    <div class="footer-contact-item"><i class="fas fa-phone"></i> 01569150874</div>
-                    <div class="footer-contact-item"><i class="fas fa-map-marker-alt"></i> Dhaka, Bangladesh</div>
-                    <div class="footer-newsletter" style="margin-top:16px">
-                        <p style="font-size:13px;font-weight:600;color:var(--text-primary);margin-bottom:12px">📧
-                            Newsletter</p>
-                        <input type="email" placeholder="Enter your email" id="newsletter-email" />
-                        <button class="btn btn-primary" onclick="subscribeNewsletter()">Subscribe</button>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>© 2026 <span>Binary Craft</span>. All rights reserved. Crafted with ❤️ in Bangladesh.</p>
-                <div class="footer-bottom-links">
-                    <a href="#">Privacy Policy</a>
-                    <a href="#">Terms of Service</a>
-                    <a href="#">Refund Policy</a>
-                </div>
-            </div>
+        <div class="container" style="padding:40px 24px;border-top:1px solid var(--border);text-align:center">
+            <p style="color:var(--text-muted);font-size:14px">© 2026 <span style="color:var(--primary)">Binary
+                    Craft</span>. All rights reserved.</p>
         </div>
     </footer>
-
-    <a href="#" class="back-to-top" id="back-to-top">↑</a>
 
     <script src="js/api.js?v=2"></script>
     <script src="js/auth.js"></script>
     <script>
-        // Navbar scroll
-        window.addEventListener('scroll', () => {
-            const nav = document.getElementById('navbar');
-            const btn = document.getElementById('back-to-top');
-            nav.classList.toggle('scrolled', window.scrollY > 50);
-            btn.classList.toggle('visible', window.scrollY > 300);
-        });
+        const PRODUCTS = [
+            { id: 'p1', icon: '<i class=\'fas fa-box\'></i>', name: 'Pro Website Template Bundle', cat: 'template', price: 49, oldPrice: 99, desc: '10 premium responsive HTML/CSS templates for business websites.', badge: 'Sale', popular: 95 },
+            { id: 'p2', icon: '🛡️', name: 'SSL Certificate (1 Year)', cat: 'security', price: 29, desc: 'Domain-validated SSL certificate for complete HTTPS security.', popular: 88 },
+            { id: 'p3', icon: '<i class=\'fas fa-bolt\'></i>', name: 'VPS Hosting Starter Plan', cat: 'hosting', price: 19, suffix: '/mo', desc: '2 vCPU, 4GB RAM, 80GB NVMe SSD. Perfect for small projects.', popular: 92 },
+            { id: 'p4', icon: '🎨', name: 'UI Kit Pro — 500+ Components', cat: 'design', price: 39, oldPrice: 79, desc: 'Complete Figma & HTML design system with 500+ reusable components.', badge: 'Sale', popular: 90 },
+            { id: 'p5', icon: '🔑', name: 'cPanel Web Hosting (1 Year)', cat: 'hosting', price: 59, desc: 'Unlimited bandwidth, 10GB storage, free domain for 1 year.', badge: 'New', popular: 75 },
+            { id: 'p6', icon: '🛠️', name: 'Dev Toolkit Pro', cat: 'tools', price: 35, desc: 'Collection of 50+ developer tools, scripts, and productivity boosters.', popular: 80 },
+            { id: 'p7', icon: '<i class=\'fas fa-mobile-alt\'></i>', name: 'React Native Starter Kit', cat: 'software', price: 79, desc: 'Production-ready React Native boilerplate with auth, navigation, and API setup.', badge: 'New', popular: 85 },
+            { id: 'p8', icon: '<i class=\'fas fa-chart-bar\'></i>', name: 'Admin Dashboard Template', cat: 'template', price: 29, desc: 'Beautiful dark-themed admin panel template with charts and data tables.', popular: 82 },
+            { id: 'p9', icon: '<i class=\'fas fa-robot\'></i>', name: 'AI Chatbot Widget', cat: 'software', price: 99, desc: 'Embed an AI chatbot on any website. GPT-powered with customizable UI.', badge: 'New', popular: 93 },
+            { id: 'p10', icon: '🎯', name: 'SEO Mega Toolkit', cat: 'tools', price: 45, oldPrice: 89, desc: 'Complete SEO audit tools, keyword research scripts, and rank tracking.', badge: 'Sale', popular: 78 },
+            { id: 'p11', icon: '<i class=\'fas fa-lock\'></i>', name: 'Firewall Config Bundle', cat: 'security', price: 39, desc: 'Pre-configured server firewall rules and security scripts for Linux servers.', popular: 70 },
+            { id: 'p12', icon: '🖼️', name: 'Icon Pack — 2000+ Icons', cat: 'design', price: 19, oldPrice: 39, desc: 'Pixel-perfect SVG icons in 8 styles. For web, apps, and presentations.', badge: 'Sale', popular: 86 },
+        ];
 
-        // Hamburger
-        document.getElementById('nav-hamburger').addEventListener('click', function () {
-            this.classList.toggle('active');
-            document.getElementById('nav-links').classList.toggle('open');
-        });
+        let currentList = [...PRODUCTS];
 
-        // Add to cart (homepage demo)
-        function addToCart(id, type, title, price, image) {
-            if (!Auth.isLoggedIn()) {
-                showToast('Please login to add items to cart', 'info');
-                setTimeout(() => window.location.href = 'login.html', 1500);
-                return;
-            }
+        function renderProducts(list) {
+            const grid = document.getElementById('products-grid');
+            document.getElementById('products-count').textContent = `${list.length} product${list.length !== 1 ? 's' : ''} found`;
+            if (list.length === 0) { grid.innerHTML = '<div style="text-align:center;padding:60px;color:var(--text-muted);grid-column:1/-1">No products found.</div>'; return; }
+            grid.innerHTML = list.map(p => `
+        <div class="product-card animate-fadeInUp">
+          <div class="product-img">${p.icon}
+            ${p.badge === 'New' ? '<span class="product-badge-new">NEW</span>' : ''}
+            ${p.badge === 'Sale' ? '<span class="product-badge-sale">SALE</span>' : ''}
+          </div>
+          <div class="product-body">
+            <div class="product-cat">${p.cat.toUpperCase()}</div>
+            <div class="product-name">${p.name}</div>
+            <div class="product-desc">${p.desc}</div>
+            <div class="product-footer">
+              <div><span class="product-price">$${p.price}${p.suffix || ''}</span>${p.oldPrice ? `<span class="product-old-price">$${p.oldPrice}</span>` : ''}</div>
+              <button class="btn btn-primary btn-sm" onclick="addToCart('${p.id}','${p.name}',${p.price},'${p.icon}')">
+                <i class="fas fa-cart-plus"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+        }
+
+        function filterProducts(cat) { currentList = cat ? PRODUCTS.filter(p => p.cat === cat) : [...PRODUCTS]; renderProducts(currentList); }
+        function sortProducts(by) {
+            let list = [...currentList];
+            if (by === 'price-low') list.sort((a, b) => a.price - b.price);
+            else if (by === 'price-high') list.sort((a, b) => b.price - a.price);
+            else if (by === 'popular') list.sort((a, b) => b.popular - a.popular);
+            renderProducts(list);
+        }
+        function searchProducts(q) {
+            const list = PRODUCTS.filter(p => p.name.toLowerCase().includes(q.toLowerCase()) || p.desc.toLowerCase().includes(q.toLowerCase()));
+            renderProducts(list);
+        }
+        function clearFilters() {
+            document.querySelectorAll('input[name=cat]').forEach(r => r.checked = r.value === '');
+            document.getElementById('search-input').value = '';
+            currentList = [...PRODUCTS]; renderProducts(PRODUCTS);
+        }
+        function addToCart(id, name, price, icon) {
+            if (!Auth.isLoggedIn()) { showToast('Please login to add to cart', 'info'); setTimeout(() => window.location.href = 'login.html', 1500); return; }
             const cartItems = JSON.parse(localStorage.getItem('bc_cart_local') || '[]');
             const existing = cartItems.find(i => i.id === id);
-            if (existing) { existing.qty++; }
-            else { cartItems.push({ id, type, title, price, image, qty: 1 }); }
+            if (existing) { existing.qty++; } else { cartItems.push({ id, type: 'product', title: name, price, image: icon, qty: 1 }); }
             localStorage.setItem('bc_cart_local', JSON.stringify(cartItems));
             const count = cartItems.reduce((s, i) => s + i.qty, 0);
             localStorage.setItem('bc_cart_count', count);
             const badge = document.getElementById('cart-badge');
-            if (badge) { badge.textContent = count; badge.style.display = 'flex'; }
-            showToast(`"${title}" added to cart! 🛒`, 'success');
+            badge.textContent = count; badge.style.display = 'flex';
+            showToast(`"${name}" added to cart! 🛒`, 'success');
         }
 
-        function subscribeNewsletter() {
-            const email = document.getElementById('newsletter-email').value;
-            if (!email) return showToast('Please enter your email', 'error');
-            showToast('Subscribed successfully! 🎉', 'success');
-            document.getElementById('newsletter-email').value = '';
-        }
+        renderProducts(PRODUCTS);
+        window.addEventListener('scroll', () => document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50));
+        document.getElementById('nav-hamburger').addEventListener('click', function () { this.classList.toggle('active'); document.getElementById('nav-links').classList.toggle('open'); });
     </script>
 </body>
 

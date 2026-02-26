@@ -377,6 +377,8 @@
     <script src="js/api.js?v=2"></script>
     <script src="js/auth.js"></script>
     <script>
+        if (!Auth.isLoggedIn()) { window.location.href = 'login.html?redirect=order-history.html'; }
+
         if (Auth.isLoggedIn()) {
             const user = Auth.getUser();
             document.getElementById('sidebar-name').textContent = user.name;

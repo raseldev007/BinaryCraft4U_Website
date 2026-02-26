@@ -19,17 +19,17 @@ const Auth = {
         localStorage.removeItem(USER_KEY);
         localStorage.removeItem('bc_cart_count');
         showToast('Logged out successfully', 'info');
-        setTimeout(() => window.location.href = '/index.html', 800);
+        setTimeout(() => window.location.href = 'index.html', 800);
     },
     requireAuth: () => {
         if (!Auth.isLoggedIn()) {
-            window.location.href = '/login.html?redirect=' + encodeURIComponent(window.location.pathname);
+            window.location.href = 'login.html?redirect=' + encodeURIComponent(window.location.pathname);
             return false;
         }
         return true;
     },
     requireAdmin: () => {
-        if (!Auth.isAdmin()) { window.location.href = '/index.html'; return false; }
+        if (!Auth.isAdmin()) { window.location.href = 'index.html'; return false; }
         return true;
     }
 };

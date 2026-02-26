@@ -507,6 +507,8 @@
     <script src="js/api.js?v=2"></script>
     <script src="js/auth.js"></script>
     <script>
+        if (!Auth.isLoggedIn()) { window.location.href = 'login.html?redirect=cart.html'; }
+
         let cartItems = JSON.parse(localStorage.getItem('bc_cart_local') || '[]');
 
         if (Auth.isLoggedIn()) {

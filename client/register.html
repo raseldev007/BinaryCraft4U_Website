@@ -4,32 +4,33 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Register — Binary Craft</title>
+    <title>Create Account — Binary Craft</title>
+    <meta name="description" content="Create your free Binary Craft account to access services and products." />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     <link rel="stylesheet" href="css/global.css" />
     <link rel="stylesheet" href="css/navbar.css" />
     <style>
         .auth-page {
             min-height: 100vh;
-            
+            display: flex;
             align-items: center;
             justify-content: center;
-            padding: 100px 20px 40px;
-            background: var(--bg-primary);
+            padding: 20px;
             position: relative;
+            background: var(--bg-primary);
         }
 
         .auth-page::before {
             content: '';
             position: absolute;
             inset: 0;
-            background: radial-gradient(ellipse 60% 60% at 50% 50%, rgba(123, 47, 255, 0.06) 0%, transparent 60%);
+            background: radial-gradient(ellipse 60% 60% at 50% 50%, rgba(0, 212, 255, 0.06) 0%, transparent 60%);
             pointer-events: none;
         }
 
         .auth-box {
             width: 100%;
-            max-width: 520px;
+            max-width: 480px;
             background: var(--bg-card);
             border: 1px solid var(--border);
             border-radius: var(--radius-xl);
@@ -37,6 +38,32 @@
             position: relative;
             z-index: 1;
             box-shadow: var(--shadow-lg);
+        }
+
+        .auth-logo {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+
+        .auth-logo a {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .auth-logo-icon {
+            width: 52px;
+            height: 52px;
+            background: var(--grad-primary);
+            border-radius: 14px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 900;
+            color: #fff;
+            box-shadow: var(--shadow-glow);
         }
 
         .auth-title {
@@ -70,7 +97,7 @@
             position: relative;
         }
 
-        .input-with-icon i {
+        .input-with-icon i.icon-left {
             position: absolute;
             left: 14px;
             top: 50%;
@@ -83,6 +110,19 @@
             padding-left: 40px;
         }
 
+        .toggle-password {
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: var(--text-muted);
+        }
+
+        .toggle-password:hover {
+            color: var(--primary);
+        }
+
         .btn-full {
             width: 100%;
             justify-content: center;
@@ -91,28 +131,44 @@
             margin-top: 8px;
         }
 
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-        }
-
         .password-strength {
+            margin-top: 8px;
             height: 4px;
-            border-radius: 2px;
-            margin-top: 6px;
-            transition: var(--transition);
+            border-radius: 4px;
+            background: var(--border);
+            overflow: hidden;
         }
 
-        @media(max-width:560px) {
-            .form-row {
-                grid-template-columns: 1fr;
-            }
+        .password-strength-bar {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.3s ease, background 0.3s ease;
+            width: 0%;
+        }
+
+        .strength-text {
+            font-size: 11px;
+            margin-top: 4px;
+            color: var(--text-muted);
+        }
+
+        .terms-note {
+            font-size: 12px;
+            color: var(--text-muted);
+            text-align: center;
+            margin-top: 16px;
+            line-height: 1.6;
+        }
+
+        .terms-note a {
+            color: var(--primary);
+            text-decoration: none;
         }
     </style>
 </head>
 
 <body>
+    <!-- NAVBAR -->
     <nav class="navbar">
         <div class="nav-container">
             <a href="index.html" class="nav-logo"><img src="images/logo.png" alt="Binary Craft Logo"
@@ -125,68 +181,67 @@
 
     <div class="auth-page">
         <div class="auth-box animate-fadeInUp">
-            <div style="text-align:center;margin-bottom:28px">
-                <div
-                    style="width:60px;height:60px;background:var(--grad-primary);border-radius:16px;display:inline-flex;align-items:center;justify-content:center;font-size:28px;font-weight:900;color:#fff;box-shadow:var(--shadow-glow)">
-                    BC</div>
+            <div class="auth-logo">
+                <a href="index.html">
+                    <div class="auth-logo-icon">BC</div>
+                </a>
             </div>
-            <h2 class="auth-title">Create Account</h2>
-            <p class="auth-subtitle">Join Binary Craft and start your digital journey</p>
+            <h2 class="auth-title">Create Your Account</h2>
+            <p class="auth-subtitle">Join Binary Craft — it's free and takes 30 seconds</p>
 
             <div id="alert-area"></div>
 
             <form id="register-form" novalidate>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label class="form-label">Full Name</label>
-                        <div class="input-with-icon">
-                            <i class="fas fa-user"></i>
-                            <input type="text" class="form-input" id="name" placeholder="John Doe" required />
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Phone (optional)</label>
-                        <div class="input-with-icon">
-                            <i class="fas fa-phone"></i>
-                            <input type="tel" class="form-input" id="phone" placeholder="+880..." />
-                        </div>
+                <div class="form-group">
+                    <label class="form-label">Full Name</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-user icon-left"></i>
+                        <input type="text" class="form-input" id="name" placeholder="Md Rasel" required />
                     </div>
                 </div>
+
                 <div class="form-group">
                     <label class="form-label">Email Address</label>
                     <div class="input-with-icon">
-                        <i class="fas fa-envelope"></i>
-                        <input type="email" class="form-input" id="email" placeholder="your@email.com" required />
+                        <i class="fas fa-envelope icon-left"></i>
+                        <input type="email" class="form-input" id="email" placeholder="rasel@email.com" required />
                     </div>
                 </div>
+
                 <div class="form-group">
                     <label class="form-label">Password</label>
                     <div class="input-with-icon">
-                        <i class="fas fa-lock"></i>
-                        <input type="password" class="form-input" id="password" placeholder="Min 6 characters" required
-                            onkeyup="checkStrength(this.value)" />
+                        <i class="fas fa-lock icon-left"></i>
+                        <input type="password" class="form-input" id="password" placeholder="Create a strong password"
+                            required oninput="checkStrength(this.value)" />
+                        <i class="fas fa-eye toggle-password" id="toggle-pwd"
+                            onclick="togglePwd('password', 'toggle-pwd')"></i>
                     </div>
-                    <div class="password-strength" id="pwd-strength"></div>
-                    <div id="pwd-strength-label" style="font-size:11px;margin-top:4px;color:var(--text-muted)"></div>
+                    <div class="password-strength">
+                        <div class="password-strength-bar" id="strength-bar"></div>
+                    </div>
+                    <div class="strength-text" id="strength-text"></div>
                 </div>
+
                 <div class="form-group">
                     <label class="form-label">Confirm Password</label>
                     <div class="input-with-icon">
-                        <i class="fas fa-lock"></i>
-                        <input type="password" class="form-input" id="confirm-password" placeholder="Repeat password"
-                            required />
+                        <i class="fas fa-lock icon-left"></i>
+                        <input type="password" class="form-input" id="confirm-password"
+                            placeholder="Repeat your password" required />
+                        <i class="fas fa-eye toggle-password" id="toggle-cpwd"
+                            onclick="togglePwd('confirm-password', 'toggle-cpwd')"></i>
                     </div>
                 </div>
-                <div
-                    style="display:flex;align-items:flex-start;gap:10px;margin-bottom:20px;font-size:13px;color:var(--text-secondary)">
-                    <input type="checkbox" id="agree" style="margin-top:3px;cursor:pointer" required />
-                    <label for="agree">I agree to the <a href="#" style="color:var(--primary)">Terms of Service</a> and
-                        <a href="#" style="color:var(--primary)">Privacy Policy</a></label>
-                </div>
+
                 <button type="submit" class="btn btn-primary btn-full" id="register-btn">
                     <i class="fas fa-user-plus"></i> Create Account
                 </button>
             </form>
+
+            <p class="terms-note">By creating an account you agree to our <a href="#">Terms of Service</a> and <a
+                    href="#">Privacy Policy</a>.</p>
+
             <p class="auth-footer-text">Already have an account? <a href="login.html">Sign in →</a></p>
         </div>
     </div>
@@ -194,58 +249,83 @@
     <script src="js/api.js?v=2"></script>
     <script src="js/auth.js"></script>
     <script>
+        // Redirect if already logged in
         if (Auth.isLoggedIn()) window.location.href = 'dashboard.html';
 
-        function checkStrength(pwd) {
-            const bar = document.getElementById('pwd-strength');
-            const label = document.getElementById('pwd-strength-label');
-            if (!pwd) { bar.style.width = '0'; bar.style.background = ''; label.textContent = ''; return; }
+        function togglePwd(inputId, iconId) {
+            const inp = document.getElementById(inputId);
+            const icon = document.getElementById(iconId);
+            if (inp.type === 'password') {
+                inp.type = 'text';
+                icon.className = 'fas fa-eye-slash toggle-password';
+            } else {
+                inp.type = 'password';
+                icon.className = 'fas fa-eye toggle-password';
+            }
+        }
+
+        function checkStrength(val) {
+            const bar = document.getElementById('strength-bar');
+            const text = document.getElementById('strength-text');
             let score = 0;
-            if (pwd.length >= 6) score++;
-            if (pwd.length >= 10) score++;
-            if (/[A-Z]/.test(pwd)) score++;
-            if (/[0-9]/.test(pwd)) score++;
-            if (/[^A-Za-z0-9]/.test(pwd)) score++;
+            if (val.length >= 6) score++;
+            if (val.length >= 10) score++;
+            if (/[A-Z]/.test(val)) score++;
+            if (/[0-9]/.test(val)) score++;
+            if (/[^A-Za-z0-9]/.test(val)) score++;
+
             const levels = [
-                { color: 'var(--danger)', label: 'Too weak', w: '20%' },
-                { color: 'var(--warning)', label: 'Weak', w: '40%' },
-                { color: 'var(--warning)', label: 'Fair', w: '60%' },
-                { color: 'var(--success)', label: 'Strong', w: '80%' },
-                { color: 'var(--success)', label: 'Very strong', w: '100%' }
+                { width: '0%', color: '', label: '' },
+                { width: '20%', color: '#ef4444', label: 'Very Weak' },
+                { width: '40%', color: '#f97316', label: 'Weak' },
+                { width: '60%', color: '#eab308', label: 'Fair' },
+                { width: '80%', color: '#22c55e', label: 'Strong' },
+                { width: '100%', color: '#10b981', label: 'Very Strong' },
             ];
-            const l = levels[Math.min(score - 1, 4)];
-            bar.style.background = l.color;
-            bar.style.width = l.w;
-            label.textContent = l.label;
-            label.style.color = l.color;
+            const lvl = levels[Math.min(score, 5)];
+            bar.style.width = lvl.width;
+            bar.style.background = lvl.color;
+            text.textContent = val.length > 0 ? `Password strength: ${lvl.label}` : '';
+            text.style.color = lvl.color;
         }
 
         document.getElementById('register-form').addEventListener('submit', async (e) => {
             e.preventDefault();
             const name = document.getElementById('name').value.trim();
             const email = document.getElementById('email').value.trim();
-            const phone = document.getElementById('phone').value.trim();
             const password = document.getElementById('password').value;
             const confirm = document.getElementById('confirm-password').value;
-            const agree = document.getElementById('agree').checked;
-            const alert = document.getElementById('alert-area');
             const btn = document.getElementById('register-btn');
-            alert.innerHTML = '';
+            const alertEl = document.getElementById('alert-area');
+            alertEl.innerHTML = '';
 
-            if (!name || !email || !password) { alert.innerHTML = '<div class="alert alert-danger">Please fill in all required fields</div>'; return; }
-            if (password !== confirm) { alert.innerHTML = '<div class="alert alert-danger">Passwords do not match</div>'; return; }
-            if (password.length < 6) { alert.innerHTML = '<div class="alert alert-danger">Password must be at least 6 characters</div>'; return; }
-            if (!agree) { alert.innerHTML = '<div class="alert alert-warning">Please agree to Terms & Privacy Policy</div>'; return; }
+            // Validations
+            if (!name || !email || !password || !confirm) {
+                alertEl.innerHTML = '<div class="alert alert-danger">Please fill in all fields.</div>'; return;
+            }
+            if (name.length < 2) {
+                alertEl.innerHTML = '<div class="alert alert-danger">Name must be at least 2 characters.</div>'; return;
+            }
+            if (!/\S+@\S+\.\S+/.test(email)) {
+                alertEl.innerHTML = '<div class="alert alert-danger">Please enter a valid email address.</div>'; return;
+            }
+            if (password.length < 6) {
+                alertEl.innerHTML = '<div class="alert alert-danger">Password must be at least 6 characters.</div>'; return;
+            }
+            if (password !== confirm) {
+                alertEl.innerHTML = '<div class="alert alert-danger">Passwords do not match.</div>'; return;
+            }
 
             btn.disabled = true;
             btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating Account...';
+
             try {
-                const data = await API('/auth/register', 'POST', { name, email, password, phone });
+                const data = await API('/auth/register', 'POST', { name, email, password });
                 Auth.setSession(data.token, data.user);
-                showToast('Account created successfully! Welcome 🎉', 'success');
+                showToast(`Welcome to Binary Craft, ${data.user.name}! 🎉`, 'success');
                 setTimeout(() => window.location.href = 'dashboard.html', 1200);
             } catch (err) {
-                alert.innerHTML = `<div class="alert alert-danger">${err.message}</div>`;
+                alertEl.innerHTML = `<div class="alert alert-danger">${err.message}</div>`;
                 btn.disabled = false;
                 btn.innerHTML = '<i class="fas fa-user-plus"></i> Create Account';
             }
