@@ -17,8 +17,10 @@ interface Product {
     price: number;
     originalPrice?: number;
     category: string;
+    slug?: string;
     image?: string;
     images?: string[];
+    previewUrl?: string;
     features: string[];
     isNew?: boolean;
 }
@@ -184,11 +186,25 @@ export function ProductGrid({ category, maxPrice, limit }: ProductGridProps) {
                         {/* Floating Orb Accent inside Card */}
                         <div className="absolute top-0 right-0 w-32 h-32 bg-primary/10 rounded-full blur-[40px] opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-0" />
 
-                        {/* Quick Preview overlay */}
+                        {/* Quick Action overlay */}
                         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 opacity-0 group-hover:opacity-100 transition-all duration-300 transform scale-95 group-hover:scale-100 pointer-events-none group-hover:pointer-events-auto flex items-center gap-2">
-                            <Button variant="secondary" size="sm" className="rounded-full shadow-xl shadow-black/50 backdrop-blur-md bg-bg-card/90" onClick={() => setPreviewProduct(product)}>
-                                <Eye className="w-4 h-4 mr-2" /> Preview
-                            </Button>
+                            <Link href={`/products/${product.slug || product._id}`}>
+                                <Button variant="secondary" size="sm" className="rounded-full shadow-xl shadow-black/50 backdrop-blur-md bg-bg-card/90">
+                                    <Eye className="w-4 h-4 mr-2" /> Details
+                                </Button>
+                            </Link>
+                            {product.previewUrl && (
+                                <Button
+                                    variant="primary"
+                                    size="sm"
+                                    className="rounded-full shadow-xl shadow-black/50 backdrop-blur-md"
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        window.open(product.previewUrl, "_blank");
+                                    }}>
+                                    Live Preview
+                                </Button>
+                            )}
                         </div>
 
                         {/* Image */}

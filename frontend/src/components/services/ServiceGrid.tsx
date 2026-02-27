@@ -8,11 +8,13 @@ import { useToast } from "@/components/ui/Toast";
 import { formatCurrency } from "@/lib/utils";
 import { useAuth } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 interface Service {
     _id: string;
     title?: string;
     name?: string;
+    slug?: string;
     description: string;
     price: number;
     category: string;
@@ -214,9 +216,11 @@ export function ServiceGrid({ category, limit }: ServiceGridProps) {
                                     )}
                                 </div>
                                 <div className="flex gap-4 w-full sm:w-auto">
-                                    <Button variant="secondary" size="lg" className="flex-1 sm:flex-none">
-                                        Get Quote
-                                    </Button>
+                                    <Link href={`/services/${service.slug || service._id}`} className="flex-1 sm:flex-none">
+                                        <Button variant="secondary" size="lg" className="w-full">
+                                            Details
+                                        </Button>
+                                    </Link>
                                     <Button
                                         variant="gradient"
                                         size="lg"

@@ -4,6 +4,7 @@ const serviceSchema = new mongoose.Schema({
     title: { type: String, required: true, trim: true },
     slug: { type: String, unique: true, lowercase: true },
     description: { type: String, required: true },
+    extendedDescription: { type: String, default: "" }, // For rich methodology/benefits details
     price: { type: Number, required: true },
     category: { type: String, required: true },
     features: [{ type: String }],
