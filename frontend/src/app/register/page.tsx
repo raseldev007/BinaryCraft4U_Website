@@ -160,14 +160,21 @@ export default function RegisterPage() {
 
                 <div className="relative z-10">
                     <div className="text-center mb-8">
-                        <div className="inline-flex items-center gap-2 bg-primary/10 border border-primary/20 text-primary text-[10px] uppercase font-black tracking-widest px-3 py-1 rounded-full mb-6">
+                        <div className="inline-flex items-center gap-2 bg-primary/10 border border-primary/20 text-primary text-[10px] uppercase font-black tracking-widest px-3 py-1 rounded-full mb-8">
                             <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
                             Takes less than 30 seconds
                         </div>
-                        <h2 className="text-3xl font-black tracking-tight mb-2 text-white relative inline-block">
-                            Create Account
-                            <div className="absolute -bottom-1 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
-                        </h2>
+
+                        <div className="flex items-center justify-center gap-4 mb-6">
+                            <div className="relative inline-block">
+                                <div className="absolute inset-0 bg-primary/40 blur-2xl rounded-full scale-[1.5]" />
+                                <img src="/logo.png" alt="Binary Craft Logo" className="w-12 h-12 relative object-contain drop-shadow-[0_0_15px_rgba(59,130,246,0.3)]" />
+                            </div>
+                            <h2 className="text-3xl font-black tracking-tight text-white relative">
+                                Create Account
+                                <div className="absolute -bottom-1 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
+                            </h2>
+                        </div>
                         <p className="text-text-muted text-[15px] mt-2">Join Binary Craft and unlock premium IT solutions.</p>
                     </div>
 
