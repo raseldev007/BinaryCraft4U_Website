@@ -14,7 +14,8 @@ const blogSchema = new mongoose.Schema({
     views: { type: Number, default: 0 },
 }, { timestamps: true });
 
-blogSchema.index({ slug: 1 });
+// Category and published status for filtering
+// Slug already indexed via unique: true
 blogSchema.index({ category: 1, published: 1 });
 blogSchema.index({ isFeatured: 1, published: 1 });
 blogSchema.index({ createdAt: -1 });

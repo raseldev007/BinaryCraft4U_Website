@@ -31,7 +31,7 @@ const userSchema = new mongoose.Schema({
     ]
 }, { timestamps: true });
 
-userSchema.index({ email: 1 });
+// role index for admin queries
 userSchema.index({ role: 1 });
 
 userSchema.pre('save', async function () {
