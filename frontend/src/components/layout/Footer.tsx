@@ -56,9 +56,11 @@ export function Footer() {
                     {/* Brand */}
                     <div>
                         <Link href="/" className="flex items-center gap-3 mb-5 group">
-                            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center font-black text-white text-lg shadow-[0_0_15px_rgba(59,130,246,0.3)] group-hover:shadow-[0_0_30px_rgba(59,130,246,0.5)] transition-shadow">
-                                BC
-                            </div>
+                            <img
+                                src="/logo.png"
+                                alt="Binary Craft Logo"
+                                className="w-12 h-12 object-contain drop-shadow-[0_0_15px_rgba(59,130,246,0.3)] group-hover:drop-shadow-[0_0_30px_rgba(59,130,246,0.5)] transition-all duration-300"
+                            />
                             <span className="font-bold text-xl tracking-tight text-white group-hover:text-primary transition-colors">Binary Craft</span>
                         </Link>
                         <p className="text-text-muted text-sm leading-relaxed mb-6">
@@ -135,9 +137,7 @@ export function Footer() {
 
                 <div className="pt-8 border-t border-border flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-text-muted">
                     <p>© {new Date().getFullYear()} Binary Craft. All rights reserved.</p>
-                    <p className="flex items-center gap-1.5">
-                        Made with <span className="text-danger">♥</span> · Designed for professionals.
-                    </p>
+
                 </div>
             </div>
         </footer>

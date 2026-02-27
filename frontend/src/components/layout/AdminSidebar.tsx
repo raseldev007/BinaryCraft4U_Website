@@ -54,7 +54,7 @@ export function AdminSidebar() {
                         <img
                             src="/logo.png"
                             alt="Binary Craft Logo"
-                            className="w-10 h-10 object-contain drop-shadow-[0_0_15px_rgba(59,130,246,0.3)] shrink-0"
+                            className="w-12 h-12 object-contain drop-shadow-[0_0_15px_rgba(59,130,246,0.3)] shrink-0"
                         />
                         <div>
                             <div className="font-black text-lg tracking-tight">Binary Craft</div>

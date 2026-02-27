@@ -144,7 +144,7 @@ export default function RegisterPage() {
 
             <nav className="absolute top-0 w-full p-6 flex justify-between items-center z-20 hidden md:flex">
                 <Link href="/" className="flex items-center gap-3 group">
-                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center font-black text-white text-lg shadow-[0_0_15px_rgba(59,130,246,0.3)] group-hover:scale-110 transition-transform duration-300">BC</div>
+                    <img src="/logo.png" alt="Binary Craft Logo" className="w-12 h-12 object-contain drop-shadow-[0_0_15px_rgba(59,130,246,0.3)] group-hover:scale-110 transition-transform duration-300" />
                 </Link>
                 <Link href="/login">
                     <Button variant="outline" size="sm" className="backdrop-blur-md bg-white/5 hover:bg-white/10 border-white/10">Sign In instead</Button>

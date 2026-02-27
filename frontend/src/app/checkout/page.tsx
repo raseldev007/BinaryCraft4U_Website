@@ -76,9 +76,7 @@ export default function CheckoutPage() {
                 <nav className="border-b border-border/50 bg-bg-primary/80 backdrop-blur-md sticky top-0 z-50">
                     <div className="max-w-[1200px] mx-auto px-6 h-20 flex items-center justify-between">
                         <Link href="/" className="flex items-center gap-3">
-                            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center font-black text-white text-lg shadow-[0_0_15px_rgba(59,130,246,0.3)]">
-                                BC
-                            </div>
+                            <img src="/logo.png" alt="Binary Craft Logo" className="w-12 h-12 object-contain drop-shadow-[0_0_15px_rgba(59,130,246,0.3)]" />
                             <div className="font-black text-xl tracking-tight hidden sm:block">Binary Craft</div>
                         </Link>
                         <div className="flex items-center gap-2 text-sm font-bold text-text-muted">

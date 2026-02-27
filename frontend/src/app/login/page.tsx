@@ -124,10 +124,7 @@ export default function LoginPage() {
 
             <nav className="absolute top-0 w-full p-6 flex justify-between items-center z-20">
                 <Link href="/" className="flex items-center gap-3 group">
-                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center font-black text-white text-lg shadow-[0_0_15px_rgba(59,130,246,0.3)] group-hover:scale-110 transition-transform duration-300 relative">
-                        <div className="absolute inset-0 bg-white/20 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity" />
-                        BC
-                    </div>
+                    <img src="/logo.png" alt="Binary Craft Logo" className="w-12 h-12 object-contain drop-shadow-[0_0_15px_rgba(59,130,246,0.3)] group-hover:scale-110 transition-transform duration-300" />
                 </Link>
                 <Link href="/register">
                     <Button variant="outline" size="sm" className="backdrop-blur-md bg-white/5 hover:bg-white/10 border-white/10">Create Account</Button>
@@ -138,7 +135,7 @@ export default function LoginPage() {
                 <div className="text-center mb-8">
                     <div className="relative inline-block mb-6">
                         <div className="absolute inset-0 bg-primary/40 blur-2xl rounded-full scale-[1.5]" />
-                        <div className="w-14 h-14 relative bg-gradient-to-br from-primary to-accent rounded-2xl flex items-center justify-center font-black text-white text-2xl shadow-inner border border-white/20">BC</div>
+                        <img src="/logo.png" alt="Binary Craft Logo" className="w-16 h-16 relative object-contain drop-shadow-[0_0_15px_rgba(59,130,246,0.3)]" />
                     </div>
                     <h2 className="text-3xl font-black tracking-tight mb-2 text-white relative inline-block">
                         Welcome Back
