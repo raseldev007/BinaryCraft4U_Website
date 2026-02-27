@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import { cn } from "@/lib/utils";
-import { LayoutDashboard, Users, ShoppingBag, Box, Settings as Cogs, Mail, SlidersHorizontal, ExternalLink, LogOut, Menu, X } from "lucide-react";
+import { LayoutDashboard, Users, ShoppingBag, Box, Settings as Cogs, Mail, SlidersHorizontal, ExternalLink, LogOut, Menu, X, BookOpen, Bell } from "lucide-react";
 import { useState } from "react";
 
 const navItems = [
@@ -16,6 +16,9 @@ const navItems = [
     { name: "Inventory", href: "/admin/products", icon: Box },
     { name: "Services", href: "/admin/services", icon: Cogs },
     { name: "Messages", href: "/admin/messages", icon: Mail },
+    { section: "Content" },
+    { name: "Blog", href: "/admin/blog", icon: BookOpen },
+    { name: "Subscribers", href: "/admin/subscribers", icon: Bell },
     { section: "System" },
     { name: "Settings", href: "/admin/settings", icon: SlidersHorizontal },
     { name: "Public Site", href: "/", icon: ExternalLink },

@@ -206,8 +206,15 @@ export function Footer() {
                     </div>
                 </div>
 
-                <div className="pt-8 border-t border-border flex justify-center text-xs text-text-muted">
-                    <p className="text-center">© {currentYear || "..."} Binary Craft. All rights reserved.</p>
+                <div className="pt-8 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-text-muted">
+                    <p>© {currentYear || "..."} Binary Craft. All rights reserved.</p>
+                    <div className="flex items-center gap-2">
+                        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-green-500/20 bg-green-500/8 text-green-400 font-semibold">
+                            🇧🇩 Built in Bangladesh
+                        </span>
+                        <span className="text-text-muted/50">·</span>
+                        <span>Proudly serving SMEs worldwide</span>
+                    </div>
                 </div>
             </div>
         </footer>

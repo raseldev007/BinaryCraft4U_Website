@@ -24,4 +24,8 @@ productSchema.pre('save', function () {
     }
 });
 
+productSchema.index({ category: 1, isActive: 1 });
+productSchema.index({ isFeatured: 1, isActive: 1 });
+productSchema.index({ title: 'text', description: 'text' });
+
 module.exports = mongoose.model('Product', productSchema);

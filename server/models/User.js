@@ -14,13 +14,25 @@ const userSchema = new mongoose.Schema({
         country: { type: String, default: '' }
     },
     avatar: { type: String, default: '' },
-    role: { type: String, enum: ['user', 'admin'], default: 'user' },
+    role: { type: String, enum: ['user', 'admin', 'super_admin', 'manager', 'support'], default: 'user' },
     isBlocked: { type: Boolean, default: false },
     provider: { type: String, default: 'local' }, // 'local', 'google'
     googleId: { type: String, default: '' },
     resetPasswordToken: String,
-    resetPasswordExpire: Date
+    resetPasswordExpire: Date,
+    wishlist: [
+        {
+            itemId: { type: mongoose.Schema.Types.ObjectId },
+            itemType: { type: String, enum: ['product', 'service'] },
+            title: { type: String },
+            price: { type: Number },
+            image: { type: String, default: '' },
+        }
+    ]
 }, { timestamps: true });
+
+userSchema.index({ email: 1 });
+userSchema.index({ role: 1 });
 
 userSchema.pre('save', async function () {
     if (!this.isModified('password') || !this.password) {

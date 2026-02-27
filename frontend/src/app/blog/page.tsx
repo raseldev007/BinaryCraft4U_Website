@@ -2,74 +2,108 @@
 
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
-import { ArrowRight, Clock, User, BookOpen } from "lucide-react";
+import { ArrowRight, Clock, User, BookOpen, Search } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 
-const BLOG_POSTS = [
-    {
-        id: 1, title: "10 Best Practices for Next.js App Router",
-        excerpt: "Learn how to fully leverage the Server Components and routing capabilities of Next.js 14+, including layouts, parallel routes, and dynamic segments.",
-        category: "Development", author: "Md Rasel", date: "Feb 24, 2026", readTime: "5 min",
-        image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=800&q=80",
-        featured: true,
-    },
-    {
-        id: 2, title: "Why Glassmorphism is Here to Stay",
-        excerpt: "A deep dive into the UI trend that's dominating SaaS platforms and developer tools in 2026.",
-        category: "Design", author: "Md Rasel", date: "Feb 20, 2026", readTime: "4 min",
-        image: "https://images.unsplash.com/photo-1618761714954-0b8cd0026356?auto=format&fit=crop&w=800&q=80",
-        featured: false,
-    },
-    {
-        id: 3, title: "Securing Your Express APIs in 2026",
-        excerpt: "Essential security headers, rate limiting, and JWT best practices for modern web apps.",
-        category: "Security", author: "Md Rasel", date: "Feb 15, 2026", readTime: "7 min",
-        image: "https://images.unsplash.com/photo-1562813733-b31f71025d54?auto=format&fit=crop&w=800&q=80",
-        featured: false,
-    },
-    {
-        id: 4, title: "MongoDB Atlas Optimization Guide",
-        excerpt: "Indexing strategies, aggregation pipelines, and connection pooling tips for production workloads.",
-        category: "Development", author: "Md Rasel", date: "Feb 10, 2026", readTime: "8 min",
-        image: "https://images.unsplash.com/photo-1544383835-bda2bc66a55d?auto=format&fit=crop&w=800&q=80",
-        featured: false,
-    },
-];
-
-const CATEGORIES = ["All", "Development", "Design", "Security"];
+interface BlogPost {
+    _id: string;
+    title: string;
+    slug: string;
+    excerpt: string;
+    category: string;
+    author: string;
+    createdAt: string;
+    featuredImage: string;
+    isFeatured: boolean;
+    tags: string[];
+    views: number;
+}
 
 const CAT_COLORS: Record<string, string> = {
-    Development: "bg-blue-500/10 text-blue-400 border-blue-500/20",
-    Design: "bg-purple-500/10 text-purple-400 border-purple-500/20",
-    Security: "bg-red-500/10 text-red-400 border-red-500/20",
+    Development: "rgba(59,130,246,0.15)",
+    Design: "rgba(139,92,246,0.15)",
+    Security: "rgba(239,68,68,0.15)",
+    Business: "rgba(16,185,129,0.15)",
+    General: "rgba(100,116,139,0.15)",
 };
 
+const CAT_TEXT: Record<string, string> = {
+    Development: "#3b82f6",
+    Design: "#8b5cf6",
+    Security: "#ef4444",
+    Business: "#10b981",
+    General: "#64748b",
+};
+
+function formatDate(d: string) {
+    return new Date(d).toLocaleDateString("en-BD", { year: "numeric", month: "short", day: "numeric" });
+}
+
 export default function BlogPage() {
+    const [posts, setPosts] = useState<BlogPost[]>([]);
+    const [featured, setFeatured] = useState<BlogPost | null>(null);
+    const [categories, setCategories] = useState<string[]>(["All"]);
     const [activeCategory, setActiveCategory] = useState("All");
-    const featured = BLOG_POSTS.find((p) => p.featured);
-    const filtered = BLOG_POSTS.filter(
-        (p) => !p.featured && (activeCategory === "All" || p.category === activeCategory)
-    );
+    const [page, setPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
+    const [loading, setLoading] = useState(true);
+    const [search, setSearch] = useState("");
+
+    const fetchPosts = useCallback(async (cat: string, pg: number, q: string) => {
+        setLoading(true);
+        try {
+            const params = new URLSearchParams({ page: String(pg), limit: "9" });
+            if (cat && cat !== "All") params.append("category", cat);
+            if (q) params.append("search", q);
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/blog?${params}`);
+            const data = await res.json();
+            if (data.success) {
+                setPosts(data.blogs || []);
+                setTotalPages(data.pages || 1);
+                if (data.categories) setCategories(["All", ...data.categories]);
+            }
+        } catch (err) {
+            console.error("Failed to fetch blogs:", err);
+        } finally {
+            setLoading(false);
+        }
+    }, []);
+
+    const fetchFeatured = useCallback(async () => {
+        try {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/blog?featured=true&limit=1`);
+            const data = await res.json();
+            if (data.success && data.blogs?.length > 0) setFeatured(data.blogs[0]);
+        } catch { /* ignore */ }
+    }, []);
+
+    useEffect(() => {
+        fetchFeatured();
+    }, [fetchFeatured]);
+
+    useEffect(() => {
+        const t = setTimeout(() => { fetchPosts(activeCategory, page, search); }, search ? 400 : 0);
+        return () => clearTimeout(t);
+    }, [activeCategory, page, search, fetchPosts]);
+
+    const nonFeaturedPosts = posts.filter(p => p._id !== featured?._id);
 
     return (
         <div className="flex flex-col min-h-screen">
             <Navbar />
-
             <main className="flex-1 pt-20">
                 {/* Hero */}
-                <section className="relative pt-24 pb-16 bg-bg-secondary/30 border-b border-border text-center overflow-hidden">
-                    <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(59,130,246,0.08),transparent_60%)]" />
+                <section className="relative pt-24 pb-16 border-b border-border text-center overflow-hidden" style={{ background: "rgba(17,24,39,0.3)" }}>
+                    <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at top, rgba(59,130,246,0.08), transparent 60%)" }} />
                     <div className="max-w-2xl mx-auto px-6 relative z-10 animate-fadeInUp">
-                        <div className="section-label mb-5 mx-auto">
-                            <BookOpen className="w-3 h-3" />
-                            Blog
+                        <div className="section-label mb-5 mx-auto" style={{ display: "inline-flex" }}>
+                            <BookOpen className="w-3 h-3" /> Blog
                         </div>
                         <h1 className="text-4xl md:text-5xl font-black mb-4">
-                            Insights &{" "}
-                            <span className="gradient-text">Updates</span>
+                            Insights & <span className="gradient-text">Updates</span>
                         </h1>
-                        <p className="text-text-muted text-lg">
+                        <p style={{ color: "var(--color-text-muted)", fontSize: "1.1rem" }}>
                             Web development, design trends, and tech news from the Binary Craft team.
                         </p>
                     </div>
@@ -77,87 +111,122 @@ export default function BlogPage() {
 
                 <section className="py-16">
                     <div className="max-w-[1200px] mx-auto px-6">
-                        {/* Featured Post */}
+                        {/* Featured */}
                         {featured && (
-                            <div className="glass rounded-2xl overflow-hidden mb-12 group hover:border-primary/30 transition-all">
+                            <div className="glass rounded-2xl overflow-hidden mb-12 group" style={{ border: "1px solid var(--color-border)", transition: "border-color 0.3s" }}>
                                 <div className="md:grid md:grid-cols-2">
-                                    <div className="h-64 md:h-auto overflow-hidden">
-                                        <img src={featured.image} alt={featured.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                                    <div style={{ height: "280px", overflow: "hidden" }}>
+                                        {featured.featuredImage ? (
+                                            <img src={featured.featuredImage} alt={featured.title} style={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform 0.7s" }} className="group-hover:scale-105" />
+                                        ) : (
+                                            <div style={{ width: "100%", height: "100%", background: "linear-gradient(135deg, rgba(59,130,246,0.2), rgba(139,92,246,0.2))", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                                                <BookOpen style={{ width: "4rem", height: "4rem", color: "rgba(59,130,246,0.5)" }} />
+                                            </div>
+                                        )}
                                     </div>
-                                    <div className="p-8 md:p-10 flex flex-col justify-center">
-                                        <div className="flex items-center gap-3 mb-4">
-                                            <span className={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full border ${CAT_COLORS[featured.category] || ""}`}>
+                                    <div style={{ padding: "2.5rem", display: "flex", flexDirection: "column", justifyContent: "center" }}>
+                                        <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "1rem" }}>
+                                            <span style={{ fontSize: "0.7rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em", padding: "0.25rem 0.6rem", borderRadius: "9999px", background: CAT_COLORS[featured.category] || "rgba(100,116,139,0.15)", color: CAT_TEXT[featured.category] || "#64748b" }}>
                                                 {featured.category}
                                             </span>
-                                            <span className="text-xs text-primary font-bold bg-primary/10 px-2 py-1 rounded-full border border-primary/20">Featured</span>
+                                            <span style={{ fontSize: "0.7rem", fontWeight: 700, color: "var(--color-primary)", background: "rgba(59,130,246,0.1)", padding: "0.25rem 0.6rem", borderRadius: "9999px", border: "1px solid rgba(59,130,246,0.2)" }}>⭐ Featured</span>
                                         </div>
-                                        <h2 className="text-2xl md:text-3xl font-black mb-4 group-hover:text-primary transition-colors">{featured.title}</h2>
-                                        <p className="text-text-secondary leading-relaxed mb-6">{featured.excerpt}</p>
-                                        <div className="flex items-center gap-4 text-xs text-text-muted mb-6">
-                                            <span className="flex items-center gap-1"><User className="w-3 h-3" /> {featured.author}</span>
-                                            <span className="flex items-center gap-1"><Clock className="w-3 h-3" /> {featured.readTime} read</span>
-                                            <span>{featured.date}</span>
+                                        <h2 style={{ fontSize: "1.5rem", fontWeight: 800, marginBottom: "1rem", color: "var(--color-text-primary)", lineHeight: 1.3 }}>{featured.title}</h2>
+                                        <p style={{ color: "var(--color-text-secondary)", lineHeight: 1.7, marginBottom: "1.5rem", fontSize: "0.95rem" }}>{featured.excerpt}</p>
+                                        <div style={{ display: "flex", alignItems: "center", gap: "1rem", fontSize: "0.75rem", color: "var(--color-text-muted)", marginBottom: "1.5rem" }}>
+                                            <span style={{ display: "flex", alignItems: "center", gap: "4px" }}><User style={{ width: "12px", height: "12px" }} />{featured.author}</span>
+                                            <span>{formatDate(featured.createdAt)}</span>
                                         </div>
-                                        <Link href={`/blog/${featured.id}`} className="inline-flex items-center gap-2 text-primary font-bold hover:text-white transition-colors group/link">
-                                            Read Article <ArrowRight className="w-4 h-4 group-hover/link:translate-x-1 transition-transform" />
+                                        <Link href={`/blog/${featured.slug}`} style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", color: "var(--color-primary)", fontWeight: 700, textDecoration: "none" }}>
+                                            Read Article <ArrowRight style={{ width: "16px", height: "16px" }} />
                                         </Link>
                                     </div>
                                 </div>
                             </div>
                         )}
 
+                        {/* Search */}
+                        <div style={{ position: "relative", marginBottom: "1.5rem", maxWidth: "360px" }}>
+                            <Search style={{ position: "absolute", left: "12px", top: "50%", transform: "translateY(-50%)", width: "16px", height: "16px", color: "var(--color-text-muted)" }} />
+                            <input
+                                type="text" value={search} onChange={e => setSearch(e.target.value)}
+                                placeholder="Search articles..."
+                                style={{ width: "100%", paddingLeft: "40px", paddingRight: "12px", paddingTop: "10px", paddingBottom: "10px", background: "rgba(255,255,255,0.05)", border: "1px solid var(--color-border)", borderRadius: "50px", color: "var(--color-text-primary)", fontSize: "0.875rem", outline: "none", boxSizing: "border-box" }}
+                            />
+                        </div>
+
                         {/* Category Tabs */}
-                        <div className="flex gap-2 mb-8 flex-wrap">
-                            {CATEGORIES.map((cat) => (
-                                <button
-                                    key={cat}
-                                    onClick={() => setActiveCategory(cat)}
-                                    className={`px-4 py-2 rounded-full text-sm font-semibold transition-all duration-200 ${activeCategory === cat
-                                            ? "bg-primary text-white shadow-[0_0_15px_rgba(59,130,246,0.3)]"
-                                            : "glass text-text-muted hover:text-white"
-                                        }`}
-                                >
+                        <div style={{ display: "flex", gap: "0.5rem", marginBottom: "2rem", flexWrap: "wrap" }}>
+                            {categories.map(cat => (
+                                <button key={cat} onClick={() => { setActiveCategory(cat); setPage(1); }}
+                                    style={{ padding: "0.4rem 1rem", borderRadius: "9999px", fontSize: "0.875rem", fontWeight: 600, cursor: "pointer", border: "1px solid", transition: "all 0.2s", background: activeCategory === cat ? "linear-gradient(135deg, #3b82f6, #8b5cf6)" : "rgba(255,255,255,0.04)", borderColor: activeCategory === cat ? "transparent" : "var(--color-border)", color: activeCategory === cat ? "white" : "var(--color-text-muted)" }}>
                                     {cat}
                                 </button>
                             ))}
                         </div>
 
                         {/* Post Grid */}
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                            {filtered.map((post, i) => (
-                                <div
-                                    key={post.id}
-                                    className="glass rounded-2xl overflow-hidden group flex flex-col hover:border-primary/30 transition-all hover:-translate-y-1 animate-fadeInUp"
-                                    style={{ animationDelay: `${i * 80}ms` }}
-                                >
-                                    <div className="h-44 overflow-hidden relative">
-                                        <img src={post.image} alt={post.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
-                                        <div className="absolute top-3 left-3">
-                                            <span className={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full border backdrop-blur-md ${CAT_COLORS[post.category] || ""}`}>
-                                                {post.category}
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div className="p-5 flex-1 flex flex-col">
-                                        <h3 className="text-base font-bold mb-2 group-hover:text-primary transition-colors line-clamp-2">{post.title}</h3>
-                                        <p className="text-text-secondary text-sm leading-relaxed mb-4 flex-1 line-clamp-3">{post.excerpt}</p>
-                                        <div className="flex items-center justify-between text-xs text-text-muted pt-4 border-t border-border/50">
-                                            <div className="flex items-center gap-3">
-                                                <span className="flex items-center gap-1"><User className="w-3 h-3" /> {post.author}</span>
-                                                <span className="flex items-center gap-1"><Clock className="w-3 h-3" /> {post.readTime}</span>
+                        {loading ? (
+                            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: "1.5rem" }}>
+                                {[...Array(6)].map((_, i) => (
+                                    <div key={i} className="animate-shimmer" style={{ height: "320px", borderRadius: "16px", background: "rgba(255,255,255,0.04)" }} />
+                                ))}
+                            </div>
+                        ) : nonFeaturedPosts.length === 0 ? (
+                            <div style={{ textAlign: "center", padding: "5rem 0", color: "var(--color-text-muted)" }}>
+                                <BookOpen style={{ width: "4rem", height: "4rem", margin: "0 auto 1rem", opacity: 0.3 }} />
+                                <p style={{ fontSize: "1.1rem" }}>No articles found{activeCategory !== "All" ? ` in "${activeCategory}"` : ""}.</p>
+                            </div>
+                        ) : (
+                            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: "1.5rem" }}>
+                                {nonFeaturedPosts.map((post, i) => (
+                                    <div key={post._id} className="glass animate-fadeInUp feature-card" style={{ borderRadius: "20px", overflow: "hidden", display: "flex", flexDirection: "column", animationDelay: `${i * 60}ms` }}>
+                                        <div style={{ height: "176px", overflow: "hidden", position: "relative" }}>
+                                            {post.featuredImage ? (
+                                                <img src={post.featuredImage} alt={post.title} style={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform 0.5s" }} />
+                                            ) : (
+                                                <div style={{ width: "100%", height: "100%", background: "linear-gradient(135deg, rgba(59,130,246,0.15), rgba(139,92,246,0.15))", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                                                    <BookOpen style={{ width: "2.5rem", height: "2.5rem", color: "rgba(59,130,246,0.4)" }} />
+                                                </div>
+                                            )}
+                                            <div style={{ position: "absolute", top: "0.75rem", left: "0.75rem" }}>
+                                                <span style={{ fontSize: "0.65rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em", padding: "0.2rem 0.5rem", borderRadius: "9999px", backdropFilter: "blur(8px)", background: CAT_COLORS[post.category] || "rgba(100,116,139,0.2)", color: CAT_TEXT[post.category] || "#64748b" }}>
+                                                    {post.category}
+                                                </span>
                                             </div>
                                         </div>
-                                        <Link href={`/blog/${post.id}`} className="mt-4 flex items-center text-primary font-bold text-sm hover:text-white transition-colors group/link">
-                                            Read More <ArrowRight className="w-4 h-4 ml-1 group-hover/link:translate-x-1 transition-transform" />
-                                        </Link>
+                                        <div style={{ padding: "1.25rem", flex: 1, display: "flex", flexDirection: "column" }}>
+                                            <h3 style={{ fontSize: "0.95rem", fontWeight: 700, marginBottom: "0.5rem", color: "var(--color-text-primary)", lineHeight: 1.4 }}>{post.title}</h3>
+                                            <p style={{ color: "var(--color-text-secondary)", fontSize: "0.8rem", lineHeight: 1.6, marginBottom: "1rem", flex: 1 }}>{post.excerpt}</p>
+                                            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", fontSize: "0.7rem", color: "var(--color-text-muted)", paddingTop: "0.75rem", borderTop: "1px solid var(--color-border)" }}>
+                                                <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
+                                                    <span style={{ display: "flex", alignItems: "center", gap: "4px" }}><User style={{ width: "10px", height: "10px" }} />{post.author}</span>
+                                                    <span style={{ display: "flex", alignItems: "center", gap: "4px" }}><Clock style={{ width: "10px", height: "10px" }} />{formatDate(post.createdAt)}</span>
+                                                </div>
+                                            </div>
+                                            <Link href={`/blog/${post.slug}`} style={{ marginTop: "0.75rem", display: "inline-flex", alignItems: "center", color: "var(--color-primary)", fontWeight: 700, fontSize: "0.85rem", textDecoration: "none" }}>
+                                                Read More <ArrowRight style={{ width: "14px", height: "14px", marginLeft: "4px" }} />
+                                            </Link>
+                                        </div>
                                     </div>
-                                </div>
-                            ))}
-                        </div>
+                                ))}
+                            </div>
+                        )}
+
+                        {/* Pagination */}
+                        {totalPages > 1 && (
+                            <div style={{ display: "flex", justifyContent: "center", gap: "0.5rem", marginTop: "3rem" }}>
+                                {[...Array(totalPages)].map((_, i) => (
+                                    <button key={i} onClick={() => setPage(i + 1)}
+                                        style={{ width: "36px", height: "36px", borderRadius: "8px", fontWeight: 600, fontSize: "0.875rem", cursor: "pointer", border: "1px solid", transition: "all 0.2s", background: page === i + 1 ? "linear-gradient(135deg, #3b82f6, #8b5cf6)" : "rgba(255,255,255,0.04)", borderColor: page === i + 1 ? "transparent" : "var(--color-border)", color: page === i + 1 ? "white" : "var(--color-text-muted)" }}>
+                                        {i + 1}
+                                    </button>
+                                ))}
+                            </div>
+                        )}
                     </div>
                 </section>
             </main>
-
             <Footer />
         </div>
     );
