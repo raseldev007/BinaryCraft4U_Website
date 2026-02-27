@@ -82,11 +82,13 @@ export function Footer() {
                             </div>
                         </div>
 
-                        <div className="flex items-center gap-3">
+                        <div className="flex items-center gap-3 relative z-20">
                             {SOCIALS.map(({ Icon, href }, i) => (
                                 <a
                                     key={i}
                                     href={href}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
                                     className="w-9 h-9 rounded-lg glass flex items-center justify-center text-text-muted hover:text-primary hover:border-primary/40 transition-all duration-200"
                                 >
                                     <Icon className="w-4 h-4" />
