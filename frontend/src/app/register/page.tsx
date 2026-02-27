@@ -140,6 +140,9 @@ export default function RegisterPage() {
     return (
         <div className="min-h-screen flex flex-col relative bg-bg-primary items-center justify-center p-6 py-12 md:py-20 overflow-hidden">
             <div className="absolute inset-0 bg-noise opacity-[0.03] pointer-events-none mix-blend-overlay z-0" />
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-0 overflow-hidden">
+                <img src="/logo.png" alt="Background" className="w-[80vw] max-w-[1000px] h-auto object-contain opacity-[0.03] -rotate-12 scale-110 drop-shadow-2xl" />
+            </div>
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/5 rounded-full blur-[140px] pointer-events-none z-0" />
 
             <nav className="absolute top-0 w-full p-6 flex justify-between items-center z-20 hidden md:flex">

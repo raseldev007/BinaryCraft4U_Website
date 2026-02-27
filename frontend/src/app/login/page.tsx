@@ -118,6 +118,9 @@ export default function LoginPage() {
     return (
         <div className="min-h-screen flex flex-col relative bg-bg-primary items-center justify-center p-6 overflow-hidden">
             <div className="absolute inset-0 bg-noise opacity-[0.03] pointer-events-none mix-blend-overlay z-0" />
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-0 overflow-hidden">
+                <img src="/logo.png" alt="Background" className="w-[80vw] max-w-[1000px] h-auto object-contain opacity-[0.03] -rotate-12 scale-110 drop-shadow-2xl" />
+            </div>
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[rgba(59,130,246,0.06)] rounded-full blur-[120px] pointer-events-none z-0 animate-pulse" style={{ animationDuration: '4s' }} />
             <div className="absolute top-[20%] left-[15%] w-2 h-2 rounded-full bg-primary/30 blur-[1px] animate-float opacity-50 z-0" />
             <div className="absolute top-[70%] right-[15%] w-3 h-3 rounded-full bg-accent/30 blur-[2px] animate-float opacity-50 z-0" style={{ animationDelay: '2s' }} />
