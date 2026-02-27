@@ -1,9 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Facebook, Twitter, Instagram, Linkedin, Mail, Phone, MapPin, ArrowRight, Zap, Loader2 } from "lucide-react";
 import { api } from "@/lib/api";
+import { useToast } from "@/components/ui/Toast";
 
 const FOOTER_LINKS = {
     "Quick Links": [
@@ -31,21 +32,46 @@ const SOCIALS = [
 export function Footer() {
     const [email, setEmail] = useState("");
     const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
-    const [message, setMessage] = useState("");
+    const [currentYear, setCurrentYear] = useState<number | null>(null);
+    const { success, error: toastError } = useToast();
+
+    useEffect(() => {
+        setCurrentYear(new Date().getFullYear());
+    }, []);
+
+    const validateEmail = (email: string) => {
+        return String(email)
+            .toLowerCase()
+            .match(
+                /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+            );
+    };
 
     const handleSubscribe = async (e: React.FormEvent) => {
         e.preventDefault();
-        if (!email) return;
+
+        if (!email) {
+            toastError("Please enter an email address.");
+            return;
+        }
+
+        if (!validateEmail(email)) {
+            toastError("Please enter a valid email address.");
+            setStatus("error");
+            return;
+        }
 
         setStatus("loading");
         try {
             const data = await api('/subscribers', 'POST', { email });
             setStatus("success");
-            setMessage(data.message || "Successfully subscribed!");
+            success(data.message || "Welcome to the loop! 🚀");
             setEmail("");
-        } catch (error: any) {
+            // Reset status after a delay so the form can be used again
+            setTimeout(() => setStatus("idle"), 5000);
+        } catch (err: any) {
             setStatus("error");
-            setMessage(error.message || "Subscription failed");
+            toastError(err.message || "Subscription failed. Please try again.");
         }
     };
 
@@ -88,8 +114,8 @@ export function Footer() {
                                 )}
                             </button>
                         </div>
-                        {status === 'success' && <p className="text-success text-xs mt-1">{message}</p>}
-                        {status === 'error' && <p className="text-secondary text-xs mt-1">{message}</p>}
+                        {status === 'success' && <p className="text-success text-[10px] mt-1 font-medium animate-fadeIn">Thank you for subscribing!</p>}
+                        {status === 'error' && <p className="text-danger text-[10px] mt-1 font-medium animate-fadeIn">Invalid email or subscription error.</p>}
                     </form>
                 </div>
             </div>
@@ -181,7 +207,7 @@ export function Footer() {
                 </div>
 
                 <div className="pt-8 border-t border-border flex justify-center text-xs text-text-muted">
-                    <p className="text-center">© {new Date().getFullYear()} Binary Craft. All rights reserved.</p>
+                    <p className="text-center">© {currentYear || "..."} Binary Craft. All rights reserved.</p>
                 </div>
             </div>
         </footer>
