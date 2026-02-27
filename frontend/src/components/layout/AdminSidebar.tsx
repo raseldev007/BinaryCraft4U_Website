@@ -51,9 +51,11 @@ export function AdminSidebar() {
             )}>
                 <div className="p-8 pb-6 border-b border-border/50">
                     <Link href="/admin" className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center font-black text-white text-lg shadow-[0_0_15px_rgba(59,130,246,0.3)] shrink-0">
-                            BC
-                        </div>
+                        <img
+                            src="/logo.png"
+                            alt="Binary Craft Logo"
+                            className="w-10 h-10 object-contain drop-shadow-[0_0_15px_rgba(59,130,246,0.3)] shrink-0"
+                        />
                         <div>
                             <div className="font-black text-lg tracking-tight">Binary Craft</div>
                             <div className="bg-gradient-to-r from-primary to-accent text-white text-[9px] font-black px-2 py-0.5 rounded-full uppercase tracking-widest mt-1 inline-block">

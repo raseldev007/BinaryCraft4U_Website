@@ -54,9 +54,11 @@ export function UserSidebar() {
             )}>
                 <div className="p-8 pb-6 border-b border-border/50">
                     <Link href="/" className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center font-black text-white text-lg shadow-[0_0_15px_rgba(59,130,246,0.3)]">
-                            BC
-                        </div>
+                        <img
+                            src="/logo.png"
+                            alt="Binary Craft Logo"
+                            className="w-10 h-10 object-contain drop-shadow-[0_0_15px_rgba(59,130,246,0.3)] shrink-0"
+                        />
                         <div>
                             <div className="font-black text-lg tracking-tight">Binary Craft</div>
                             <div className="text-[10px] text-primary font-bold uppercase tracking-widest mt-0.5">User Panel</div>
