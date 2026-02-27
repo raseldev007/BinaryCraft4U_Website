@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import { cn } from "@/lib/utils";
-import { LayoutDashboard, User, ShoppingCart, Package, Lock, Globe, Settings, LogOut, Store, Menu, X } from "lucide-react";
+import { LayoutDashboard, User, ShoppingCart, Package, Lock, Globe, Settings, LogOut, Store, Menu, X, ShieldAlert } from "lucide-react";
 import { useState } from "react";
 
 const navItems = [
@@ -59,9 +59,17 @@ export function UserSidebar() {
                             alt="Binary Craft Logo"
                             className="w-12 h-12 object-contain drop-shadow-[0_0_15px_rgba(59,130,246,0.3)] shrink-0"
                         />
-                        <div>
-                            <div className="font-black text-lg tracking-tight">Binary Craft</div>
-                            <div className="text-[10px] text-primary font-bold uppercase tracking-widest mt-0.5">User Panel</div>
+                        <div className="flex flex-col items-start gap-2">
+                            <div>
+                                <div className="font-black text-lg leading-none tracking-tight">Binary Craft</div>
+                                <div className="text-[10px] text-primary font-bold uppercase tracking-widest mt-1">User Panel</div>
+                            </div>
+                            {user?.role === 'admin' && (
+                                <Link href="/admin" className="flex items-center gap-1.5 text-xs font-bold text-danger hover:text-white bg-danger/10 hover:bg-danger/40 px-3 py-1.5 rounded-lg transition-all border border-danger/20 shadow-[0_0_10px_rgba(239,68,68,0.1)] w-full justify-center group shrink-0">
+                                    <ShieldAlert className="w-3.5 h-3.5 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-transform" />
+                                    Switch to Admin Panel
+                                </Link>
+                            )}
                         </div>
                     </Link>
                 </div>

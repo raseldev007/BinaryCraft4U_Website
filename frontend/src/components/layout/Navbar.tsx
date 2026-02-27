@@ -137,6 +137,15 @@ export function Navbar() {
                             )}
                         </Link>
 
+                        {isAdmin && (
+                            <Link
+                                href="/admin"
+                                className="hidden lg:flex items-center gap-2 px-3 py-1.5 rounded-full bg-danger/10 border border-danger/20 text-danger hover:bg-danger/20 transition-all text-xs font-black uppercase tracking-tighter shadow-[0_0_15px_rgba(239,68,68,0.1)] hover:shadow-[0_0_20px_rgba(239,68,68,0.2)]"
+                            >
+                                <ShieldAlert className="w-3.5 h-3.5" />
+                                Admin Panel
+                            </Link>
+                        )}
                         <div className="h-5 w-px bg-border hidden sm:block" />
 
                         {/* Auth */}
