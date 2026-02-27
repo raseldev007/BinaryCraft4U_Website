@@ -230,7 +230,7 @@ export function ProductGrid({ category, maxPrice, limit }: ProductGridProps) {
                                 onClick={(e) => { e.preventDefault(); toggleWishlist(product._id, product.title) }}
                                 className="absolute top-3 right-3 z-30 w-8 h-8 rounded-full glass flex items-center justify-center hover:bg-white/10 transition-colors shadow-lg"
                             >
-                                <Heart className={`w-4 h-4 transition-colors ${isWished ? 'fill-danger text-danger' : 'text-text-secondary'}`} />
+                                <Heart className={`w-4 h-4 transition-colors ${isWished ? 'fill-red-500 text-red-500' : 'text-text-secondary'}`} />
                             </button>
 
                             <ProductImage image={product.image || product.images?.[0] || ""} title={product.title} />

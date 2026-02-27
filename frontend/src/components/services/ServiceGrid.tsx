@@ -170,7 +170,7 @@ export function ServiceGrid({ category, limit }: ServiceGridProps) {
                             onClick={(e) => { e.preventDefault(); toggleWishlist(service._id, displayName) }}
                             className="absolute top-4 right-4 z-30 w-10 h-10 rounded-full glass flex items-center justify-center hover:bg-white/10 transition-colors shadow-lg"
                         >
-                            <Heart className={`w-5 h-5 transition-colors ${isWished ? 'fill-danger text-danger' : 'text-text-secondary group-hover:text-white'}`} />
+                            <Heart className={`w-5 h-5 transition-colors ${isWished ? 'fill-red-500 text-red-500' : 'text-text-secondary group-hover:text-white'}`} />
                         </button>
 
                         {/* Icon */}
