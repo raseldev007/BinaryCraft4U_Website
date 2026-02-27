@@ -121,6 +121,18 @@ const services = [
         isFeatured: true,
         isActive: true,
         delivery: "4-8 weeks"
+    },
+    {
+        title: "Custom Mobile Apps Development",
+        description: "Engage your customers on the go. We build high-performance, native and cross-platform mobile applications for iOS and Android.",
+        extendedDescription: "<h3>Mobile Experiences That Drive Engagement</h3><p>In today's mobile-first world, a poorly designed app is a lost customer. We specialize in building fast, intuitive, and beautiful mobile applications that users actually want to keep on their phones.</p><h4>Our Mobile Development Philosophy:</h4><ul class='list-disc pl-5 mt-2 space-y-1 text-text-muted'><li><strong>Native Performance:</strong> Whether using Swift/Kotlin or React Native/Flutter, we prioritize silky-smooth 60fps animations and rapid load times.</li><li><strong>User-Centric UI/UX:</strong> We design specifically for touch interfaces, ensuring intuitive navigation and gorgeous visuals.</li><li><strong>Robust Backend Integration:</strong> Seamlessly connect your app to custom APIs, real-time databases, and secure payment gateways.</li></ul>",
+        price: 40000,
+        category: "Development",
+        features: ["iOS & Android Development", "Mobile-First UI/UX Design", "API & Cloud Integration", "App Store Optimization & Submission"],
+        icon: "fas fa-mobile-alt",
+        isFeatured: true,
+        isActive: true,
+        delivery: "4-12 weeks"
     }
 ];
 
