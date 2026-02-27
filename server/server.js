@@ -30,6 +30,7 @@ app.use('/api/cart', require('./routes/cartRoutes'));
 app.use('/api/orders', require('./routes/orderRoutes'));
 app.use('/api/admin', require('./routes/adminRoutes'));
 app.use('/api/contact', require('./routes/contactRoutes'));
+app.use('/api/subscribers', require('./routes/subscriberRoutes'));
 
 // Health check
 app.get('/api/health', (req, res) => res.json({ success: true, message: 'Binary Craft API is running!' }));

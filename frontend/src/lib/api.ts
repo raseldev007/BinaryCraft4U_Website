@@ -1,4 +1,5 @@
 export const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5001/api';
+export const SERVER_URL = API_BASE.replace(/\/api$/, '');
 
 export const getToken = () => {
     if (typeof window !== 'undefined') {

@@ -1,5 +1,8 @@
+"use client";
+
 import Link from "next/link";
-import { Facebook, Twitter, Instagram, Linkedin, Mail, Phone, MapPin, ArrowRight, Zap } from "lucide-react";
+import { useState } from "react";
+import { Facebook, Twitter, Instagram, Linkedin, Mail, Phone, MapPin, ArrowRight, Zap, Loader2 } from "lucide-react";
 
 const FOOTER_LINKS = {
     "Quick Links": [
@@ -25,6 +28,37 @@ const SOCIALS = [
 ];
 
 export function Footer() {
+    const [email, setEmail] = useState("");
+    const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+    const [message, setMessage] = useState("");
+
+    const handleSubscribe = async (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!email) return;
+
+        setStatus("loading");
+        try {
+            const res = await fetch(process.env.NEXT_PUBLIC_API_URL ? `${process.env.NEXT_PUBLIC_API_URL}/api/subscribers` : "http://localhost:5000/api/subscribers", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ email }),
+            });
+            const data = await res.json();
+
+            if (res.ok) {
+                setStatus("success");
+                setMessage(data.message || "Successfully subscribed!");
+                setEmail("");
+            } else {
+                setStatus("error");
+                setMessage(data.message || "Subscription failed");
+            }
+        } catch (error) {
+            setStatus("error");
+            setMessage("Network error. Please try again.");
+        }
+    };
+
     return (
         <footer className="mt-24 border-t border-border bg-bg-primary relative overflow-hidden">
             <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,rgba(59,130,246,0.04),transparent_60%)]" />
@@ -38,16 +72,35 @@ export function Footer() {
                         </h4>
                         <p className="text-text-muted text-sm">Get the latest products, updates, and insights delivered to your inbox.</p>
                     </div>
-                    <div className="flex w-full md:w-auto gap-2 max-w-sm">
-                        <input
-                            type="email"
-                            placeholder="your@email.com"
-                            className="flex-1 h-11 bg-bg-secondary border border-border rounded-lg px-4 text-sm text-text-primary placeholder:text-text-muted focus:outline-none focus:border-primary transition-colors"
-                        />
-                        <button className="h-11 px-5 bg-primary text-white rounded-lg font-semibold text-sm hover:bg-primary-hover transition-colors flex items-center gap-1.5 shrink-0">
-                            Subscribe <ArrowRight className="w-4 h-4" />
-                        </button>
-                    </div>
+                    <form onSubmit={handleSubscribe} className="flex flex-col w-full md:w-auto gap-2 max-w-sm">
+                        <div className="flex w-full gap-2">
+                            <input
+                                type="email"
+                                placeholder="your@email.com"
+                                value={email}
+                                onChange={(e) => {
+                                    setEmail(e.target.value);
+                                    if (status !== 'idle') setStatus('idle');
+                                }}
+                                disabled={status === 'loading'}
+                                required
+                                className="flex-1 h-11 bg-bg-secondary border border-border rounded-lg px-4 text-sm text-text-primary placeholder:text-text-muted focus:outline-none focus:border-primary transition-colors disabled:opacity-50"
+                            />
+                            <button
+                                type="submit"
+                                disabled={status === 'loading'}
+                                className="h-11 px-5 bg-primary text-white rounded-lg font-semibold text-sm hover:bg-primary-hover transition-colors flex items-center gap-1.5 shrink-0 disabled:opacity-75"
+                            >
+                                {status === 'loading' ? (
+                                    <>Subscribing <Loader2 className="w-4 h-4 animate-spin" /></>
+                                ) : (
+                                    <>Subscribe <ArrowRight className="w-4 h-4" /></>
+                                )}
+                            </button>
+                        </div>
+                        {status === 'success' && <p className="text-success text-xs mt-1">{message}</p>}
+                        {status === 'error' && <p className="text-secondary text-xs mt-1">{message}</p>}
+                    </form>
                 </div>
             </div>
 
