@@ -8,7 +8,7 @@ const TEAM = [
         name: "Md Rasel",
         role: "Founder & CTO",
         bio: "Full-stack app developer (Flutter) and Prompt Engineer with a passion for building premium Mobile Apps and Websites. 2+ years of experience in App architecture, cloud infrastructure, UI/UX design, and API Integration.",
-        avatar: "MR",
+        avatar: "/rasel.jpg",
         skills: ["Flutter", "Dart", "API Integration", "CI/CD (Github Actions)", "Frontend Web", "HTML", "Tailwind CSS", "JavaScript"],
     },
 ];
@@ -135,8 +135,8 @@ export default function AboutPage() {
                         <div className="flex justify-center">
                             {TEAM.map((member) => (
                                 <div key={member.name} className="glass-panel rounded-2xl p-8 max-w-md w-full text-center animate-fadeInUp hover:border-primary/30 transition-all">
-                                    <div className="w-24 h-24 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center text-white text-3xl font-black mx-auto mb-5 shadow-[0_0_30px_rgba(59,130,246,0.4)]">
-                                        {member.avatar}
+                                    <div className="w-24 h-24 rounded-full overflow-hidden flex items-center justify-center text-white text-3xl font-black mx-auto mb-5 shadow-[0_0_30px_rgba(59,130,246,0.4)] border-2 border-primary/20">
+                                        <img src={member.avatar} alt={member.name} className="w-full h-full object-cover" />
                                     </div>
                                     <h3 className="text-xl font-bold text-white">{member.name}</h3>
                                     <p className="text-primary font-semibold text-sm mt-1 mb-4">{member.role}</p>
