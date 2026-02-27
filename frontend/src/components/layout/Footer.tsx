@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { Facebook, Twitter, Instagram, Linkedin, Mail, Phone, MapPin, ArrowRight, Zap, Loader2 } from "lucide-react";
+import { api } from "@/lib/api";
 
 const FOOTER_LINKS = {
     "Quick Links": [
@@ -38,24 +39,13 @@ export function Footer() {
 
         setStatus("loading");
         try {
-            const res = await fetch(process.env.NEXT_PUBLIC_API_URL ? `${process.env.NEXT_PUBLIC_API_URL}/api/subscribers` : "http://localhost:5000/api/subscribers", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ email }),
-            });
-            const data = await res.json();
-
-            if (res.ok) {
-                setStatus("success");
-                setMessage(data.message || "Successfully subscribed!");
-                setEmail("");
-            } else {
-                setStatus("error");
-                setMessage(data.message || "Subscription failed");
-            }
-        } catch (error) {
+            const data = await api('/subscribers', 'POST', { email });
+            setStatus("success");
+            setMessage(data.message || "Successfully subscribed!");
+            setEmail("");
+        } catch (error: any) {
             setStatus("error");
-            setMessage("Network error. Please try again.");
+            setMessage(error.message || "Subscription failed");
         }
     };
 
