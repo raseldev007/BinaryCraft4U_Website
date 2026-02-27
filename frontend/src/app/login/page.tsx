@@ -138,17 +138,17 @@ export default function LoginPage() {
                 </div>
 
                 <div className="relative z-10">
-                    <div className="flex items-center justify-center gap-4 mb-8">
-                        <div className="relative inline-block">
+                    <div className="flex items-center justify-center gap-4 mb-2">
+                        <div className="relative shrink-0">
                             <div className="absolute inset-0 bg-primary/40 blur-2xl rounded-full scale-[1.5]" />
-                            <img src="/logo.png" alt="Binary Craft Logo" className="w-12 h-12 relative object-contain drop-shadow-[0_0_15px_rgba(59,130,246,0.3)]" />
+                            <img src="/logo.png" alt="Binary Craft Logo" className="w-10 h-10 relative object-contain drop-shadow-[0_0_15px_rgba(59,130,246,0.3)]" />
                         </div>
                         <h2 className="text-3xl font-black tracking-tight text-white relative">
                             Welcome Back
                             <div className="absolute -bottom-1 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
                         </h2>
                     </div>
-                    <p className="text-text-muted text-[15px] -mt-5 mb-8">Sign in to your Binary Craft workspace</p>
+                    <p className="text-text-muted text-[15px] mb-8 text-center">Sign in to your Binary Craft workspace</p>
 
                     {error && (
                         <div className="mb-6 p-4 rounded-xl bg-danger/10 border border-danger/20 text-danger text-sm flex items-start gap-3 animate-fadeIn">
