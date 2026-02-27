@@ -24,7 +24,7 @@ const apiUrl = process.env.NEXT_PUBLIC_API_URL || "https://binarycraft4u-backend
 
 async function getBlog(slug: string): Promise<BlogPost | null> {
     try {
-        const res = await fetch(`${apiUrl}/blog/${slug}`, { next: { revalidate: 3600 } });
+        const res = await fetch(`${apiUrl}/blog/${slug}`, { next: { revalidate: 60 } });
         if (!res.ok) return null;
         const data = await res.json();
         return data.success ? data.blog : null;

@@ -57,7 +57,7 @@ export default function BlogPage() {
             const params = new URLSearchParams({ page: String(pg), limit: "9" });
             if (cat && cat !== "All") params.append("category", cat);
             if (q) params.append("search", q);
-            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/blog?${params}`);
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/blog?${params}`, { cache: 'no-store' });
             const data = await res.json();
             if (data.success) {
                 setPosts(data.blogs || []);
@@ -73,7 +73,7 @@ export default function BlogPage() {
 
     const fetchFeatured = useCallback(async () => {
         try {
-            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/blog?featured=true&limit=1`);
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/blog?featured=true&limit=1`, { cache: 'no-store' });
             const data = await res.json();
             if (data.success && data.blogs?.length > 0) setFeatured(data.blogs[0]);
         } catch { /* ignore */ }
