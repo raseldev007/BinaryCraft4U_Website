@@ -17,7 +17,8 @@ interface Product {
     price: number;
     originalPrice?: number;
     category: string;
-    image: string;
+    image?: string;
+    images?: string[];
     features: string[];
     isNew?: boolean;
 }
@@ -216,7 +217,7 @@ export function ProductGrid({ category, maxPrice, limit }: ProductGridProps) {
                                 <Heart className={`w-4 h-4 transition-colors ${isWished ? 'fill-danger text-danger' : 'text-text-secondary'}`} />
                             </button>
 
-                            <ProductImage image={product.image} title={product.title} />
+                            <ProductImage image={product.image || product.images?.[0] || ""} title={product.title} />
                         </div>
 
                         {/* Content */}
@@ -257,94 +258,96 @@ export function ProductGrid({ category, maxPrice, limit }: ProductGridProps) {
             })}
 
             {/* Quick Preview Modal */}
-            {previewProduct && (
-                <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 mb:p-8 animate-fadeIn">
-                    <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={() => setPreviewProduct(null)} />
-                    <div className="relative glass-panel bg-bg-primary border border-border rounded-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto shadow-2xl animate-fadeInUp flex flex-col md:flex-row">
-                        <button
-                            onClick={() => setPreviewProduct(null)}
-                            className="absolute top-4 right-4 z-10 w-8 h-8 rounded-full glass flex items-center justify-center hover:bg-white/10 transition-colors text-text-muted hover:text-white"
-                        >
-                            <X className="w-4 h-4" />
-                        </button>
+            {
+                previewProduct && (
+                    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 mb:p-8 animate-fadeIn">
+                        <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={() => setPreviewProduct(null)} />
+                        <div className="relative glass-panel bg-bg-primary border border-border rounded-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto shadow-2xl animate-fadeInUp flex flex-col md:flex-row">
+                            <button
+                                onClick={() => setPreviewProduct(null)}
+                                className="absolute top-4 right-4 z-10 w-8 h-8 rounded-full glass flex items-center justify-center hover:bg-white/10 transition-colors text-text-muted hover:text-white"
+                            >
+                                <X className="w-4 h-4" />
+                            </button>
 
-                        {/* Image Side */}
-                        <div className="md:w-1/2 relative min-h-[300px] md:min-h-[500px] bg-bg-secondary p-8 flex items-center justify-center">
-                            <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-accent/10 opacity-50" />
-                            <img
-                                src={previewProduct.image}
-                                alt={previewProduct.title}
-                                className="w-full h-full object-cover absolute inset-0 mix-blend-overlay opacity-30 blur-xl"
-                            />
-                            <img
-                                src={previewProduct.image}
-                                alt={previewProduct.title}
-                                className="relative z-10 w-full max-h-full object-contain rounded-xl shadow-2xl drop-shadow-[0_0_30px_rgba(59,130,246,0.2)]"
-                                onError={(e) => {
-                                    (e.target as HTMLImageElement).src = `https://placehold.co/800x600/1E293B/3B82F6?text=${encodeURIComponent(previewProduct.title)}`;
-                                }}
-                            />
-                        </div>
-
-                        {/* Content Side */}
-                        <div className="md:w-1/2 p-8 md:p-10 flex flex-col relative z-20">
-                            <div className="inline-flex items-center px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest bg-primary/10 text-primary border border-primary/20 mb-4 w-fit">
-                                {previewProduct.category}
-                            </div>
-                            <h2 className="text-3xl md:text-4xl font-black text-white leading-tight mb-4 tracking-tight">
-                                {previewProduct.title}
-                            </h2>
-                            <p className="text-text-secondary text-base leading-relaxed mb-6 flex-grow">
-                                {previewProduct.description}
-                            </p>
-
-                            <div className="mb-8">
-                                <h4 className="text-sm font-bold uppercase tracking-widest text-text-muted mb-4 flex items-center gap-2">
-                                    <Star className="w-4 h-4 text-accent" /> Key Features
-                                </h4>
-                                <ul className="space-y-3">
-                                    {previewProduct.features.slice(0, 4).map((f, i) => (
-                                        <li key={i} className="flex items-start text-sm text-text-secondary font-medium">
-                                            <span className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 mr-3 shrink-0" />
-                                            {f}
-                                        </li>
-                                    ))}
-                                </ul>
+                            {/* Image Side */}
+                            <div className="md:w-1/2 relative min-h-[300px] md:min-h-[500px] bg-bg-secondary p-8 flex items-center justify-center">
+                                <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-accent/10 opacity-50" />
+                                <img
+                                    src={previewProduct.image || previewProduct.images?.[0] || ""}
+                                    alt={previewProduct.title}
+                                    className="w-full h-full object-cover absolute inset-0 mix-blend-overlay opacity-30 blur-xl"
+                                />
+                                <img
+                                    src={previewProduct.image || previewProduct.images?.[0] || ""}
+                                    alt={previewProduct.title}
+                                    className="relative z-10 w-full max-h-full object-contain rounded-xl shadow-2xl drop-shadow-[0_0_30px_rgba(59,130,246,0.2)]"
+                                    onError={(e) => {
+                                        (e.target as HTMLImageElement).src = `https://placehold.co/800x600/1E293B/3B82F6?text=${encodeURIComponent(previewProduct.title)}`;
+                                    }}
+                                />
                             </div>
 
-                            <div className="flex flex-col gap-4 mt-auto pt-6 border-t border-border/50">
-                                <div className="flex items-end gap-3">
-                                    <span className="text-4xl font-black text-white tracking-tight">{formatCurrency(previewProduct.price)}</span>
-                                    {previewProduct.originalPrice && (
-                                        <span className="text-lg text-text-muted line-through mb-1.5 opacity-60">
-                                            {formatCurrency(previewProduct.originalPrice)}
-                                        </span>
-                                    )}
+                            {/* Content Side */}
+                            <div className="md:w-1/2 p-8 md:p-10 flex flex-col relative z-20">
+                                <div className="inline-flex items-center px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest bg-primary/10 text-primary border border-primary/20 mb-4 w-fit">
+                                    {previewProduct.category}
                                 </div>
-                                <div className="flex items-center gap-3">
-                                    <Button
-                                        size="lg"
-                                        variant="gradient"
-                                        className="flex-1 shadow-[0_0_20px_rgba(59,130,246,0.3)] hover:shadow-[0_0_30px_rgba(59,130,246,0.5)]"
-                                        onClick={() => {
-                                            addToCart(previewProduct);
-                                            setPreviewProduct(null);
-                                        }}
-                                    >
-                                        <ShoppingCart className="w-5 h-5 mr-2" /> Add to Cart
-                                    </Button>
-                                    <button
-                                        onClick={(e) => { e.preventDefault(); toggleWishlist(previewProduct._id, previewProduct.title) }}
-                                        className="w-12 h-12 rounded-xl glass border border-border flex items-center justify-center hover:bg-white/5 hover:border-text-muted transition-all"
-                                    >
-                                        <Heart className={`w-5 h-5 transition-colors ${wishlist.includes(previewProduct._id) ? 'fill-danger text-danger' : 'text-text-secondary'}`} />
-                                    </button>
+                                <h2 className="text-3xl md:text-4xl font-black text-white leading-tight mb-4 tracking-tight">
+                                    {previewProduct.title}
+                                </h2>
+                                <p className="text-text-secondary text-base leading-relaxed mb-6 flex-grow">
+                                    {previewProduct.description}
+                                </p>
+
+                                <div className="mb-8">
+                                    <h4 className="text-sm font-bold uppercase tracking-widest text-text-muted mb-4 flex items-center gap-2">
+                                        <Star className="w-4 h-4 text-accent" /> Key Features
+                                    </h4>
+                                    <ul className="space-y-3">
+                                        {previewProduct.features.slice(0, 4).map((f, i) => (
+                                            <li key={i} className="flex items-start text-sm text-text-secondary font-medium">
+                                                <span className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 mr-3 shrink-0" />
+                                                {f}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+
+                                <div className="flex flex-col gap-4 mt-auto pt-6 border-t border-border/50">
+                                    <div className="flex items-end gap-3">
+                                        <span className="text-4xl font-black text-white tracking-tight">{formatCurrency(previewProduct.price)}</span>
+                                        {previewProduct.originalPrice && (
+                                            <span className="text-lg text-text-muted line-through mb-1.5 opacity-60">
+                                                {formatCurrency(previewProduct.originalPrice)}
+                                            </span>
+                                        )}
+                                    </div>
+                                    <div className="flex items-center gap-3">
+                                        <Button
+                                            size="lg"
+                                            variant="gradient"
+                                            className="flex-1 shadow-[0_0_20px_rgba(59,130,246,0.3)] hover:shadow-[0_0_30px_rgba(59,130,246,0.5)]"
+                                            onClick={() => {
+                                                addToCart(previewProduct);
+                                                setPreviewProduct(null);
+                                            }}
+                                        >
+                                            <ShoppingCart className="w-5 h-5 mr-2" /> Add to Cart
+                                        </Button>
+                                        <button
+                                            onClick={(e) => { e.preventDefault(); toggleWishlist(previewProduct._id, previewProduct.title) }}
+                                            className="w-12 h-12 rounded-xl glass border border-border flex items-center justify-center hover:bg-white/5 hover:border-text-muted transition-all"
+                                        >
+                                            <Heart className={`w-5 h-5 transition-colors ${wishlist.includes(previewProduct._id) ? 'fill-danger text-danger' : 'text-text-secondary'}`} />
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            )}
-        </div>
+                )
+            }
+        </div >
     );
 }

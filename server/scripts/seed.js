@@ -10,6 +10,7 @@ const products = [
         price: 4500,
         originalPrice: 6500,
         category: "Templates",
+        images: ["/uploads/saas-dashboard.png"],
         isFeatured: true,
         isActive: true,
         tags: ["Next.js", "Tailwind", "SaaS"],
@@ -21,6 +22,7 @@ const products = [
         price: 8500,
         originalPrice: 12000,
         category: "Templates",
+        images: ["/uploads/ecommerce-starter.png"],
         isFeatured: true,
         isActive: true,
         tags: ["E-commerce", "React", "Node.js"]
@@ -31,6 +33,7 @@ const products = [
         price: 2500,
         originalPrice: 4000,
         category: "Templates",
+        images: ["/uploads/portfolio-bundle.png"],
         isFeatured: true,
         isActive: true,
         tags: ["Portfolio", "Frontend", "Animation"]
@@ -41,6 +44,7 @@ const products = [
         price: 15000,
         originalPrice: 20000,
         category: "Software",
+        images: ["/uploads/crm-boilerplate.png"],
         isFeatured: true,
         isActive: true,
         tags: ["CRM", "AI", "Business"],
@@ -52,6 +56,7 @@ const products = [
         price: 12000,
         originalPrice: 15000,
         category: "Software",
+        images: ["/uploads/security-toolkit.png"],
         isFeatured: true,
         isActive: true,
         tags: ["Security", "Tools", "Audit"]
@@ -61,6 +66,7 @@ const products = [
         description: "Optimized cloud hosting for growing startups. Includes managed SSL, daily backups, and 99.9% uptime guarantee.",
         price: 3000,
         category: "Hosting",
+        images: ["/uploads/cloud-hosting.png"],
         isFeatured: true,
         isActive: true,
         tags: ["Hosting", "Cloud", "Reliability"]
