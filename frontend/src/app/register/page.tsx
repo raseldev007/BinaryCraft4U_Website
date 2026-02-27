@@ -140,9 +140,7 @@ export default function RegisterPage() {
     return (
         <div className="min-h-screen flex flex-col relative bg-bg-primary items-center justify-center p-6 py-12 md:py-20 overflow-hidden">
             <div className="absolute inset-0 bg-noise opacity-[0.03] pointer-events-none mix-blend-overlay z-0" />
-            <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-0 overflow-hidden">
-                <img src="/logo.png" alt="Background" className="w-[80vw] max-w-[1000px] h-auto object-contain opacity-[0.03] -rotate-12 scale-110 drop-shadow-2xl" />
-            </div>
+
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/5 rounded-full blur-[140px] pointer-events-none z-0" />
 
             <nav className="absolute top-0 w-full p-6 flex justify-between items-center z-20 hidden md:flex">
@@ -154,117 +152,123 @@ export default function RegisterPage() {
                 </Link>
             </nav>
 
-            <div className="w-full max-w-[500px] glass border border-white/10 rounded-3xl p-8 md:p-10 relative z-10 shadow-[0_20px_80px_-20px_rgba(0,0,0,0.8)] backdrop-blur-2xl animate-fadeInUp mt-8 md:mt-0">
-                <div className="text-center mb-8">
-                    <div className="inline-flex items-center gap-2 bg-primary/10 border border-primary/20 text-primary text-[10px] uppercase font-black tracking-widest px-3 py-1 rounded-full mb-6">
-                        <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
-                        Takes less than 30 seconds
-                    </div>
-                    <h2 className="text-3xl font-black tracking-tight mb-2 text-white relative inline-block">
-                        Create Account
-                        <div className="absolute -bottom-1 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
-                    </h2>
-                    <p className="text-text-muted text-[15px] mt-2">Join Binary Craft and unlock premium IT solutions.</p>
+            <div className="w-full max-w-[500px] glass border border-white/10 rounded-3xl p-8 md:p-10 relative z-10 shadow-[0_20px_80px_-20px_rgba(0,0,0,0.8)] backdrop-blur-2xl animate-fadeInUp mt-8 md:mt-0 overflow-hidden">
+                {/* Background Logo inside form */}
+                <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-0 opacity-10">
+                    <img src="/logo.png" alt="Background" className="w-[150%] max-w-[600px] h-auto object-contain -rotate-12 scale-[1.2] drop-shadow-2xl opacity-10 blur-[1px]" />
                 </div>
 
-                {error && (
-                    <div className="mb-6 p-4 rounded-xl bg-danger/10 border border-danger/20 text-danger text-sm flex items-start gap-3 animate-fadeIn">
-                        <span className="font-bold text-lg leading-none mt-0.5">⊗</span>
-                        <span className="font-medium">{error}</span>
+                <div className="relative z-10">
+                    <div className="text-center mb-8">
+                        <div className="inline-flex items-center gap-2 bg-primary/10 border border-primary/20 text-primary text-[10px] uppercase font-black tracking-widest px-3 py-1 rounded-full mb-6">
+                            <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+                            Takes less than 30 seconds
+                        </div>
+                        <h2 className="text-3xl font-black tracking-tight mb-2 text-white relative inline-block">
+                            Create Account
+                            <div className="absolute -bottom-1 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
+                        </h2>
+                        <p className="text-text-muted text-[15px] mt-2">Join Binary Craft and unlock premium IT solutions.</p>
                     </div>
-                )}
 
-                {/* Google Sign Up */}
-                <button
-                    type="button"
-                    onClick={handleGoogleSignUp}
-                    disabled={isLoading}
-                    className="w-full flex items-center justify-center gap-3 py-3 px-4 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 hover:border-white/20 transition-all duration-200 font-semibold text-white text-sm mb-6 disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                    <svg className="w-5 h-5 flex-shrink-0" viewBox="0 0 24 24">
-                        <path fill="#EA4335" d="M5.266 9.765A7.077 7.077 0 0 1 12 4.909c1.69 0 3.218.6 4.418 1.582L19.91 3C17.782 1.145 15.055 0 12 0 7.27 0 3.198 2.698 1.24 6.65l4.026 3.115Z" />
-                        <path fill="#34A853" d="M16.04 18.013c-1.09.703-2.474 1.078-4.04 1.078a7.077 7.077 0 0 1-6.723-4.823l-4.04 3.067A11.965 11.965 0 0 0 12 24c2.933 0 5.735-1.043 7.834-3l-3.793-2.987Z" />
-                        <path fill="#4A90E2" d="M19.834 21c2.195-2.048 3.62-5.096 3.62-9 0-.71-.109-1.473-.272-2.182H12v4.637h6.436c-.317 1.559-1.17 2.766-2.395 3.558L19.834 21Z" />
-                        <path fill="#FBBC05" d="M5.277 14.268A7.12 7.12 0 0 1 4.909 12c0-.782.125-1.533.357-2.235L1.24 6.65A11.934 11.934 0 0 0 0 12c0 1.92.445 3.73 1.237 5.335l4.04-3.067Z" />
-                    </svg>
-                    <span>{isLoading ? "Connecting..." : "Continue with Google"}</span>
-                </button>
+                    {error && (
+                        <div className="mb-6 p-4 rounded-xl bg-danger/10 border border-danger/20 text-danger text-sm flex items-start gap-3 animate-fadeIn">
+                            <span className="font-bold text-lg leading-none mt-0.5">⊗</span>
+                            <span className="font-medium">{error}</span>
+                        </div>
+                    )}
 
-                <div className="flex items-center gap-4 mb-6">
-                    <div className="flex-1 h-px bg-gradient-to-r from-transparent to-border"></div>
-                    <span className="text-text-muted text-[11px] uppercase tracking-widest font-black">or create with email</span>
-                    <div className="flex-1 h-px bg-gradient-to-l from-transparent to-border"></div>
-                </div>
+                    {/* Google Sign Up */}
+                    <button
+                        type="button"
+                        onClick={handleGoogleSignUp}
+                        disabled={isLoading}
+                        className="w-full flex items-center justify-center gap-3 py-3 px-4 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 hover:border-white/20 transition-all duration-200 font-semibold text-white text-sm mb-6 disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                        <svg className="w-5 h-5 flex-shrink-0" viewBox="0 0 24 24">
+                            <path fill="#EA4335" d="M5.266 9.765A7.077 7.077 0 0 1 12 4.909c1.69 0 3.218.6 4.418 1.582L19.91 3C17.782 1.145 15.055 0 12 0 7.27 0 3.198 2.698 1.24 6.65l4.026 3.115Z" />
+                            <path fill="#34A853" d="M16.04 18.013c-1.09.703-2.474 1.078-4.04 1.078a7.077 7.077 0 0 1-6.723-4.823l-4.04 3.067A11.965 11.965 0 0 0 12 24c2.933 0 5.735-1.043 7.834-3l-3.793-2.987Z" />
+                            <path fill="#4A90E2" d="M19.834 21c2.195-2.048 3.62-5.096 3.62-9 0-.71-.109-1.473-.272-2.182H12v4.637h6.436c-.317 1.559-1.17 2.766-2.395 3.558L19.834 21Z" />
+                            <path fill="#FBBC05" d="M5.277 14.268A7.12 7.12 0 0 1 4.909 12c0-.782.125-1.533.357-2.235L1.24 6.65A11.934 11.934 0 0 0 0 12c0 1.92.445 3.73 1.237 5.335l4.04-3.067Z" />
+                        </svg>
+                        <span>{isLoading ? "Connecting..." : "Continue with Google"}</span>
+                    </button>
 
-                <form onSubmit={handleSubmit} className="space-y-4 text-left">
-                    <Input type="text" floatingLabel="Full Name" icon={<User className="w-5 h-5" />} value={name} onChange={(e) => setName(e.target.value)} required autoComplete="name" />
-                    <Input type="email" floatingLabel="Email Address" icon={<Mail className="w-5 h-5" />} value={email} onChange={(e) => setEmail(e.target.value)} required autoComplete="email" />
+                    <div className="flex items-center gap-4 mb-6">
+                        <div className="flex-1 h-px bg-gradient-to-r from-transparent to-border"></div>
+                        <span className="text-text-muted text-[11px] uppercase tracking-widest font-black">or create with email</span>
+                        <div className="flex-1 h-px bg-gradient-to-l from-transparent to-border"></div>
+                    </div>
 
-                    <div>
-                        <div className="relative">
+                    <form onSubmit={handleSubmit} className="space-y-4 text-left">
+                        <Input type="text" floatingLabel="Full Name" icon={<User className="w-5 h-5" />} value={name} onChange={(e) => setName(e.target.value)} required autoComplete="name" />
+                        <Input type="email" floatingLabel="Email Address" icon={<Mail className="w-5 h-5" />} value={email} onChange={(e) => setEmail(e.target.value)} required autoComplete="email" />
+
+                        <div>
+                            <div className="relative">
+                                <Input
+                                    type={showPassword ? "text" : "password"}
+                                    floatingLabel="Create Password"
+                                    icon={<Lock className="w-5 h-5" />}
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    required
+                                    autoComplete="new-password"
+                                />
+                                <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-4 top-1/2 -translate-y-1/2 text-text-muted hover:text-white transition-colors p-1" tabIndex={-1}>
+                                    {showPassword ? <EyeOff className="w-[18px] h-[18px]" /> : <Eye className="w-[18px] h-[18px]" />}
+                                </button>
+                            </div>
+                            {password.length > 0 && (
+                                <div className="mt-3 px-1 animate-fadeIn">
+                                    <div className="h-1.5 w-full bg-border rounded-full overflow-hidden">
+                                        <div className="h-full rounded-full transition-all duration-300" style={{ width: strength.width, backgroundColor: strength.color }} />
+                                    </div>
+                                    <div className="grid grid-cols-2 gap-2 mt-3 pl-1">
+                                        <div className={`text-[11px] font-medium flex items-center gap-1.5 transition-colors duration-300 ${hasMinLength ? 'text-success' : 'text-text-muted'}`}><CheckCircle2 className="w-3.5 h-3.5" /> 8+ characters</div>
+                                        <div className={`text-[11px] font-medium flex items-center gap-1.5 transition-colors duration-300 ${hasUpperLower ? 'text-success' : 'text-text-muted'}`}><CheckCircle2 className="w-3.5 h-3.5" /> Upper & lowercase</div>
+                                        <div className={`text-[11px] font-medium flex items-center gap-1.5 transition-colors duration-300 ${hasNumberSpecial ? 'text-success' : 'text-text-muted'}`}><CheckCircle2 className="w-3.5 h-3.5" /> Number & symbol</div>
+                                        <div className={`text-[11px] font-medium flex items-center gap-1.5 transition-colors duration-300 ${passwordsMatch ? 'text-success' : 'text-text-muted'}`}><CheckCircle2 className="w-3.5 h-3.5" /> Passwords match</div>
+                                    </div>
+                                </div>
+                            )}
+                            {capsLock && <div className="text-[11px] font-bold text-warning mt-2 flex items-center gap-1.5 px-1 animate-fadeIn"><span className="w-1.5 h-1.5 rounded-full bg-warning animate-pulse" /> Caps Lock is ON</div>}
+                        </div>
+
+                        <div className="relative pt-2">
                             <Input
-                                type={showPassword ? "text" : "password"}
-                                floatingLabel="Create Password"
+                                type={showConfirmPassword ? "text" : "password"}
+                                floatingLabel="Confirm Password"
                                 icon={<Lock className="w-5 h-5" />}
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
+                                value={confirmPassword}
+                                onChange={(e) => setConfirmPassword(e.target.value)}
                                 required
                                 autoComplete="new-password"
+                                className={confirmPassword.length > 0 && passwordsMatch ? "border-success/50 focus:border-success focus:ring-success/30" : ""}
                             />
-                            <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-4 top-1/2 -translate-y-1/2 text-text-muted hover:text-white transition-colors p-1" tabIndex={-1}>
-                                {showPassword ? <EyeOff className="w-[18px] h-[18px]" /> : <Eye className="w-[18px] h-[18px]" />}
+                            <button type="button" onClick={() => setShowConfirmPassword(!showConfirmPassword)} className="absolute right-4 top-1/2 -translate-y-1/2 text-text-muted hover:text-white transition-colors p-1" tabIndex={-1}>
+                                {showConfirmPassword ? <EyeOff className="w-[18px] h-[18px]" /> : <Eye className="w-[18px] h-[18px]" />}
                             </button>
                         </div>
-                        {password.length > 0 && (
-                            <div className="mt-3 px-1 animate-fadeIn">
-                                <div className="h-1.5 w-full bg-border rounded-full overflow-hidden">
-                                    <div className="h-full rounded-full transition-all duration-300" style={{ width: strength.width, backgroundColor: strength.color }} />
-                                </div>
-                                <div className="grid grid-cols-2 gap-2 mt-3 pl-1">
-                                    <div className={`text-[11px] font-medium flex items-center gap-1.5 transition-colors duration-300 ${hasMinLength ? 'text-success' : 'text-text-muted'}`}><CheckCircle2 className="w-3.5 h-3.5" /> 8+ characters</div>
-                                    <div className={`text-[11px] font-medium flex items-center gap-1.5 transition-colors duration-300 ${hasUpperLower ? 'text-success' : 'text-text-muted'}`}><CheckCircle2 className="w-3.5 h-3.5" /> Upper & lowercase</div>
-                                    <div className={`text-[11px] font-medium flex items-center gap-1.5 transition-colors duration-300 ${hasNumberSpecial ? 'text-success' : 'text-text-muted'}`}><CheckCircle2 className="w-3.5 h-3.5" /> Number & symbol</div>
-                                    <div className={`text-[11px] font-medium flex items-center gap-1.5 transition-colors duration-300 ${passwordsMatch ? 'text-success' : 'text-text-muted'}`}><CheckCircle2 className="w-3.5 h-3.5" /> Passwords match</div>
-                                </div>
-                            </div>
-                        )}
-                        {capsLock && <div className="text-[11px] font-bold text-warning mt-2 flex items-center gap-1.5 px-1 animate-fadeIn"><span className="w-1.5 h-1.5 rounded-full bg-warning animate-pulse" /> Caps Lock is ON</div>}
+
+                        <Button type="submit" size="lg" variant="gradient" className="w-full mt-4 shadow-[0_8px_30px_-4px_rgba(59,130,246,0.4)] hover:shadow-[0_12px_40px_-4px_rgba(59,130,246,0.6)] group relative overflow-hidden disabled:opacity-50 disabled:cursor-not-allowed" isLoading={isLoading} disabled={!isFormValid || isLoading}>
+                            <span className="relative z-10 flex items-center justify-center font-bold text-[15px]">
+                                {isLoading ? "Setting up workspace..." : (<>Create Free Account <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" /></>)}
+                            </span>
+                        </Button>
+                    </form>
+                    <div className="mt-6 pt-6 border-t border-white/5 flex flex-col items-center gap-3">
+                        <p className="flex items-center justify-center gap-1.5 text-[11px] font-bold text-text-muted">
+                            <ShieldCheck className="w-3.5 h-3.5 text-success" />
+                            Your information is securely encrypted
+                        </p>
+                        <p className="text-[13px] text-text-muted/80 text-center leading-relaxed px-4">
+                            By confirming, you agree to our{" "}
+                            <Link href="/terms" className="text-white hover:text-primary transition-colors underline decoration-border underline-offset-4">Terms</Link>{" "}
+                            and{" "}
+                            <Link href="/privacy" className="text-white hover:text-primary transition-colors underline decoration-border underline-offset-4">Privacy Policy</Link>.
+                        </p>
                     </div>
-
-                    <div className="relative pt-2">
-                        <Input
-                            type={showConfirmPassword ? "text" : "password"}
-                            floatingLabel="Confirm Password"
-                            icon={<Lock className="w-5 h-5" />}
-                            value={confirmPassword}
-                            onChange={(e) => setConfirmPassword(e.target.value)}
-                            required
-                            autoComplete="new-password"
-                            className={confirmPassword.length > 0 && passwordsMatch ? "border-success/50 focus:border-success focus:ring-success/30" : ""}
-                        />
-                        <button type="button" onClick={() => setShowConfirmPassword(!showConfirmPassword)} className="absolute right-4 top-1/2 -translate-y-1/2 text-text-muted hover:text-white transition-colors p-1" tabIndex={-1}>
-                            {showConfirmPassword ? <EyeOff className="w-[18px] h-[18px]" /> : <Eye className="w-[18px] h-[18px]" />}
-                        </button>
-                    </div>
-
-                    <Button type="submit" size="lg" variant="gradient" className="w-full mt-4 shadow-[0_8px_30px_-4px_rgba(59,130,246,0.4)] hover:shadow-[0_12px_40px_-4px_rgba(59,130,246,0.6)] group relative overflow-hidden disabled:opacity-50 disabled:cursor-not-allowed" isLoading={isLoading} disabled={!isFormValid || isLoading}>
-                        <span className="relative z-10 flex items-center justify-center font-bold text-[15px]">
-                            {isLoading ? "Setting up workspace..." : (<>Create Free Account <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" /></>)}
-                        </span>
-                    </Button>
-                </form>
-
-                <div className="mt-6 pt-6 border-t border-white/5 flex flex-col items-center gap-3">
-                    <p className="flex items-center justify-center gap-1.5 text-[11px] font-bold text-text-muted">
-                        <ShieldCheck className="w-3.5 h-3.5 text-success" />
-                        Your information is securely encrypted
-                    </p>
-                    <p className="text-[13px] text-text-muted/80 text-center leading-relaxed px-4">
-                        By confirming, you agree to our{" "}
-                        <Link href="/terms" className="text-white hover:text-primary transition-colors underline decoration-border underline-offset-4">Terms</Link>{" "}
-                        and{" "}
-                        <Link href="/privacy" className="text-white hover:text-primary transition-colors underline decoration-border underline-offset-4">Privacy Policy</Link>.
-                    </p>
                 </div>
             </div>
 
