@@ -5,6 +5,7 @@ import { Footer } from "@/components/layout/Footer";
 import { ArrowRight, Clock, User, BookOpen, Search } from "lucide-react";
 import Link from "next/link";
 import { useState, useEffect, useCallback } from "react";
+import { getImageUrl } from "@/lib/utils";
 
 interface BlogPost {
     _id: string;
@@ -117,7 +118,7 @@ export default function BlogPage() {
                                 <div className="md:grid md:grid-cols-2">
                                     <div style={{ height: "280px", overflow: "hidden" }}>
                                         {featured.featuredImage ? (
-                                            <img src={featured.featuredImage} alt={featured.title} style={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform 0.7s" }} className="group-hover:scale-105" />
+                                            <img src={getImageUrl(featured.featuredImage)} alt={featured.title} style={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform 0.7s" }} className="group-hover:scale-105" />
                                         ) : (
                                             <div style={{ width: "100%", height: "100%", background: "linear-gradient(135deg, rgba(59,130,246,0.2), rgba(139,92,246,0.2))", display: "flex", alignItems: "center", justifyContent: "center" }}>
                                                 <BookOpen style={{ width: "4rem", height: "4rem", color: "rgba(59,130,246,0.5)" }} />
@@ -180,10 +181,10 @@ export default function BlogPage() {
                         ) : (
                             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: "1.5rem" }}>
                                 {nonFeaturedPosts.map((post, i) => (
-                                    <div key={post._id} className="glass animate-fadeInUp feature-card" style={{ borderRadius: "20px", overflow: "hidden", display: "flex", flexDirection: "column", animationDelay: `${i * 60}ms` }}>
-                                        <div style={{ height: "176px", overflow: "hidden", position: "relative" }}>
+                                    <div key={post._id} className="glass rounded-2xl flex flex-col relative group overflow-hidden transition-all duration-300 hover:-translate-y-2 hover:border-primary/40 hover:shadow-[0_20px_60px_rgba(59,130,246,0.15)] animate-fadeInUp" style={{ animationDelay: `${i * 60}ms` }}>
+                                        <div style={{ height: "200px", overflow: "hidden", position: "relative" }} className="border-b border-white/5">
                                             {post.featuredImage ? (
-                                                <img src={post.featuredImage} alt={post.title} style={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform 0.5s" }} />
+                                                <img src={getImageUrl(post.featuredImage)} alt={post.title} style={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform 0.5s" }} className="group-hover:scale-105" />
                                             ) : (
                                                 <div style={{ width: "100%", height: "100%", background: "linear-gradient(135deg, rgba(59,130,246,0.15), rgba(139,92,246,0.15))", display: "flex", alignItems: "center", justifyContent: "center" }}>
                                                     <BookOpen style={{ width: "2.5rem", height: "2.5rem", color: "rgba(59,130,246,0.4)" }} />
@@ -196,8 +197,8 @@ export default function BlogPage() {
                                             </div>
                                         </div>
                                         <div style={{ padding: "1.25rem", flex: 1, display: "flex", flexDirection: "column" }}>
-                                            <h3 style={{ fontSize: "0.95rem", fontWeight: 700, marginBottom: "0.5rem", color: "var(--color-text-primary)", lineHeight: 1.4 }}>{post.title}</h3>
-                                            <p style={{ color: "var(--color-text-secondary)", fontSize: "0.8rem", lineHeight: 1.6, marginBottom: "1rem", flex: 1 }}>{post.excerpt}</p>
+                                            <h3 className="font-bold text-white text-lg leading-tight mb-2 group-hover:text-primary transition-colors">{post.title}</h3>
+                                            <p className="text-sm text-text-secondary leading-relaxed mb-4 flex-1">{post.excerpt}</p>
                                             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", fontSize: "0.7rem", color: "var(--color-text-muted)", paddingTop: "0.75rem", borderTop: "1px solid var(--color-border)" }}>
                                                 <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
                                                     <span style={{ display: "flex", alignItems: "center", gap: "4px" }}><User style={{ width: "10px", height: "10px" }} />{post.author}</span>

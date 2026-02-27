@@ -4,6 +4,7 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { ArrowLeft, Clock, User, Eye } from "lucide-react";
 import Link from "next/link";
+import { getImageUrl } from "@/lib/utils";
 
 interface BlogPost {
     _id: string;
@@ -44,7 +45,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
             title: blog.title,
             description: blog.excerpt || blog.title,
             type: "article",
-            images: blog.featuredImage ? [{ url: blog.featuredImage, width: 1200, height: 630 }] : [],
+            images: blog.featuredImage ? [{ url: getImageUrl(blog.featuredImage), width: 1200, height: 630 }] : [],
         },
         twitter: { card: "summary_large_image", title: blog.title, description: blog.excerpt },
         alternates: { canonical: `${baseUrl}/blog/${slug}` },
@@ -64,7 +65,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         description: blog.excerpt,
         author: { "@type": "Person", name: blog.author },
         datePublished: blog.createdAt,
-        image: blog.featuredImage || `${baseUrl}/og-image.png`,
+        image: blog.featuredImage ? getImageUrl(blog.featuredImage) : `${baseUrl}/og-image.png`,
         publisher: { "@type": "Organization", name: "Binary Craft", url: baseUrl },
     };
 
@@ -75,8 +76,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             <main className="flex-1 pt-20">
                 {/* Hero Image */}
                 {blog.featuredImage && (
-                    <div style={{ height: "360px", overflow: "hidden", position: "relative" }}>
-                        <img src={blog.featuredImage} alt={blog.title} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                    <div style={{ height: "400px", overflow: "hidden", position: "relative" }}>
+                        <img src={getImageUrl(blog.featuredImage)} alt={blog.title} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
                         <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, transparent 40%, var(--color-bg-primary))" }} />
                     </div>
                 )}
@@ -114,7 +115,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
                     {/* Content */}
                     <article
-                        style={{ color: "var(--color-text-secondary)", lineHeight: 1.9, fontSize: "1rem" }}
+                        className="blog-content"
+                        style={{ color: "var(--color-text-secondary)", lineHeight: 1.9, fontSize: "1.1rem" }}
                         dangerouslySetInnerHTML={{ __html: blog.content }}
                     />
 
