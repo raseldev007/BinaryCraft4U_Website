@@ -154,8 +154,8 @@ export default function RegisterPage() {
 
             <div className="w-full max-w-[500px] glass border border-white/10 rounded-3xl p-8 md:p-10 relative z-10 shadow-[0_20px_80px_-20px_rgba(0,0,0,0.8)] backdrop-blur-2xl animate-fadeInUp mt-8 md:mt-0 overflow-hidden">
                 {/* Background Logo inside form */}
-                <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-0 opacity-10">
-                    <img src="/logo.png" alt="Background" className="w-[150%] max-w-[600px] h-auto object-contain -rotate-12 scale-[1.2] drop-shadow-2xl opacity-10 blur-[1px]" />
+                <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-0">
+                    <img src="/logo.png" alt="Background" className="w-[120%] h-auto object-contain opacity-[0.12] blur-[0.5px] scale-110" />
                 </div>
 
                 <div className="relative z-10">
