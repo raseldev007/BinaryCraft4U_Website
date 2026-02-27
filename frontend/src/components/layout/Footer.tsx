@@ -104,7 +104,7 @@ export function Footer() {
                                     <li key={link.href}>
                                         <Link
                                             href={link.href}
-                                            className="text-text-muted hover:text-primary transition-colors text-sm flex items-center gap-1.5 group"
+                                            className="text-text-muted hover:text-primary transition-colors text-sm flex items-center gap-1.5 group w-fit relative z-10"
                                         >
                                             <span className="opacity-0 group-hover:opacity-100 transition-opacity text-primary">›</span>
                                             {link.label}
