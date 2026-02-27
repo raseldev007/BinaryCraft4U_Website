@@ -3,21 +3,38 @@ const Cart = require('../models/Cart');
 
 exports.createOrder = async (req, res, next) => {
     try {
-        const { shippingAddress, notes, paymentMethod } = req.body;
-        const cart = await Cart.findOne({ user: req.user.id });
-        if (!cart || cart.items.length === 0) {
-            return res.status(400).json({ success: false, message: 'Cart is empty' });
+        const { shippingAddress, notes, paymentMethod, items } = req.body;
+
+        let orderItems = items;
+
+        if (!orderItems || orderItems.length === 0) {
+            const cart = await Cart.findOne({ user: req.user.id });
+            if (!cart || cart.items.length === 0) {
+                return res.status(400).json({ success: false, message: 'Cart is empty' });
+            }
+            orderItems = cart.items;
         }
-        const totalAmount = cart.items.reduce((sum, i) => sum + i.price * i.quantity, 0);
+
+        const totalAmount = orderItems.reduce((sum, i) => sum + i.price * (i.quantity || i.qty || 1), 0);
+
+        // Ensure quantity structure maps correctly for models
+        const mappedItems = orderItems.map(i => ({
+            ...i,
+            quantity: i.quantity || i.qty || 1
+        }));
+
         const order = await Order.create({
             user: req.user.id,
-            items: cart.items,
+            items: mappedItems,
             totalAmount,
             shippingAddress,
             notes,
             paymentMethod: paymentMethod || 'cod'
         });
+
+        // Always attempt to clear backend cart if it was used or to sync states
         await Cart.findOneAndUpdate({ user: req.user.id }, { items: [] });
+
         res.status(201).json({ success: true, order });
     } catch (error) { next(error); }
 };

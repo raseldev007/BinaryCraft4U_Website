@@ -12,6 +12,7 @@ import Link from "next/link";
 import { formatCurrency } from "@/lib/utils";
 
 interface CartItem {
+    _id: string;
     image: string;
     type: string;
     title: string;
@@ -47,6 +48,14 @@ export default function CheckoutPage() {
 
         try {
             await api("/orders", "POST", {
+                items: cartItems.map(item => ({
+                    itemId: item._id,
+                    itemType: item.type || 'product',
+                    title: item.title,
+                    price: item.price,
+                    quantity: item.qty,
+                    image: item.image
+                })),
                 shippingAddress: {
                     street: shipping.street,
                     city: shipping.city,
