@@ -134,7 +134,7 @@ export default function LoginPage() {
             <div className="w-full max-w-[440px] glass border border-white/10 rounded-[28px] p-8 md:p-10 relative z-10 shadow-[0_20px_80px_-20px_rgba(0,0,0,0.8)] backdrop-blur-2xl animate-fadeInUp group mt-10 md:mt-0 overflow-hidden">
                 {/* Background Logo inside form */}
                 <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-0">
-                    <img src="/logo.png" alt="Background" className="w-[120%] h-auto object-contain opacity-[0.12] blur-[0.5px] scale-110" />
+                    <img src="/logo.png" alt="Background" className="w-[120%] h-auto object-contain opacity-[0.4] blur-[0.5px] scale-110" />
                 </div>
 
                 <div className="relative z-10">
