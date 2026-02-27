@@ -16,11 +16,10 @@ const productSchema = new mongoose.Schema({
     numReviews: { type: Number, default: 0 }
 }, { timestamps: true });
 
-productSchema.pre('save', function (next) {
+productSchema.pre('save', function () {
     if (this.isModified('title')) {
         this.slug = this.title.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
     }
-    next();
 });
 
 module.exports = mongoose.model('Product', productSchema);

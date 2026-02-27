@@ -16,11 +16,10 @@ const serviceSchema = new mongoose.Schema({
     numReviews: { type: Number, default: 0 }
 }, { timestamps: true });
 
-serviceSchema.pre('save', function (next) {
+serviceSchema.pre('save', function () {
     if (this.isModified('title')) {
         this.slug = this.title.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
     }
-    next();
 });
 
 module.exports = mongoose.model('Service', serviceSchema);
