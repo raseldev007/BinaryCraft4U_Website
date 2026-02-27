@@ -135,9 +135,8 @@ export function Footer() {
                     </div>
                 </div>
 
-                <div className="pt-8 border-t border-border flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-text-muted">
-                    <p>© {new Date().getFullYear()} Binary Craft. All rights reserved.</p>
-
+                <div className="pt-8 border-t border-border flex justify-center text-xs text-text-muted">
+                    <p className="text-center">© {new Date().getFullYear()} Binary Craft. All rights reserved.</p>
                 </div>
             </div>
         </footer>
