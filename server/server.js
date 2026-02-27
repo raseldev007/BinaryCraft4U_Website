@@ -4,7 +4,6 @@ const cors = require('cors');
 const path = require('path');
 const helmet = require('helmet');
 const morgan = require('morgan');
-const mongoSanitize = require('express-mongo-sanitize');
 
 const connectDB = require('./config/db');
 const errorHandler = require('./middleware/errorHandler');
@@ -47,8 +46,9 @@ app.use(cors({
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
-// Sanitize user data to prevent MongoDB injection
-app.use(mongoSanitize());
+// Sanitize user data to prevent MongoDB injection (Disabled due to Express 5 compatibility)
+// const mongoSanitize = require('express-mongo-sanitize');
+// app.use(mongoSanitize());
 
 // Prevent HTTP parameter pollution (Disabled due to Express 4.19+ incompatibility)
 // const hpp = require('hpp');
