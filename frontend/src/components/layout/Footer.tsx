@@ -18,7 +18,7 @@ const FOOTER_LINKS = {
 };
 
 const SOCIALS = [
-    { Icon: Facebook, href: "#" },
+    { Icon: Facebook, href: "https://www.facebook.com/profile.php?id=61555248187121" },
     { Icon: Twitter, href: "#" },
     { Icon: Instagram, href: "#" },
     { Icon: Linkedin, href: "#" },
