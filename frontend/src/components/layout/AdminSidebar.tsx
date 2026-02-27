@@ -59,11 +59,17 @@ export function AdminSidebar() {
                             alt="Binary Craft Logo"
                             className="w-12 h-12 object-contain drop-shadow-[0_0_15px_rgba(59,130,246,0.3)] shrink-0"
                         />
-                        <div>
-                            <div className="font-black text-lg tracking-tight">Binary Craft</div>
-                            <div className="bg-gradient-to-r from-primary to-accent text-white text-[9px] font-black px-2 py-0.5 rounded-full uppercase tracking-widest mt-1 inline-block">
-                                Admin Control
+                        <div className="flex flex-col items-start gap-2">
+                            <div>
+                                <div className="font-black text-lg leading-none tracking-tight">Binary Craft</div>
+                                <div className="bg-gradient-to-r from-danger to-orange-500 text-white text-[9px] font-black px-2 py-0.5 rounded-full uppercase tracking-widest mt-1.5 inline-block shadow-[0_0_8px_rgba(239,68,68,0.5)]">
+                                    Admin Control
+                                </div>
                             </div>
+                            <Link href="/dashboard" className="flex items-center gap-1.5 text-xs font-bold text-primary hover:text-white bg-primary/10 hover:bg-primary/40 px-3 py-1.5 rounded-lg transition-all border border-primary/20 shadow-[0_0_10px_rgba(59,130,246,0.1)] w-full justify-center group">
+                                <ExternalLink className="w-3.5 h-3.5 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-transform" />
+                                Switch to User Panel
+                            </Link>
                         </div>
                     </Link>
                 </div>
