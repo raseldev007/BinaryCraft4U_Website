@@ -107,15 +107,15 @@ export function Navbar() {
                                     key={link.name}
                                     href={link.href}
                                     className={cn(
-                                        "text-[14px] font-medium transition-all duration-200 relative py-1",
+                                        "text-[15px] font-semibold transition-all duration-300 relative px-3 py-1.5 rounded-lg flex items-center justify-center",
                                         isActive
-                                            ? "text-white"
-                                            : "text-text-muted hover:text-white"
+                                            ? "text-primary bg-primary/10 shadow-[inset_0_0_10px_rgba(59,130,246,0.1)] border border-primary/20"
+                                            : "text-text-muted hover:text-white hover:bg-white/5"
                                     )}
                                 >
                                     {link.name}
                                     {isActive && (
-                                        <span className="absolute -bottom-1 left-0 right-0 h-0.5 bg-gradient-to-r from-primary to-accent rounded-full" />
+                                        <span className="absolute -bottom-[2px] left-1/2 -translate-x-1/2 w-3/4 h-[3px] bg-gradient-to-r from-primary to-accent rounded-t-full shadow-[0_0_8px_rgba(59,130,246,0.8)]" />
                                     )}
                                 </Link>
                             );
