@@ -5,7 +5,6 @@ const path = require('path');
 const helmet = require('helmet');
 const morgan = require('morgan');
 const mongoSanitize = require('express-mongo-sanitize');
-const hpp = require('hpp');
 
 const connectDB = require('./config/db');
 const errorHandler = require('./middleware/errorHandler');
@@ -51,8 +50,9 @@ app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 // Sanitize user data to prevent MongoDB injection
 app.use(mongoSanitize());
 
-// Prevent HTTP parameter pollution
-app.use(hpp({ whitelist: ['category', 'tags', 'sort', 'page', 'limit'] }));
+// Prevent HTTP parameter pollution (Disabled due to Express 4.19+ incompatibility)
+// const hpp = require('hpp');
+// app.use(hpp({ whitelist: ['category', 'tags', 'sort', 'page', 'limit'] }));
 
 // HTTP Request logging with Morgan → Winston
 app.use(morgan('combined', { stream: logger.stream }));
