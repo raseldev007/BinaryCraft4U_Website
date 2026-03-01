@@ -85,8 +85,8 @@ export default function CheckoutPage() {
                 <nav className="border-b border-border/50 bg-bg-primary/80 backdrop-blur-md sticky top-0 z-50">
                     <div className="max-w-[1200px] mx-auto px-6 h-20 flex items-center justify-between">
                         <Link href="/" className="flex items-center gap-3">
-                            <img src="/logo.png" alt="Binary Craft Logo" className="w-12 h-12 object-contain drop-shadow-[0_0_15px_rgba(59,130,246,0.3)]" />
-                            <div className="font-black text-xl tracking-tight hidden sm:block">Binary Craft</div>
+                            <img src="/logo.png" alt="BinaryNexa Logo" className="w-12 h-12 object-contain drop-shadow-[0_0_15px_rgba(59,130,246,0.3)]" />
+                            <div className="font-black text-xl tracking-tight hidden sm:block">BinaryNexa</div>
                         </Link>
                         <div className="flex items-center gap-2 text-sm font-bold text-text-muted">
                             <Lock className="w-4 h-4 text-primary" /> Secure Checkout
@@ -99,7 +99,7 @@ export default function CheckoutPage() {
                         <div className="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-border/50 pb-8">
                             <div>
                                 <h1 className="text-4xl md:text-5xl font-black tracking-tight mb-3">Checkout</h1>
-                                <p className="text-lg text-text-muted">Finalize your order and get started with Binary Craft.</p>
+                                <p className="text-lg text-text-muted">Finalize your order and get started with BinaryNexa.</p>
                             </div>
 
                             {/* Premium Step Indicator */}

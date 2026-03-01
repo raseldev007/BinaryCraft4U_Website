@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
-const apiUrl = process.env.NEXT_PUBLIC_API_URL || "https://binarycraft4u-website.onrender.com/api";
-const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://binarycraft4u.vercel.app";
+const apiUrl = process.env.NEXT_PUBLIC_API_URL || "https://binarynexa4u-website.onrender.com/api";
+const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://binarynexa4u.vercel.app";
 
 async function getProduct(slug: string) {
     try {
@@ -15,11 +15,11 @@ async function getProduct(slug: string) {
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
     const { slug } = await params;
     const product = await getProduct(slug);
-    if (!product) return { title: "Product Not Found | Binary Craft" };
+    if (!product) return { title: "Product Not Found | BinaryNexa" };
 
     return {
-        title: `${product.title} | Binary Craft`,
-        description: product.description || `Get ${product.title} from Binary Craft — Premium IT solutions.`,
+        title: `${product.title} | BinaryNexa`,
+        description: product.description || `Get ${product.title} from BinaryNexa — Premium IT solutions.`,
         openGraph: {
             title: product.title,
             description: product.description,

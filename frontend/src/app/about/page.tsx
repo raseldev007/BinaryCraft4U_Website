@@ -50,7 +50,7 @@ export default function AboutPage() {
                             <span className="gradient-text">Digital Future</span>
                         </h1>
                         <p className="text-text-muted text-lg leading-relaxed">
-                            Binary Craft is a premium IT solutions provider dedicated to helping businesses and professionals accelerate their digital transformation.
+                            BinaryNexa is a premium IT solutions provider dedicated to helping businesses and professionals accelerate their digital transformation.
                         </p>
                     </div>
                 </section>
@@ -71,7 +71,7 @@ export default function AboutPage() {
                                 We believe that great software should be accessible, beautifully designed, and built to perform. Our mission is to bridge the gap between complex technology and intuitive user experiences.
                             </p>
                             <p className="text-text-secondary leading-relaxed">
-                                Founded in 2026, Binary Craft has quickly grown into a trusted marketplace and service provider, delivering enterprise-grade solutions with the agility and design sensibility of a modern startup.
+                                Founded in 2026, BinaryNexa has quickly grown into a trusted marketplace and service provider, delivering enterprise-grade solutions with the agility and design sensibility of a modern startup.
                             </p>
 
                             <div className="grid grid-cols-3 gap-4 mt-8">
@@ -130,7 +130,7 @@ export default function AboutPage() {
                                 <Users className="w-3 h-3" />
                                 Meet the Team
                             </div>
-                            <h2 className="text-3xl font-bold">The People Behind Binary Craft</h2>
+                            <h2 className="text-3xl font-bold">The People Behind BinaryNexa</h2>
                         </div>
                         <div className="flex justify-center">
                             {TEAM.map((member) => (

@@ -56,12 +56,12 @@ export function AdminSidebar() {
                     <Link href="/admin" className="flex items-center gap-3">
                         <img
                             src="/logo.png"
-                            alt="Binary Craft Logo"
+                            alt="BinaryNexa Logo"
                             className="w-12 h-12 object-contain drop-shadow-[0_0_15px_rgba(59,130,246,0.3)] shrink-0"
                         />
                         <div className="flex flex-col items-start gap-2">
                             <div>
-                                <div className="font-black text-lg leading-none tracking-tight">Binary Craft</div>
+                                <div className="font-black text-lg leading-none tracking-tight">BinaryNexa</div>
                                 <div className="bg-gradient-to-r from-danger to-orange-500 text-white text-[9px] font-black px-2 py-0.5 rounded-full uppercase tracking-widest mt-1.5 inline-block shadow-[0_0_8px_rgba(239,68,68,0.5)]">
                                     Admin Control
                                 </div>

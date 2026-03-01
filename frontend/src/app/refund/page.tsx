@@ -39,7 +39,7 @@ export default function RefundPage() {
                         <div className="glass-panel p-8 md:p-12 rounded-2xl border border-border shadow-xl">
                             <h2 className="text-2xl font-bold mb-4 text-white">1. Our 7-Day Guarantee</h2>
                             <p className="text-text-secondary leading-relaxed mb-4">
-                                Binary Craft offers a comprehensive 7-day money-back guarantee on all digital products and eligible services. If you are not satisfied with your purchase, let us know within 7 days and we will issue a full refund.
+                                BinaryNexa offers a comprehensive 7-day money-back guarantee on all digital products and eligible services. If you are not satisfied with your purchase, let us know within 7 days and we will issue a full refund.
                             </p>
                             <div className="bg-primary/10 border border-primary/20 rounded-xl p-5 mb-8 text-primary font-medium text-sm">
                                 💡 Note: Refunds are processed back to the original payment method and may take 5-10 business days to appear on your statement.
@@ -68,7 +68,7 @@ export default function RefundPage() {
 
                             <h2 className="text-2xl font-bold mb-4 text-white">4. How to Request a Refund</h2>
                             <p className="text-text-secondary leading-relaxed">
-                                To request a refund, simply send an email to support@binarycraft4u.com with your order number and the reason for the request. Our team will review your request within 24 hours.
+                                To request a refund, simply send an email to support@binarynexa4u.com with your order number and the reason for the request. Our team will review your request within 24 hours.
                             </p>
                         </div>
                     </div>

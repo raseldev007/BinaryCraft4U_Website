@@ -88,11 +88,11 @@ export function Navbar() {
                     <Link href="/" className="flex items-center gap-3 group">
                         <img
                             src="/logo.png"
-                            alt="Binary Craft Logo"
+                            alt="BinaryNexa Logo"
                             className="w-12 h-12 object-contain drop-shadow-[0_0_15px_rgba(59,130,246,0.3)] group-hover:drop-shadow-[0_0_30px_rgba(59,130,246,0.5)] transition-all duration-300"
                         />
                         <span className="font-bold text-lg hidden sm:block tracking-tight">
-                            Binary Craft
+                            BinaryNexa
                         </span>
                     </Link>
 

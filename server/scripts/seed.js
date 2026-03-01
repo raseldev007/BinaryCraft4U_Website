@@ -12,7 +12,7 @@ const products = [
         originalPrice: 6500,
         category: "Templates",
         images: ["/uploads/saas-dashboard.png"],
-        previewUrl: "https://demo.binarycraft4u.com/saas",
+        previewUrl: "https://demo.binarynexa4u.com/saas",
         isFeatured: true,
         isActive: true,
         tags: ["Next.js", "Tailwind", "SaaS"],
@@ -21,12 +21,12 @@ const products = [
     {
         title: "Ultimate E-commerce Starter Kit",
         description: "Complete e-commerce solution with cart, checkout, and payment integration. Fully responsive and optimized for mobile devices.",
-        extendedDescription: "<h3>Transform Your Digital Storefront</h3><p>Stop wrestling with complex e-commerce setups. Our Starter Kit provides a production-ready foundation designed to maximize conversion rates and provide a frictionless shopping experience.</p><h4>The Binary Craft Advantage:</h4><ul class='list-disc pl-5 mt-2 space-y-1 text-text-muted'><li><strong>Conversion Optimized:</strong> UI/UX researched and designed specifically to reduce cart abandonment.</li><li><strong>Stripe Integration:</strong> Pre-configured secure payment processing.</li><li><strong>SEO Ready:</strong> Semantic HTML and dynamic meta tags ensure your products rank high.</li></ul>",
+        extendedDescription: "<h3>Transform Your Digital Storefront</h3><p>Stop wrestling with complex e-commerce setups. Our Starter Kit provides a production-ready foundation designed to maximize conversion rates and provide a frictionless shopping experience.</p><h4>The BinaryNexa Advantage:</h4><ul class='list-disc pl-5 mt-2 space-y-1 text-text-muted'><li><strong>Conversion Optimized:</strong> UI/UX researched and designed specifically to reduce cart abandonment.</li><li><strong>Stripe Integration:</strong> Pre-configured secure payment processing.</li><li><strong>SEO Ready:</strong> Semantic HTML and dynamic meta tags ensure your products rank high.</li></ul>",
         price: 8500,
         originalPrice: 12000,
         category: "Templates",
         images: ["/uploads/ecommerce-starter.png"],
-        previewUrl: "https://demo.binarycraft4u.com/ecommerce",
+        previewUrl: "https://demo.binarynexa4u.com/ecommerce",
         isFeatured: true,
         isActive: true,
         tags: ["E-commerce", "React", "Node.js"]
@@ -39,7 +39,7 @@ const products = [
         originalPrice: 4000,
         category: "Templates",
         images: ["/uploads/portfolio-bundle.png"],
-        previewUrl: "https://demo.binarycraft4u.com/portfolio",
+        previewUrl: "https://demo.binarynexa4u.com/portfolio",
         isFeatured: true,
         isActive: true,
         tags: ["Portfolio", "Frontend", "Animation"]
@@ -52,7 +52,7 @@ const products = [
         originalPrice: 20000,
         category: "Software",
         images: ["/uploads/crm-boilerplate.png"],
-        previewUrl: "https://demo.binarycraft4u.com/crm",
+        previewUrl: "https://demo.binarynexa4u.com/crm",
         isFeatured: true,
         isActive: true,
         tags: ["CRM", "AI", "Business"],
@@ -66,7 +66,7 @@ const products = [
         originalPrice: 15000,
         category: "Software",
         images: ["/uploads/security-toolkit.png"],
-        previewUrl: "https://demo.binarycraft4u.com/audit",
+        previewUrl: "https://demo.binarynexa4u.com/audit",
         isFeatured: true,
         isActive: true,
         tags: ["Security", "Tools", "Audit"]
@@ -74,11 +74,11 @@ const products = [
     {
         title: "Scalable Cloud Hosting (Startup)",
         description: "Optimized cloud hosting for growing startups. Includes managed SSL, daily backups, and 99.9% uptime guarantee.",
-        extendedDescription: "<h3>Infrastructure That Grows With You</h3><p>Focus on your code, not your servers. Our managed cloud hosting provides a zero-ops environment heavily optimized for modern JavaScript frameworks.</p><h4>Why Host With Binary Craft?</h4><ul class='list-disc pl-5 mt-2 space-y-1 text-text-muted'><li><strong>Blazing Fast:</strong> Edge caching deployed globally to 300+ cities.</li><li><strong>Ironclad Security:</strong> DDoS protection and automatic SSL certificate renewal.</li><li><strong>Dedicated Support:</strong> 24/7 access to actual engineers, not just support scripts.</li></ul>",
+        extendedDescription: "<h3>Infrastructure That Grows With You</h3><p>Focus on your code, not your servers. Our managed cloud hosting provides a zero-ops environment heavily optimized for modern JavaScript frameworks.</p><h4>Why Host With BinaryNexa?</h4><ul class='list-disc pl-5 mt-2 space-y-1 text-text-muted'><li><strong>Blazing Fast:</strong> Edge caching deployed globally to 300+ cities.</li><li><strong>Ironclad Security:</strong> DDoS protection and automatic SSL certificate renewal.</li><li><strong>Dedicated Support:</strong> 24/7 access to actual engineers, not just support scripts.</li></ul>",
         price: 3000,
         category: "Hosting",
         images: ["/uploads/cloud-hosting.png"],
-        previewUrl: "https://console.binarycraft4u.com",
+        previewUrl: "https://console.binarynexa4u.com",
         isFeatured: true,
         isActive: true,
         tags: ["Hosting", "Cloud", "Reliability"]
@@ -138,7 +138,7 @@ const services = [
 
 const seedDB = async () => {
     try {
-        const mongoUri = process.env.MONGO_URI || 'mongodb://localhost:27017/binarycraft';
+        const mongoUri = process.env.MONGO_URI || 'mongodb://localhost:27017/binarynexa';
         console.log('Connecting to MongoDB...');
         await mongoose.connect(mongoUri);
         console.log('Connected to MongoDB');

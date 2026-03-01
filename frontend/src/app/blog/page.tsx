@@ -105,7 +105,7 @@ export default function BlogPage() {
                             Insights & <span className="gradient-text">Updates</span>
                         </h1>
                         <p style={{ color: "var(--color-text-muted)", fontSize: "1.1rem" }}>
-                            Web development, design trends, and tech news from the Binary Craft team.
+                            Web development, design trends, and tech news from the BinaryNexa team.
                         </p>
                     </div>
                 </section>

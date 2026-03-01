@@ -18,7 +18,7 @@ const flutterBlog = {
 
 const seedFlutterBlog = async () => {
     try {
-        const mongoUri = process.env.MONGO_URI || 'mongodb://localhost:27017/binarycraft';
+        const mongoUri = process.env.MONGO_URI || 'mongodb://localhost:27017/binarynexa';
         console.log('Connecting to MongoDB...');
         await mongoose.connect(mongoUri);
         console.log('Connected to MongoDB');

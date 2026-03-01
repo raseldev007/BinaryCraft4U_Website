@@ -20,7 +20,7 @@ interface BlogPost {
     views: number;
 }
 
-const apiUrl = process.env.NEXT_PUBLIC_API_URL || "https://binarycraft4u-backend.onrender.com/api";
+const apiUrl = process.env.NEXT_PUBLIC_API_URL || "https://binarynexa4u-backend.onrender.com/api";
 
 async function getBlog(slug: string): Promise<BlogPost | null> {
     try {
@@ -37,7 +37,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     const { slug } = await params;
     const blog = await getBlog(slug);
     if (!blog) return { title: "Blog Post Not Found" };
-    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://binarycraft4u.vercel.app";
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://binarynexa4u.vercel.app";
     return {
         title: blog.title,
         description: blog.excerpt || blog.title,
@@ -57,7 +57,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     const blog = await getBlog(slug);
     if (!blog) return notFound();
 
-    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://binarycraft4u.vercel.app";
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://binarynexa4u.vercel.app";
     const jsonLd = {
         "@context": "https://schema.org",
         "@type": "Article",
@@ -66,7 +66,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         author: { "@type": "Person", name: blog.author },
         datePublished: blog.createdAt,
         image: blog.featuredImage ? getImageUrl(blog.featuredImage) : `${baseUrl}/og-image.png`,
-        publisher: { "@type": "Organization", name: "Binary Craft", url: baseUrl },
+        publisher: { "@type": "Organization", name: "BinaryNexa", url: baseUrl },
     };
 
     return (

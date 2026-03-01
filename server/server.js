@@ -26,7 +26,7 @@ app.use(helmet({
 // CORS config
 const allowedOrigins = [
     process.env.CLIENT_URL || 'http://localhost:3000',
-    'https://binarycraft4u.vercel.app',
+    'https://binarynexa4u.vercel.app',
     'http://localhost:3000',
     'http://localhost:3001',
 ];
@@ -100,7 +100,7 @@ app.get('/api/health', (req, res) => {
     const memUsage = process.memoryUsage();
     res.json({
         success: true,
-        message: 'Binary Craft API is running!',
+        message: 'BinaryNexa API is running!',
         environment: process.env.NODE_ENV || 'development',
         uptime: `${Math.floor(uptime / 60)}m ${Math.floor(uptime % 60)}s`,
         memory: {

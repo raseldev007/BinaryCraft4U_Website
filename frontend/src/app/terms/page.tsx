@@ -39,7 +39,7 @@ export default function TermsPage() {
                         <div className="glass-panel p-8 md:p-12 rounded-2xl border border-border shadow-xl">
                             <h2 className="text-2xl font-bold mb-4 text-white">1. Agreement to Terms</h2>
                             <p className="text-text-secondary leading-relaxed mb-8">
-                                By accessing or using Binary Craft's services, you agree to be bound by these Terms of Service. If you disagree with any part of the terms, then you may not access the service.
+                                By accessing or using BinaryNexa's services, you agree to be bound by these Terms of Service. If you disagree with any part of the terms, then you may not access the service.
                             </p>
 
                             <h2 className="text-2xl font-bold mb-4 text-white">2. User Accounts</h2>
@@ -54,7 +54,7 @@ export default function TermsPage() {
 
                             <h2 className="text-2xl font-bold mb-4 text-white">3. Intellectual Property</h2>
                             <p className="text-text-secondary leading-relaxed mb-8">
-                                The Service and its original content, features, and functionality are and will remain the exclusive property of Binary Craft and its licensors. Our services are protected by copyright, trademark, and other laws.
+                                The Service and its original content, features, and functionality are and will remain the exclusive property of BinaryNexa and its licensors. Our services are protected by copyright, trademark, and other laws.
                             </p>
 
                             <h2 className="text-2xl font-bold mb-4 text-white">4. Purchases & Payments</h2>
@@ -66,7 +66,7 @@ export default function TermsPage() {
 
                             <h2 className="text-2xl font-bold mb-4 text-white">5. Contact Us</h2>
                             <p className="text-text-secondary leading-relaxed">
-                                If you have any questions about these Terms, please contact us at support@binarycraft4u.com.
+                                If you have any questions about these Terms, please contact us at support@binarynexa4u.com.
                             </p>
                         </div>
                     </div>

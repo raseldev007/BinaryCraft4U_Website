@@ -8,7 +8,7 @@ const blogSchema = new mongoose.Schema({
     category: { type: String, default: 'General', trim: true },
     tags: [{ type: String, trim: true }],
     featuredImage: { type: String, default: '' },
-    author: { type: String, default: 'Binary Craft Team' },
+    author: { type: String, default: 'BinaryNexa Team' },
     published: { type: Boolean, default: false },
     isFeatured: { type: Boolean, default: false },
     views: { type: Number, default: 0 },

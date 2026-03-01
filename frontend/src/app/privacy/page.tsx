@@ -39,7 +39,7 @@ export default function PrivacyPage() {
                         <div className="glass-panel p-8 md:p-12 rounded-2xl border border-border shadow-xl">
                             <h2 className="text-2xl font-bold mb-4 text-white">1. Information We Collect</h2>
                             <p className="text-text-secondary leading-relaxed mb-4">
-                                Binary Craft collects information to provide better services to our users. We collect information in the following ways:
+                                BinaryNexa collects information to provide better services to our users. We collect information in the following ways:
                             </p>
                             <ul className="list-disc pl-6 text-text-secondary mb-8 space-y-2">
                                 <li><strong>Information you give us.</strong> For example, our services require you to sign up for an account. When you do, we'll ask for personal information, like your name, email address, and telephone number.</li>
@@ -49,12 +49,12 @@ export default function PrivacyPage() {
 
                             <h2 className="text-2xl font-bold mb-4 text-white">2. How We Use Information</h2>
                             <p className="text-text-secondary leading-relaxed mb-8">
-                                We use the information we collect from all of our services to provide, maintain, protect and improve them, to develop new ones, and to protect Binary Craft and our users. We also use this information to offer you tailored content – like giving you more relevant search results and ads.
+                                We use the information we collect from all of our services to provide, maintain, protect and improve them, to develop new ones, and to protect BinaryNexa and our users. We also use this information to offer you tailored content – like giving you more relevant search results and ads.
                             </p>
 
                             <h2 className="text-2xl font-bold mb-4 text-white">3. Information We Share</h2>
                             <p className="text-text-secondary leading-relaxed mb-8">
-                                We do not share personal information with companies, organizations and individuals outside of Binary Craft unless one of the following circumstances applies:
+                                We do not share personal information with companies, organizations and individuals outside of BinaryNexa unless one of the following circumstances applies:
                                 <br /><br />
                                 • With your consent.<br />
                                 • For external processing (trusted businesses or persons to process it for us).<br />
@@ -65,7 +65,7 @@ export default function PrivacyPage() {
 
                             <h2 className="text-2xl font-bold mb-4 text-white">4. Data Security</h2>
                             <p className="text-text-secondary leading-relaxed">
-                                We work hard to protect Binary Craft and our users from unauthorized access to or unauthorized alteration, disclosure or destruction of information we hold. In particular: We encrypt many of our services using SSL.
+                                We work hard to protect BinaryNexa and our users from unauthorized access to or unauthorized alteration, disclosure or destruction of information we hold. In particular: We encrypt many of our services using SSL.
                             </p>
                         </div>
                     </div>

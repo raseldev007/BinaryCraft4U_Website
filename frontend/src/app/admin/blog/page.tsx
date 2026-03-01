@@ -28,7 +28,7 @@ interface BlogForm {
     isFeatured: boolean;
 }
 
-const DEFAULT_FORM: BlogForm = { title: "", excerpt: "", content: "", category: "General", author: "Binary Craft Team", featuredImage: "", published: false, isFeatured: false };
+const DEFAULT_FORM: BlogForm = { title: "", excerpt: "", content: "", category: "General", author: "BinaryNexa Team", featuredImage: "", published: false, isFeatured: false };
 
 export default function AdminBlogPage() {
     const { token } = useAuth();

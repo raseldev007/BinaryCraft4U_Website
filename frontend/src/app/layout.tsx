@@ -16,19 +16,19 @@ const inter = Inter({
   weight: ["300", "400", "500", "600", "700", "800", "900"],
 });
 
-const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://binarycraft4u.vercel.app";
+const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://binarynexa4u.vercel.app";
 
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
   title: {
-    default: "Binary Craft — Premium IT Solutions",
-    template: "%s | Binary Craft",
+    default: "BinaryNexa — Premium IT Solutions",
+    template: "%s | BinaryNexa",
   },
   description:
-    "Binary Craft is a premium IT solutions provider. Explore our curated marketplace of templates, hosting solutions, and digital services designed to accelerate your workflow.",
+    "BinaryNexa is a premium IT solutions provider. Explore our curated marketplace of templates, hosting solutions, and digital services designed to accelerate your workflow.",
   keywords: ["IT solutions", "web development", "digital products", "templates", "hosting", "Bangladesh", "SaaS"],
-  authors: [{ name: "Binary Craft", url: baseUrl }],
-  creator: "Binary Craft",
+  authors: [{ name: "BinaryNexa", url: baseUrl }],
+  creator: "BinaryNexa",
   robots: {
     index: true,
     follow: true,
@@ -38,17 +38,17 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: baseUrl,
-    siteName: "Binary Craft",
-    title: "Binary Craft — Premium IT Solutions",
-    description: "Binary Craft is a premium IT solutions provider based in Bangladesh. Explore our curated marketplace of templates, hosting solutions, and digital services.",
-    images: [{ url: `${baseUrl}/og-image.png`, width: 1200, height: 630, alt: "Binary Craft" }],
+    siteName: "BinaryNexa",
+    title: "BinaryNexa — Premium IT Solutions",
+    description: "BinaryNexa is a premium IT solutions provider based in Bangladesh. Explore our curated marketplace of templates, hosting solutions, and digital services.",
+    images: [{ url: `${baseUrl}/og-image.png`, width: 1200, height: 630, alt: "BinaryNexa" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Binary Craft — Premium IT Solutions",
-    description: "Binary Craft is a premium IT solutions provider based in Bangladesh.",
+    title: "BinaryNexa — Premium IT Solutions",
+    description: "BinaryNexa is a premium IT solutions provider based in Bangladesh.",
     images: [`${baseUrl}/og-image.png`],
-    creator: "@binarycraft",
+    creator: "@binarynexa",
   },
   alternates: {
     canonical: baseUrl,

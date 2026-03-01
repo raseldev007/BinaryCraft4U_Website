@@ -9,7 +9,7 @@ import { useToast } from "@/components/ui/Toast";
 export default function AdminSettingsPage() {
     const [isSaving, setIsSaving] = useState(false);
 
-    const [siteName, setSiteName] = useState("Binary Craft");
+    const [siteName, setSiteName] = useState("BinaryNexa");
     const [siteEmail, setSiteEmail] = useState("raseloffcial89@gmail.com");
     const [sitePhone, setSitePhone] = useState("01569150874");
     const { success } = useToast();

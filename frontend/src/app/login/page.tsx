@@ -124,7 +124,7 @@ export default function LoginPage() {
 
             <nav className="absolute top-0 w-full p-6 flex justify-between items-center z-20">
                 <Link href="/" className="flex items-center gap-3 group">
-                    <img src="/logo.png" alt="Binary Craft Logo" className="w-12 h-12 object-contain drop-shadow-[0_0_15px_rgba(59,130,246,0.3)] group-hover:scale-110 transition-transform duration-300" />
+                    <img src="/logo.png" alt="BinaryNexa Logo" className="w-12 h-12 object-contain drop-shadow-[0_0_15px_rgba(59,130,246,0.3)] group-hover:scale-110 transition-transform duration-300" />
                 </Link>
                 <Link href="/register">
                     <Button variant="outline" size="sm" className="backdrop-blur-md bg-white/5 hover:bg-white/10 border-white/10">Create Account</Button>
@@ -141,14 +141,14 @@ export default function LoginPage() {
                     <div className="flex items-center justify-center gap-4 mb-2">
                         <div className="relative shrink-0">
                             <div className="absolute inset-0 bg-primary/40 blur-2xl rounded-full scale-[1.5]" />
-                            <img src="/logo.png" alt="Binary Craft Logo" className="w-10 h-10 relative object-contain drop-shadow-[0_0_15px_rgba(59,130,246,0.3)]" />
+                            <img src="/logo.png" alt="BinaryNexa Logo" className="w-10 h-10 relative object-contain drop-shadow-[0_0_15px_rgba(59,130,246,0.3)]" />
                         </div>
                         <h2 className="text-3xl font-black tracking-tight text-white relative">
                             Welcome Back
                             <div className="absolute -bottom-1 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
                         </h2>
                     </div>
-                    <p className="text-text-muted text-[15px] mb-8 text-center">Sign in to your Binary Craft workspace</p>
+                    <p className="text-text-muted text-[15px] mb-8 text-center">Sign in to your BinaryNexa workspace</p>
 
                     {error && (
                         <div className="mb-6 p-4 rounded-xl bg-danger/10 border border-danger/20 text-danger text-sm flex items-start gap-3 animate-fadeIn">

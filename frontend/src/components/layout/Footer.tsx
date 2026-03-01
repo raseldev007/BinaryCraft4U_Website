@@ -127,10 +127,10 @@ export function Footer() {
                         <Link href="/" className="flex items-center gap-3 mb-5 group">
                             <img
                                 src="/logo.png"
-                                alt="Binary Craft Logo"
+                                alt="BinaryNexa Logo"
                                 className="w-12 h-12 object-contain drop-shadow-[0_0_15px_rgba(59,130,246,0.3)] group-hover:drop-shadow-[0_0_30px_rgba(59,130,246,0.5)] transition-all duration-300"
                             />
-                            <span className="font-bold text-xl tracking-tight text-white group-hover:text-primary transition-colors">Binary Craft</span>
+                            <span className="font-bold text-xl tracking-tight text-white group-hover:text-primary transition-colors">BinaryNexa</span>
                         </Link>
                         <p className="text-text-muted text-sm leading-relaxed mb-6">
                             Transforming businesses globally with premium SaaS solutions. Built for scale, optimized for conversion.
@@ -207,7 +207,7 @@ export function Footer() {
                 </div>
 
                 <div className="pt-8 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-text-muted">
-                    <p>© {currentYear || "..."} Binary Craft. All rights reserved.</p>
+                    <p>© {currentYear || "..."} BinaryNexa. All rights reserved.</p>
                     <div className="flex items-center gap-2">
                         <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-green-500/20 bg-green-500/8 text-green-400 font-semibold">
                             🇧🇩 Built in Bangladesh

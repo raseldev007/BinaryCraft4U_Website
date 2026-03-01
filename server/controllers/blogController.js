@@ -80,7 +80,7 @@ exports.createBlog = async (req, res, next) => {
             category: category || 'General',
             tags: Array.isArray(tags) ? tags : [],
             featuredImage: featuredImage || '',
-            author: author || 'Binary Craft Team',
+            author: author || 'BinaryNexa Team',
             published: published === true || published === 'true',
             isFeatured: isFeatured === true || isFeatured === 'true'
         });

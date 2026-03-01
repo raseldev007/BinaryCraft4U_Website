@@ -25,7 +25,7 @@ const sendEmail = async ({ to, subject, html, text }) => {
         }
         const transporter = createTransporter();
         const info = await transporter.sendMail({
-            from: `"Binary Craft" <${process.env.EMAIL_FROM || process.env.EMAIL_USER}>`,
+            from: `"BinaryNexa" <${process.env.EMAIL_FROM || process.env.EMAIL_USER}>`,
             to,
             subject,
             text: text || '',
@@ -54,7 +54,7 @@ const sendOrderConfirmationEmail = async (user, order) => {
     const html = `
     <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;background:#f9f9f9;padding:20px">
         <div style="background:linear-gradient(135deg,#3b82f6,#8b5cf6);padding:30px;border-radius:12px 12px 0 0;text-align:center">
-            <h1 style="color:white;margin:0;font-size:24px">⚡ Binary Craft</h1>
+            <h1 style="color:white;margin:0;font-size:24px">⚡ BinaryNexa</h1>
             <p style="color:rgba(255,255,255,0.8);margin:8px 0 0">Order Confirmation</p>
         </div>
         <div style="background:white;padding:30px;border-radius:0 0 12px 12px;box-shadow:0 4px 20px rgba(0,0,0,0.1)">
@@ -90,12 +90,12 @@ const sendOrderConfirmationEmail = async (user, order) => {
             </div>
             
             <p style="color:#9ca3af;font-size:12px;text-align:center;margin-top:30px">
-                Built in Bangladesh 🇧🇩 | Binary Craft — Premium IT Solutions
+                Built in Bangladesh 🇧🇩 | BinaryNexa — Premium IT Solutions
             </p>
         </div>
     </div>`;
 
-    return sendEmail({ to: user.email, subject: `Order Confirmed! #${order._id.toString().slice(-8).toUpperCase()} — Binary Craft`, html });
+    return sendEmail({ to: user.email, subject: `Order Confirmed! #${order._id.toString().slice(-8).toUpperCase()} — BinaryNexa`, html });
 };
 
 /**
@@ -106,7 +106,7 @@ const sendPasswordResetEmail = async (user, resetToken) => {
     const html = `
     <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;background:#f9f9f9;padding:20px">
         <div style="background:linear-gradient(135deg,#3b82f6,#8b5cf6);padding:30px;border-radius:12px 12px 0 0;text-align:center">
-            <h1 style="color:white;margin:0;font-size:24px">⚡ Binary Craft</h1>
+            <h1 style="color:white;margin:0;font-size:24px">⚡ BinaryNexa</h1>
             <p style="color:rgba(255,255,255,0.8);margin:8px 0 0">Password Reset Request</p>
         </div>
         <div style="background:white;padding:30px;border-radius:0 0 12px 12px;box-shadow:0 4px 20px rgba(0,0,0,0.1)">
@@ -120,12 +120,12 @@ const sendPasswordResetEmail = async (user, resetToken) => {
             <p style="color:#9ca3af;font-size:13px">If you didn't request a password reset, please ignore this email. Your password won't change.</p>
             <hr style="border:none;border-top:1px solid #e5e7eb;margin:20px 0">
             <p style="color:#9ca3af;font-size:12px;text-align:center">
-                Built in Bangladesh 🇧🇩 | Binary Craft — Premium IT Solutions
+                Built in Bangladesh 🇧🇩 | BinaryNexa — Premium IT Solutions
             </p>
         </div>
     </div>`;
 
-    return sendEmail({ to: user.email, subject: 'Password Reset — Binary Craft', html });
+    return sendEmail({ to: user.email, subject: 'Password Reset — BinaryNexa', html });
 };
 
 module.exports = { sendEmail, sendOrderConfirmationEmail, sendPasswordResetEmail };

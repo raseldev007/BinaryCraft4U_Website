@@ -72,14 +72,14 @@ const TESTIMONIALS = [
     name: "Alex Morrison",
     role: "CTO, NovaTech Inc.",
     rating: 5,
-    text: "Binary Craft delivered exactly what we needed — a premium template that saved us weeks of work. The code quality is outstanding.",
+    text: "BinaryNexa delivered exactly what we needed — a premium template that saved us weeks of work. The code quality is outstanding.",
     avatar: "AM",
   },
   {
     name: "Sarah Chen",
     role: "Founder, DesignStack",
     rating: 5,
-    text: "I've tried many digital marketplaces, but Binary Craft is in a league of its own. The support team is incredibly responsive.",
+    text: "I've tried many digital marketplaces, but BinaryNexa is in a league of its own. The support team is incredibly responsive.",
     avatar: "SC",
   },
   {
@@ -298,7 +298,7 @@ export default function Home() {
             <div className="text-center mb-16">
               <div className="section-label mb-4 mx-auto">
                 <Shield className="w-3 h-3" />
-                Why Binary Craft
+                Why BinaryNexa
               </div>
               <h2 className="text-3xl md:text-4xl font-black tracking-tight mb-4">
                 Everything You Need, Nothing You Don't
@@ -386,7 +386,7 @@ export default function Home() {
               <span className="gradient-text">Amazing?</span>
             </h2>
             <p className="text-text-muted text-lg mb-10 leading-relaxed">
-              Join thousands of developers and businesses who trust Binary Craft
+              Join thousands of developers and businesses who trust BinaryNexa
               to power their digital products.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">

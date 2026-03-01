@@ -11,7 +11,7 @@ const blogs = [
         category: "Development",
         tags: ["React", "Next.js", "Web Development", "Future"],
         featuredImage: "/uploads/blog_web_dev.png",
-        author: "Binary Craft Engineering",
+        author: "BinaryNexa Engineering",
         published: true,
         isFeatured: true,
         views: 1245
@@ -24,7 +24,7 @@ const blogs = [
         category: "AI",
         tags: ["AI", "CRM", "Business Intelligence", "Machine Learning"],
         featuredImage: "/uploads/blog_ai_crm.png",
-        author: "Binary Craft AI Labs",
+        author: "BinaryNexa AI Labs",
         published: true,
         isFeatured: true,
         views: 3420
@@ -37,7 +37,7 @@ const blogs = [
         category: "Cloud",
         tags: ["Cloud Computing", "AWS", "Infrastructure", "Migration"],
         featuredImage: "/uploads/blog_cloud_migration.png",
-        author: "Binary Craft Cloud Team",
+        author: "BinaryNexa Cloud Team",
         published: true,
         isFeatured: false,
         views: 890
@@ -50,7 +50,7 @@ const blogs = [
         category: "Design",
         tags: ["UI/UX", "Design Systems", "Web Design", "Trends"],
         featuredImage: "/uploads/blog_ui_ux.png",
-        author: "Binary Craft Design Studio",
+        author: "BinaryNexa Design Studio",
         published: true,
         isFeatured: true,
         views: 5612
@@ -63,7 +63,7 @@ const blogs = [
         category: "Security",
         tags: ["Cybersecurity", "Startups", "DevSecOps", "Data Protection"],
         featuredImage: "/uploads/blog_cyber_sec.png",
-        author: "Binary Craft Security Ops",
+        author: "BinaryNexa Security Ops",
         published: true,
         isFeatured: false,
         views: 2105
@@ -72,7 +72,7 @@ const blogs = [
 
 const seedBlogs = async () => {
     try {
-        const mongoUri = process.env.MONGO_URI || 'mongodb://localhost:27017/binarycraft';
+        const mongoUri = process.env.MONGO_URI || 'mongodb://localhost:27017/binarynexa';
         console.log('Connecting to MongoDB...');
         await mongoose.connect(mongoUri);
         console.log('Connected to MongoDB');
