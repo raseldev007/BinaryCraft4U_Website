@@ -37,12 +37,17 @@ export const api = async (
     body: any = null,
     retries = 2
 ): Promise<any> => {
-    const headers: Record<string, string> = { 'Content-Type': 'application/json' };
+    const isFormData = body instanceof FormData;
+    const headers: Record<string, string> = {};
+    if (!isFormData) {
+        headers['Content-Type'] = 'application/json';
+    }
+    
     const token = getToken();
     if (token) headers['Authorization'] = `Bearer ${token}`;
 
     const config: RequestInit = { method, headers };
-    if (body) config.body = JSON.stringify(body);
+    if (body) config.body = isFormData ? body : JSON.stringify(body);
 
     let lastError: Error = new Error('Request failed');
 

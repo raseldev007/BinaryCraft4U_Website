@@ -58,7 +58,7 @@ const sendOrderConfirmationEmail = async (user, order) => {
             <p style="color:rgba(255,255,255,0.8);margin:8px 0 0">Order Confirmation</p>
         </div>
         <div style="background:white;padding:30px;border-radius:0 0 12px 12px;box-shadow:0 4px 20px rgba(0,0,0,0.1)">
-            <h2 style="color:#1f2937">Hello, ${user.name}! 👋</h2>
+            <h2 style="color:#1f2937">Hello, ${user.name}!</h2>
             <p style="color:#6b7280">Your order has been successfully placed. Here's your order summary:</p>
             
             <div style="background:#f3f4f6;padding:15px;border-radius:8px;margin:20px 0">

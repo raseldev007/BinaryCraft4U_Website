@@ -1,11 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const { getBlogs, getBlog, getAdminBlogs, createBlog, updateBlog, deleteBlog } = require('../controllers/blogController');
+const { getBlogs, getBlog, getAdminBlogs, getAdminBlog, createBlog, updateBlog, deleteBlog } = require('../controllers/blogController');
 const { protect, adminOnly } = require('../middleware/auth');
 
 // Public routes
 router.get('/', getBlogs);
 router.get('/admin/all', protect, adminOnly, getAdminBlogs);
+router.get('/admin/:id', protect, adminOnly, getAdminBlog);
 router.get('/:slug', getBlog);
 
 // Admin routes

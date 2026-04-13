@@ -1,6 +1,16 @@
 const Blog = require('../models/Blog');
 const logger = require('../utils/logger');
 
+// @desc Get a single blog post by ID (admin - includes unpublished)
+// @route GET /api/blog/admin/:id
+exports.getAdminBlog = async (req, res, next) => {
+    try {
+        const blog = await Blog.findById(req.params.id);
+        if (!blog) return res.status(404).json({ success: false, message: 'Blog post not found' });
+        res.json({ success: true, blog });
+    } catch (error) { next(error); }
+};
+
 // Helper: generate slug from title
 const generateSlug = (title) =>
     title.toLowerCase().replace(/[^\w\s-]/g, '').replace(/\s+/g, '-').replace(/-+/g, '-').trim();
@@ -55,7 +65,6 @@ exports.getAdminBlogs = async (req, res, next) => {
         const { page = 1, limit = 20 } = req.query;
         const total = await Blog.countDocuments();
         const blogs = await Blog.find()
-            .select('-content')
             .sort({ createdAt: -1 })
             .limit(limit * 1)
             .skip((page - 1) * limit)

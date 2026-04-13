@@ -1,0 +1,273 @@
+"use client";
+
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { api } from "@/lib/api";
+import { useToast } from "@/components/ui/Toast";
+import { Input } from "@/components/ui/Input";
+import { Button } from "@/components/ui/Button";
+import { UploadCloud, Image as ImageIcon, X, Loader2, ArrowLeft } from "lucide-react";
+import Link from "next/link";
+
+export default function NewServicePage() {
+    const router = useRouter();
+    const { success, error } = useToast();
+    const [isLoading, setIsLoading] = useState(false);
+
+    const [file, setFile] = useState<File | null>(null);
+    const [formData, setFormData] = useState({
+        title: "",
+        description: "",
+        extendedDescription: "",
+        price: "0",
+        category: "Web Development",
+        features: "",
+        icon: "fas fa-code",
+        delivery: "3-5 business days",
+        isFeatured: false,
+        isActive: true,
+    });
+
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files && e.target.files.length > 0) {
+            setFile(e.target.files[0]);
+        }
+    };
+
+    const removeFile = () => {
+        setFile(null);
+    };
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!formData.title || !formData.description || formData.price === "") {
+            error("Please fill in all required fields.");
+            return;
+        }
+
+        setIsLoading(true);
+        try {
+            const data = new FormData();
+            Object.entries(formData).forEach(([key, value]) => {
+                if (key === 'features') {
+                    // Split newline-separated features or comma separated
+                    const featureArray = (value as string).split('\n').map(f => f.trim()).filter(Boolean);
+                    featureArray.forEach(f => data.append('features[]', f));
+                } else {
+                    data.append(key, value.toString());
+                }
+            });
+
+            // Fallback for features
+            data.set('features', formData.features);
+
+            if (file) {
+                data.append("image", file); // Multer upload.single('image')
+            }
+
+            await api("/services", "POST", data);
+            
+            success("Service successfully created!");
+            router.push("/admin/services");
+            router.refresh();
+        } catch (err: any) {
+            console.error(err);
+            error(err.message || "Failed to create service");
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    return (
+        <div className="max-w-4xl mx-auto pb-10 animate-fadeIn bg-bg-primary min-h-screen pt-4">
+            <div className="flex items-center gap-4 mb-8">
+                <Link href="/admin">
+                    <Button variant="outline" size="sm" className="h-10 w-10 p-0 border-white/10 rounded-full hover:bg-white/5">
+                        <ArrowLeft className="w-5 h-5 text-text-muted" />
+                    </Button>
+                </Link>
+                <div>
+                    <h1 className="text-3xl font-black text-white tracking-tight">Create New Service</h1>
+                    <p className="text-text-muted text-sm mt-1">Configure service deliverables, timelines, integration pricing, and artwork.</p>
+                </div>
+            </div>
+
+            <form onSubmit={handleSubmit} className="space-y-8">
+                {/* General Information */}
+                <div className="glass border border-border rounded-2xl p-6 md:p-8 relative overflow-hidden">
+                    <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-accent to-purple-500" />
+                    <h2 className="text-xl font-bold text-white mb-6">Service Identification</h2>
+                    
+                    <div className="grid md:grid-cols-2 gap-6 mb-6">
+                        <Input
+                            floatingLabel="Service Title"
+                            value={formData.title}
+                            onChange={(e) => setFormData(p => ({ ...p, title: e.target.value }))}
+                            required
+                        />
+                        <div className="relative">
+                            <label className="text-xs font-bold uppercase tracking-wider text-text-muted mb-2 block">Category</label>
+                            <select
+                                className="w-full bg-white/5 border border-border text-white text-sm rounded-xl focus:ring-2 focus:ring-accent focus:border-accent outline-none transition-all px-4 py-3.5 appearance-none"
+                                value={formData.category}
+                                onChange={(e) => setFormData(p => ({ ...p, category: e.target.value }))}
+                            >
+                                <option value="Web Development" className="bg-bg-card">Web Development</option>
+                                <option value="App Development" className="bg-bg-card">App Development</option>
+                                <option value="UI/UX Design" className="bg-bg-card">UI/UX Design</option>
+                                <option value="Consulting" className="bg-bg-card">Consulting & Architecture</option>
+                                <option value="Cloud Maintenance" className="bg-bg-card">Cloud Maintenance</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div className="grid md:grid-cols-2 gap-6 mb-6">
+                        <Input
+                            floatingLabel="FontAwesome Icon (e.g., 'fas fa-code')"
+                            value={formData.icon}
+                            onChange={(e) => setFormData(p => ({ ...p, icon: e.target.value }))}
+                        />
+                        <Input
+                            floatingLabel="Expected Delivery Timeline"
+                            value={formData.delivery}
+                            onChange={(e) => setFormData(p => ({ ...p, delivery: e.target.value }))}
+                            required
+                        />
+                    </div>
+
+                    <div className="space-y-6">
+                        <div>
+                            <Input
+                                floatingLabel="Short Summary (Subtitle)"
+                                value={formData.description}
+                                onChange={(e) => setFormData(p => ({ ...p, description: e.target.value }))}
+                                required
+                            />
+                        </div>
+                        <div>
+                            <label className="text-xs font-bold uppercase tracking-wider text-text-muted mb-2 block">Extended Description (Methodology & Details)</label>
+                            <textarea
+                                className="w-full bg-white/5 border border-border text-white text-sm rounded-xl focus:ring-2 focus:ring-accent focus:border-accent outline-none transition-all px-4 py-3.5 min-h-[120px] custom-scrollbar"
+                                placeholder="Describe exactly what the client receives, your process, and guarantees..."
+                                value={formData.extendedDescription}
+                                onChange={(e) => setFormData(p => ({ ...p, extendedDescription: e.target.value }))}
+                            />
+                        </div>
+                    </div>
+                </div>
+
+                {/* Economics & Supply */}
+                <div className="grid md:grid-cols-2 gap-8">
+                    <div className="glass border border-border rounded-2xl p-6 md:p-8">
+                        <h2 className="text-xl font-bold text-white mb-6">Pricing & Display</h2>
+                        <div className="space-y-6">
+                            <Input
+                                type="number"
+                                floatingLabel="Base Price ($)"
+                                value={formData.price}
+                                onChange={(e) => setFormData(p => ({ ...p, price: e.target.value }))}
+                                required
+                                min="0" step="0.01"
+                            />
+                            
+                            <div className="pt-2">
+                                <label className="text-xs font-bold uppercase tracking-wider text-text-muted mb-3 flex items-center justify-between">
+                                    Service Visibility
+                                </label>
+                                <div className="flex flex-col gap-4">
+                                    <label className="flex items-center gap-2 text-sm text-text-secondary cursor-pointer">
+                                        <input
+                                            type="checkbox"
+                                            checked={formData.isFeatured}
+                                            onChange={(e) => setFormData(p => ({ ...p, isFeatured: e.target.checked }))}
+                                            className="w-4 h-4 rounded border-border bg-white/5 text-accent focus:ring-accent"
+                                        />
+                                        Feature on Homepage / Spotlight
+                                    </label>
+                                    <label className="flex items-center gap-2 text-sm text-text-secondary cursor-pointer">
+                                        <input
+                                            type="checkbox"
+                                            checked={formData.isActive}
+                                            onChange={(e) => setFormData(p => ({ ...p, isActive: e.target.checked }))}
+                                            className="w-4 h-4 rounded border-border bg-white/5 text-success focus:ring-success"
+                                        />
+                                        Active & Discoverable
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="glass border border-border rounded-2xl p-6 md:p-8">
+                        <h2 className="text-xl font-bold text-white mb-6">Deliverables List</h2>
+                        <div className="space-y-6 h-full">
+                            <div>
+                                <label className="text-xs font-bold uppercase tracking-wider text-text-muted mb-2 block">Key Features (One per line)</label>
+                                <textarea
+                                    className="w-full bg-white/5 border border-border text-white text-sm rounded-xl focus:ring-2 focus:ring-accent focus:border-accent outline-none transition-all px-4 py-3.5 min-h-[160px] custom-scrollbar"
+                                    placeholder="E.g.,
+Responsive Design
+SEO Optimization
+Performance Tuning"
+                                    value={formData.features}
+                                    onChange={(e) => setFormData(p => ({ ...p, features: e.target.value }))}
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Secure File Upload */}
+                <div className="glass border border-border rounded-2xl p-6 md:p-8">
+                    <h2 className="text-xl font-bold text-white mb-2">Featured Cover Image</h2>
+                    <p className="text-sm text-text-muted mb-6">Upload a high-resolution cover artwork for this service. Format: JPG, PNG, WEBP.</p>
+
+                    <div className="border-2 border-dashed border-border rounded-2xl p-8 hover:bg-white/[0.02] hover:border-accent/50 transition-colors relative text-center group cursor-pointer">
+                        <input
+                            type="file"
+                            accept="image/*"
+                            className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
+                            onChange={handleFileChange}
+                        />
+                        <div className="w-16 h-16 rounded-2xl bg-accent/10 flex items-center justify-center text-accent mx-auto mb-4 group-hover:scale-110 transition-transform">
+                            <UploadCloud className="w-8 h-8" />
+                        </div>
+                        <p className="font-bold text-white mb-1">Click or drag an image here to upload</p>
+                        <p className="text-xs text-text-muted">Maximum file size: 5MB</p>
+                    </div>
+
+                    {file && (
+                        <div className="mt-6">
+                            <div className="relative w-48 h-32 rounded-xl border border-border overflow-hidden bg-bg-card group inline-block">
+                                <div className="absolute inset-0 flex items-center justify-center bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity z-10">
+                                    <button
+                                        type="button"
+                                        onClick={removeFile}
+                                        className="p-1.5 bg-danger text-white rounded-lg hover:bg-red-600 transition-colors shadow-lg"
+                                    >
+                                        <X className="w-4 h-4" />
+                                    </button>
+                                </div>
+                                <img src={URL.createObjectURL(file)} alt="preview" className="w-full h-full object-cover" />
+                            </div>
+                        </div>
+                    )}
+                </div>
+
+                {/* Final Verification */}
+                <div className="flex items-center justify-end gap-4 pt-4">
+                    <Link href="/admin">
+                        <Button variant="outline" type="button" disabled={isLoading} className="border-white/10">Discard Draft</Button>
+                    </Link>
+                    <Button type="submit" variant="gradient" disabled={isLoading} className="min-w-[200px] shadow-[0_0_20px_rgba(139,92,246,0.3)] hover:shadow-[0_0_30px_rgba(139,92,246,0.5)]">
+                        {isLoading ? (
+                            <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> Synchronizing...</>
+                        ) : (
+                            "Finalize & Publish Service"
+                        )}
+                    </Button>
+                </div>
+            </form>
+        </div>
+    );
+}

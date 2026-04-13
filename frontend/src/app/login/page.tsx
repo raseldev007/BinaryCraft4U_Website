@@ -24,7 +24,11 @@ export default function LoginPage() {
 
     const [capsLock, setCapsLock] = useState(false);
     useEffect(() => {
-        const handleKeyDown = (e: KeyboardEvent) => setCapsLock(e.getModifierState("CapsLock"));
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (typeof e.getModifierState === 'function') {
+                setCapsLock(e.getModifierState("CapsLock"));
+            }
+        };
         window.addEventListener("keydown", handleKeyDown);
         return () => window.removeEventListener("keydown", handleKeyDown);
     }, []);

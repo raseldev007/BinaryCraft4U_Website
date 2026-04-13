@@ -53,25 +53,25 @@ export function UserSidebar() {
                 mobileOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
             )}>
                 <div className="p-8 pb-6 border-b border-border/50">
-                    <Link href="/" className="flex items-center gap-3">
-                        <img
-                            src="/logo.png"
-                            alt="BinaryNexa Logo"
-                            className="w-12 h-12 object-contain drop-shadow-[0_0_15px_rgba(59,130,246,0.3)] shrink-0"
-                        />
-                        <div className="flex flex-col items-start gap-2">
-                            <div>
-                                <div className="font-black text-lg leading-none tracking-tight">BinaryNexa</div>
-                                <div className="text-[10px] text-primary font-bold uppercase tracking-widest mt-1">User Panel</div>
-                            </div>
-                            {user?.role === 'admin' && (
-                                <Link href="/admin" className="flex items-center gap-1.5 text-xs font-bold text-danger hover:text-white bg-danger/10 hover:bg-danger/40 px-3 py-1.5 rounded-lg transition-all border border-danger/20 shadow-[0_0_10px_rgba(239,68,68,0.1)] w-full justify-center group shrink-0">
-                                    <ShieldAlert className="w-3.5 h-3.5 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-transform" />
-                                    Switch to Admin Panel
-                                </Link>
-                            )}
+                    <div className="flex items-center gap-3 mb-3">
+                        <Link href="/" className="shrink-0">
+                            <img
+                                src="/logo.png"
+                                alt="BinaryNexa Logo"
+                                className="w-12 h-12 object-contain drop-shadow-[0_0_15px_rgba(59,130,246,0.3)] hover:scale-110 transition-transform duration-300"
+                            />
+                        </Link>
+                        <div>
+                            <div className="font-black text-lg leading-none tracking-tight">BinaryNexa</div>
+                            <div className="text-[10px] text-primary font-bold uppercase tracking-widest mt-1">User Panel</div>
                         </div>
-                    </Link>
+                    </div>
+                    {user?.role === 'admin' && (
+                        <Link href="/admin" className="flex items-center gap-1.5 text-xs font-bold text-danger hover:text-white bg-danger/10 hover:bg-danger/40 px-3 py-1.5 rounded-lg transition-all border border-danger/20 shadow-[0_0_10px_rgba(239,68,68,0.1)] w-full justify-center group shrink-0">
+                            <ShieldAlert className="w-3.5 h-3.5 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-transform" />
+                            Switch to Admin Panel
+                        </Link>
+                    )}
                 </div>
 
                 <div className="px-5 py-6">

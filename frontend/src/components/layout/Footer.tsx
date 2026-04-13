@@ -65,7 +65,7 @@ export function Footer() {
         try {
             const data = await api('/subscribers', 'POST', { email });
             setStatus("success");
-            success(data.message || "Welcome to the loop! 🚀");
+            success(data.message || "Welcome to the loop!");
             setEmail("");
             // Reset status after a delay so the form can be used again
             setTimeout(() => setStatus("idle"), 5000);

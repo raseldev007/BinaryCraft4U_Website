@@ -121,7 +121,7 @@ export default function CheckoutPage() {
                             <div className="space-y-8">
                                 {error && (
                                     <div className="p-4 rounded-xl bg-danger/10 border border-danger/30 text-danger text-sm font-bold flex items-center gap-2">
-                                        <span className="text-lg">❌</span> {error}
+                                        <span className="font-bold">Error:</span> {error}
                                     </div>
                                 )}
 

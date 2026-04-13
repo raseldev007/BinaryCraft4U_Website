@@ -134,7 +134,7 @@ export default function ProfilePage() {
                         ? "bg-success/10 border-success/30 text-success"
                         : "bg-danger/10 border-danger/30 text-danger"
                         }`}>
-                        <span>{message.type === "success" ? "✅" : "❌"}</span>
+                        <span className={message.type === "success" ? "text-green-500 font-bold" : "text-red-500 font-bold"}>{message.type === "success" ? "Success:" : "Error:"}</span>
                         {message.text}
                     </div>
                 )}

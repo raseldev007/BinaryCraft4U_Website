@@ -50,7 +50,7 @@ export default function DashboardPage() {
             <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
                 <div>
                     <h1 className="text-3xl md:text-4xl font-black tracking-tight mb-2">
-                        Dashboard <span className="text-2xl">👋</span>
+                        Dashboard
                     </h1>
                     <p className="text-text-muted">
                         Welcome back, {user?.name}! Here's your account overview.

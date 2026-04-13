@@ -24,10 +24,19 @@ const upload = multer({
     limits: { fileSize: 5 * 1024 * 1024 } // 5MB limit
 });
 
+// Optional multer: supports both multipart (file upload page) and plain JSON (admin modal)
+const optionalUpload = (req, res, next) => {
+    const ct = req.headers['content-type'] || '';
+    if (ct.includes('multipart/form-data')) {
+        return upload.single('image')(req, res, next);
+    }
+    next();
+};
+
 router.get('/', getServices);
 router.get('/:id', getService);
-router.post('/', protect, adminOnly, upload.single('image'), createService);
-router.put('/:id', protect, adminOnly, updateService);
+router.post('/', protect, adminOnly, optionalUpload, createService);
+router.put('/:id', protect, adminOnly, optionalUpload, updateService);
 router.delete('/:id', protect, adminOnly, deleteService);
 
 module.exports = router;

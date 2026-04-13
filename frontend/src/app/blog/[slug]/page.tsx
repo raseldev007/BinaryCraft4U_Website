@@ -123,7 +123,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                     {/* Footer */}
                     <div style={{ marginTop: "4rem", paddingTop: "2rem", borderTop: "1px solid var(--color-border)", textAlign: "center" }}>
                         <p style={{ color: "var(--color-text-muted)", fontSize: "0.875rem", marginBottom: "1rem" }}>
-                            Found this helpful? Share it with your team! 🚀
+                            Found this helpful? Share it with your team!
                         </p>
                         <Link href="/blog" style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", padding: "0.75rem 1.75rem", background: "linear-gradient(135deg,#3b82f6,#8b5cf6)", color: "white", borderRadius: "10px", fontWeight: 600, textDecoration: "none" }}>
                             <ArrowLeft style={{ width: "16px", height: "16px" }} /> More Articles

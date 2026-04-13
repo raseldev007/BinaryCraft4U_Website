@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { api } from "@/lib/api";
 import { Cog, Plus, Edit, Trash2, X, Loader2, Clock } from "lucide-react";
+import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { useToast } from "@/components/ui/Toast";
@@ -132,9 +133,11 @@ export default function AdminServicesPage() {
                     <h1 className="text-3xl md:text-4xl font-black tracking-tight mb-2">Service Architecture</h1>
                     <p className="text-sm font-medium text-text-muted">Configure and optimize your professional IT service portfolio</p>
                 </div>
-                <Button onClick={openAddModal} className="shadow-[0_0_15px_rgba(59,130,246,0.2)]">
-                    <Plus className="w-5 h-5 mr-2" /> Deploy New Service
-                </Button>
+                <Link href="/admin/services/new">
+                    <Button className="shadow-[0_0_15px_rgba(59,130,246,0.2)]">
+                        <Plus className="w-5 h-5 mr-2" /> Deploy New Service
+                    </Button>
+                </Link>
             </div>
 
             <div className="glass-panel border border-border rounded-xl overflow-hidden shadow-xl animate-fadeInUp">
@@ -250,7 +253,7 @@ export default function AdminServicesPage() {
                         <div className="p-6 overflow-y-auto custom-scrollbar flex-1">
                             {error && (
                                 <div className="mb-6 p-4 rounded-lg bg-danger/10 border border-danger/30 text-danger text-sm font-bold flex items-center gap-2">
-                                    <span className="text-lg">❌</span> {error}
+                                    <span className="font-bold">Error:</span> {error}
                                 </div>
                             )}
 

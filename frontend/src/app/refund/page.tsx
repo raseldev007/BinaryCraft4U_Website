@@ -42,7 +42,7 @@ export default function RefundPage() {
                                 BinaryNexa offers a comprehensive 7-day money-back guarantee on all digital products and eligible services. If you are not satisfied with your purchase, let us know within 7 days and we will issue a full refund.
                             </p>
                             <div className="bg-primary/10 border border-primary/20 rounded-xl p-5 mb-8 text-primary font-medium text-sm">
-                                💡 Note: Refunds are processed back to the original payment method and may take 5-10 business days to appear on your statement.
+                                Note: Refunds are processed back to the original payment method and may take 5-10 business days to appear on your statement.
                             </div>
 
                             <h2 className="text-2xl font-bold mb-4 text-white">2. Eligibility for Refunds</h2>

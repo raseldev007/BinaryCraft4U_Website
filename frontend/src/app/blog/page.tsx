@@ -130,7 +130,7 @@ export default function BlogPage() {
                                             <span style={{ fontSize: "0.7rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.08em", padding: "0.25rem 0.6rem", borderRadius: "9999px", background: CAT_COLORS[featured.category] || "rgba(100,116,139,0.15)", color: CAT_TEXT[featured.category] || "#64748b" }}>
                                                 {featured.category}
                                             </span>
-                                            <span style={{ fontSize: "0.7rem", fontWeight: 700, color: "var(--color-primary)", background: "rgba(59,130,246,0.1)", padding: "0.25rem 0.6rem", borderRadius: "9999px", border: "1px solid rgba(59,130,246,0.2)" }}>⭐ Featured</span>
+                                            <span style={{ fontSize: "0.7rem", fontWeight: 700, color: "var(--color-primary)", background: "rgba(59,130,246,0.1)", padding: "0.25rem 0.6rem", borderRadius: "9999px", border: "1px solid rgba(59,130,246,0.2)" }}>Featured</span>
                                         </div>
                                         <h2 style={{ fontSize: "1.5rem", fontWeight: 800, marginBottom: "1rem", color: "var(--color-text-primary)", lineHeight: 1.3 }}>{featured.title}</h2>
                                         <p style={{ color: "var(--color-text-secondary)", lineHeight: 1.7, marginBottom: "1.5rem", fontSize: "0.95rem" }}>{featured.excerpt}</p>

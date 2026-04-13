@@ -24,10 +24,19 @@ const upload = multer({
     limits: { fileSize: 5 * 1024 * 1024 } // 5MB limit
 });
 
+// Use upload.any() so both multipart (file upload page) and JSON (modal) work on the same route
+const optionalUpload = (req, res, next) => {
+    const ct = req.headers['content-type'] || '';
+    if (ct.includes('multipart/form-data')) {
+        return upload.array('images', 5)(req, res, next);
+    }
+    next();
+};
+
 router.get('/', getProducts);
 router.get('/:id', getProduct);
-router.post('/', protect, adminOnly, upload.array('images', 5), createProduct);
-router.put('/:id', protect, adminOnly, updateProduct);
+router.post('/', protect, adminOnly, optionalUpload, createProduct);
+router.put('/:id', protect, adminOnly, optionalUpload, updateProduct);
 router.delete('/:id', protect, adminOnly, deleteProduct);
 
 module.exports = router;

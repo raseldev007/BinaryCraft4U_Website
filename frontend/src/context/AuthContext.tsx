@@ -1,7 +1,9 @@
 "use client";
 
-import React, { createContext, useContext, useState, useEffect } from "react";
+import React, { createContext, useContext, useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
+
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
 
 interface User {
     _id: string;
@@ -28,23 +30,55 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const [isLoading, setIsLoading] = useState(true);
     const router = useRouter();
 
+    const clearSession = useCallback(() => {
+        localStorage.removeItem("bc_token");
+        localStorage.removeItem("bc_user");
+        localStorage.removeItem("bc_cart_count");
+        localStorage.removeItem("bc_cart_local");
+        setToken(null);
+        setUser(null);
+    }, []);
+
     useEffect(() => {
-        // Load auth state from localStorage on mount
+        // Load auth state from localStorage on mount, then validate with server
         const storedToken = localStorage.getItem("bc_token");
         const storedUser = localStorage.getItem("bc_user");
 
-        if (storedToken && storedUser) {
-            try {
-                setToken(storedToken);
-                setUser(JSON.parse(storedUser));
-            } catch (e) {
-                console.error("Failed to parse stored user", e);
-                localStorage.removeItem("bc_token");
-                localStorage.removeItem("bc_user");
-            }
+        if (!storedToken || !storedUser) {
+            setIsLoading(false);
+            return;
         }
-        setIsLoading(false);
-    }, []);
+
+        let parsedUser: User | null = null;
+        try {
+            parsedUser = JSON.parse(storedUser);
+        } catch {
+            clearSession();
+            setIsLoading(false);
+            return;
+        }
+
+        // Validate the token against the backend — auto-logout if user was deleted
+        fetch(`${API_BASE}/auth/me`, {
+            headers: { Authorization: `Bearer ${storedToken}` }
+        })
+            .then(res => {
+                if (res.ok) {
+                    setToken(storedToken);
+                    setUser(parsedUser);
+                } else {
+                    // Token is stale (server restarted, user deleted, etc.) — clear silently
+                    console.warn("[Auth] Stored token is invalid — clearing session.");
+                    clearSession();
+                }
+            })
+            .catch(() => {
+                // Server unreachable — keep session alive locally so app still renders
+                setToken(storedToken);
+                setUser(parsedUser);
+            })
+            .finally(() => setIsLoading(false));
+    }, [clearSession]);
 
     const login = (newToken: string, newUser: User) => {
         localStorage.setItem("bc_token", newToken);
@@ -54,12 +88,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     };
 
     const logout = () => {
-        localStorage.removeItem("bc_token");
-        localStorage.removeItem("bc_user");
-        localStorage.removeItem("bc_cart_count");
-        localStorage.removeItem("bc_cart_local");
-        setToken(null);
-        setUser(null);
+        clearSession();
         router.push("/");
     };
 

@@ -1,0 +1,2 @@
+2026-04-13 13:37:57 [error]: Seed error: E11000 duplicate key error collection: test.products index: slug_1 dup key: { slug: null }
+2026-04-13 13:38:47 [error]: Seed error: E11000 duplicate key error collection: test.services index: slug_1 dup key: { slug: null }

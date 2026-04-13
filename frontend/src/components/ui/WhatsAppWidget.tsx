@@ -16,7 +16,7 @@ export function WhatsAppWidget() {
 
             {/* Tooltip */}
             <div className="absolute right-full mr-4 bg-white text-[#111827] text-sm font-bold px-3 py-1.5 rounded-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none shadow-lg">
-                Chat with us 👋
+                Chat with us
                 {/* Arrow */}
                 <div className="absolute top-1/2 -right-1.5 -translate-y-1/2 w-3 h-3 bg-white rotate-45"></div>
             </div>

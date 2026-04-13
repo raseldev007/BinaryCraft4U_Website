@@ -57,7 +57,7 @@ export default function ResetPasswordPage() {
 
                 {done ? (
                     <div className="text-center">
-                        <div style={{ fontSize: "3rem", marginBottom: "1rem" }}>✅</div>
+                        <div style={{ fontSize: "2rem", fontWeight: "bold", color: "#10b981", marginBottom: "1rem" }}>Success</div>
                         <h2 style={{ color: "var(--color-success)", fontWeight: 700 }}>Password Reset!</h2>
                         <p style={{ color: "var(--color-text-secondary)", fontSize: "0.9rem", marginTop: "0.5rem" }}>
                             Redirecting to login...
